@@ -10,6 +10,8 @@ public class MotherHealth : MonoBehaviour
     [Header("Barra de vida")]
     public Image fillImage;
 
+    [Header("Destroyed Base")]
+    public GameObject destroyedBasePrefab;
 
     void Start()
     {
@@ -31,23 +33,39 @@ public class MotherHealth : MonoBehaviour
 
     private void UpdateBar()
     {
-        float percent = currentHealth / maxHealth;
-        fillImage.fillAmount = percent;
+        if (fillImage != null)
+        {
+            float percent = currentHealth / maxHealth;
+            fillImage.fillAmount = percent;
+        }
     }
 
     private void Die()
     {
-        Debug.Log("¡El edificio ha sido destruido!");
-        // Aquí pondrás tu lógica de Game Over
+        SpawnDestroyedBase();
+        GoToHell();
+    }
+
+    void SpawnDestroyedBase()
+    {
+        if (destroyedBasePrefab != null)
+        {
+            Instantiate(destroyedBasePrefab, transform.position, transform.rotation);
+        }
+    }
+
+    void GoToHell()
+    {
+        Destroy(gameObject);
     }
 
     void OnValidate()
     {
+        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+
         if (fillImage != null)
         {
-            currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
             UpdateBar();
         }
     }
-
 }
