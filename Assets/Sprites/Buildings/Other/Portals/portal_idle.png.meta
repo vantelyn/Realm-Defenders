@@ -1,0 +1,557 @@
+fileFormatVersion: 2
+guid: 6a992890520b9bc4385ecb648b1b836b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8693709203549807311
+    second: portal_topdown_0
+  - first:
+      213: -2428984457246957113
+    second: portal_topdown_1
+  - first:
+      213: -4884655751718104441
+    second: portal_topdown_2
+  - first:
+      213: -5662959955715866112
+    second: portal_topdown_3
+  - first:
+      213: 304150742774938129
+    second: portal_topdown_4
+  - first:
+      213: 6929739492312098697
+    second: portal_topdown_5
+  - first:
+      213: -6570035866886675477
+    second: portal_topdown_6
+  - first:
+      213: 2608802905735767387
+    second: portal_topdown_7
+  - first:
+      213: -4147218462489793506
+    second: portal_topdown_8
+  - first:
+      213: -171904183002099958
+    second: portal_topdown_9
+  - first:
+      213: -7519324779068899579
+    second: portal_topdown_10
+  - first:
+      213: -7260394403619559727
+    second: portal_topdown_11
+  - first:
+      213: -1954974573874223301
+    second: portal_topdown_12
+  - first:
+      213: 3354459467910316946
+    second: portal_topdown_13
+  - first:
+      213: -5498154191844000113
+    second: portal_topdown_14
+  - first:
+      213: 8172926667364931074
+    second: portal_topdown_15
+  - first:
+      213: -1837214397438297972
+    second: portal_topdown_16
+  - first:
+      213: -1446721453190169111
+    second: portal_topdown_17
+  - first:
+      213: 1683208358430017030
+    second: portal_topdown_18
+  - first:
+      213: 6127612788237926304
+    second: portal_topdown_19
+  - first:
+      213: 3718990900634503673
+    second: portal_topdown_20
+  - first:
+      213: 3496916944809194259
+    second: portal_topdown_21
+  - first:
+      213: 9082070107143905300
+    second: portal_topdown_22
+  - first:
+      213: -9078541525964381400
+    second: portal_topdown_23
+  - first:
+      213: -3599724378182206535
+    second: portal_topdown_24
+  - first:
+      213: 788522936051617627
+    second: portal_topdown_25
+  - first:
+      213: 4541309282110254625
+    second: portal_topdown_26
+  - first:
+      213: -8015660089050495618
+    second: portal_topdown_27
+  - first:
+      213: 2066703903992808686
+    second: portal_topdown_28
+  - first:
+      213: -78439321428123774
+    second: portal_topdown_29
+  - first:
+      213: 4409540957864869201
+    second: portal_topdown_30
+  - first:
+      213: 1371120243164304146
+    second: portal_topdown_31
+  - first:
+      213: 4756322903438656483
+    second: portal_topdown_32
+  - first:
+      213: -1728561552141001204
+    second: portal_topdown_33
+  - first:
+      213: 1438595901603431675
+    second: portal_topdown_34
+  - first:
+      213: 1975327635268331207
+    second: portal_topdown_35
+  - first:
+      213: 5151462114725340145
+    second: portal_topdown_36
+  - first:
+      213: 502375086890078308
+    second: portal_topdown_37
+  - first:
+      213: 5634217445888294306
+    second: portal_topdown_38
+  - first:
+      213: 7860221854841841012
+    second: portal_topdown_39
+  - first:
+      213: -8472489042259859043
+    second: portal_topdown_40
+  - first:
+      213: 6338749525503282324
+    second: portal_topdown_41
+  - first:
+      213: -2786953852472358118
+    second: portal_topdown_42
+  - first:
+      213: 608311348873708847
+    second: portal_topdown_43
+  - first:
+      213: 4191596183390840306
+    second: portal_topdown_44
+  - first:
+      213: -5068818814001195572
+    second: portal_topdown_45
+  - first:
+      213: -6262981483598412549
+    second: portal_topdown_46
+  - first:
+      213: -8633764469467423698
+    second: portal_topdown_47
+  - first:
+      213: -5133554324888911457
+    second: portal_topdown_48
+  - first:
+      213: -8858770381197563496
+    second: portal_topdown_49
+  - first:
+      213: -4041981001288381999
+    second: portal_topdown_50
+  - first:
+      213: -9001285126125714440
+    second: portal_topdown_51
+  - first:
+      213: -7649144781289362632
+    second: portal_topdown_52
+  - first:
+      213: -508183734753901112
+    second: portal_topdown_53
+  - first:
+      213: 1386020880118923296
+    second: portal_topdown_54
+  - first:
+      213: -3675078507669602622
+    second: portal_topdown_55
+  - first:
+      213: -6129483052018666678
+    second: portal_topdown_56
+  - first:
+      213: 4088380411359359097
+    second: portal_topdown_57
+  - first:
+      213: 6329388307888268490
+    second: portal_topdown_58
+  - first:
+      213: 7389137781244004626
+    second: portal_topdown_59
+  - first:
+      213: -7182197600855105372
+    second: portal_topdown_60
+  - first:
+      213: -2450097188602131076
+    second: portal_topdown_61
+  - first:
+      213: 7991186279663179251
+    second: portal_topdown_62
+  - first:
+      213: 2586578399034979538
+    second: portal_topdown_63
+  - first:
+      213: 2628523204760572541
+    second: portal_topdown_64
+  - first:
+      213: -2420166002414285727
+    second: portal_topdown_65
+  - first:
+      213: 7693221274674931039
+    second: portal_topdown_66
+  - first:
+      213: -5000796905361615135
+    second: portal_topdown_67
+  - first:
+      213: 7828569541775877548
+    second: portal_topdown_68
+  - first:
+      213: 1823176098151904977
+    second: portal_topdown_69
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 156
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: portal_topdown_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc2612a957246a870800000000000000
+      internalID: 8693709203549807311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_topdown_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c1a9d461838a4ed0800000000000000
+      internalID: -2428984457246957113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_topdown_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78216cc4977363cb0800000000000000
+      internalID: -4884655751718104441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_topdown_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0024b468cef1961b0800000000000000
+      internalID: -5662959955715866112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_topdown_4
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11a75453d7f883400800000000000000
+      internalID: 304150742774938129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_topdown_5
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98722495a516b2060800000000000000
+      internalID: 6929739492312098697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_topdown_6
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be3e4a8403b82d4a0800000000000000
+      internalID: -6570035866886675477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_topdown_7
+      rect:
+        serializedVersion: 2
+        x: 2240
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b552365bb64543420800000000000000
+      internalID: 2608802905735767387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_topdown_8
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1caa5108ce1276c0800000000000000
+      internalID: -4147218462489793506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_topdown_9
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0f81cc6e064d9df0800000000000000
+      internalID: -171904183002099958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: df8915d58fd2d144b8acb484ad842313
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      portal_topdown_0: 8693709203549807311
+      portal_topdown_1: -2428984457246957113
+      portal_topdown_2: -4884655751718104441
+      portal_topdown_3: -5662959955715866112
+      portal_topdown_4: 304150742774938129
+      portal_topdown_5: 6929739492312098697
+      portal_topdown_6: -6570035866886675477
+      portal_topdown_7: 2608802905735767387
+      portal_topdown_8: -4147218462489793506
+      portal_topdown_9: -171904183002099958
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

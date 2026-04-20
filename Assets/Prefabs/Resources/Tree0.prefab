@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa0352a4d56abd42ad2fc69deb72448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Size: {x: 0.34573197, y: 0.20229721, z: 4}
-  m_Center: {x: 0.021729112, y: 0.11510897, z: 0}
+  m_Size: {x: 0.3635776, y: 0.16607618, z: 4}
+  m_Center: {x: 0.012806296, y: -0.08145785, z: 0}
   m_Area: 1
   m_AffectedAgents: ffffffff
 --- !u!70 &3444717490163498704
@@ -163,8 +163,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.010386811, y: 0.118982375}
-  m_Size: {x: 0.42122263, y: 0.21139431}
+  m_Offset: {x: 0.010386786, y: -0.08299757}
+  m_Size: {x: 0.4212228, y: 0.17083897}
   m_Direction: 1
 --- !u!114 &1116359615018133466
 MonoBehaviour:
@@ -179,7 +179,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
+  currentHealth: 0
   itemsToDrop:
-  - {fileID: 5950400659418977497, guid: 55e9f1c9bcc94784895fb21e5bd33266, type: 3}
-  - {fileID: 4599100054429094837, guid: a07b5ec0855a97645af887b6c48e15e2, type: 3}
+  - prefab: {fileID: 4599100054429094837, guid: a07b5ec0855a97645af887b6c48e15e2, type: 3}
+    dropChance: 1
+  - prefab: {fileID: 4599100054429094837, guid: a07b5ec0855a97645af887b6c48e15e2, type: 3}
+    dropChance: 0.75
+  - prefab: {fileID: 4599100054429094837, guid: a07b5ec0855a97645af887b6c48e15e2, type: 3}
+    dropChance: 0.25
+  - prefab: {fileID: 5950400659418977497, guid: 55e9f1c9bcc94784895fb21e5bd33266, type: 3}
+    dropChance: 1
+  dropRadius: 0.5
   forceImpulse: 0

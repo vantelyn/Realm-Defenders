@@ -1,0 +1,617 @@
+fileFormatVersion: 2
+guid: 1a25f4591564b5148897b375ae6218a1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8168378393329874725
+    second: lava_text_0
+  - first:
+      213: -5298126598157714713
+    second: lava_text_1
+  - first:
+      213: 571349723433025554
+    second: lava_text_2
+  - first:
+      213: 8561020917242253298
+    second: lava_text_3
+  - first:
+      213: 662802511428286601
+    second: lava_text_4
+  - first:
+      213: 464810285770295590
+    second: lava_text_5
+  - first:
+      213: -2146849968413927464
+    second: lava_text_6
+  - first:
+      213: 8624302627644780292
+    second: lava_text_7
+  - first:
+      213: -5886929062199402169
+    second: lava_text_8
+  - first:
+      213: -8645442773932499029
+    second: lava_text_9
+  - first:
+      213: -5496935264669787336
+    second: lava_text_10
+  - first:
+      213: -4161649596000035486
+    second: lava_text_11
+  - first:
+      213: -1289273308600792753
+    second: lava_text_12
+  - first:
+      213: 5255385967580445020
+    second: lava_text_13
+  - first:
+      213: -6768432510467204048
+    second: lava_text_14
+  - first:
+      213: 8468120599370144100
+    second: lava_text_15
+  - first:
+      213: 1123954796637365592
+    second: lava_text_16
+  - first:
+      213: -5585012251188033376
+    second: lava_text_17
+  - first:
+      213: -3776731902083177263
+    second: lava_text_18
+  - first:
+      213: -1365999868930668475
+    second: lava_text_19
+  - first:
+      213: 7620478112503006771
+    second: lava_text_20
+  - first:
+      213: 1290162334726528847
+    second: lava_text_21
+  - first:
+      213: 6800238525120748406
+    second: lava_text_22
+  - first:
+      213: -671162988743301217
+    second: lava_text_23
+  - first:
+      213: 5708212754123722830
+    second: lava_text_24
+  - first:
+      213: -2683691566448993757
+    second: lava_text_25
+  - first:
+      213: -9104290029064850152
+    second: lava_text_26
+  - first:
+      213: -7550666770215816326
+    second: lava_text_27
+  - first:
+      213: 711789215222702284
+    second: lava_text_28
+  - first:
+      213: 6274554286953370685
+    second: lava_text_29
+  - first:
+      213: -4499438236858500811
+    second: lava_text_30
+  - first:
+      213: 5412181284536021625
+    second: lava_text_31
+  - first:
+      213: -6727141729451711034
+    second: lava_text_32
+  - first:
+      213: 2732118430016496965
+    second: lava_text_33
+  - first:
+      213: -6768052231264960106
+    second: lava_text_34
+  - first:
+      213: -2917216941419541185
+    second: lava_text_35
+  - first:
+      213: -5280882948098947175
+    second: lava_text_36
+  - first:
+      213: 179350118181487712
+    second: lava_text_37
+  - first:
+      213: -6082185973202810027
+    second: lava_text_38
+  - first:
+      213: 1327934459394558181
+    second: lava_text_39
+  - first:
+      213: -7565643831735104367
+    second: lava_text_40
+  - first:
+      213: 4116263810368667218
+    second: lava_text_41
+  - first:
+      213: -7535473554527006916
+    second: lava_text_42
+  - first:
+      213: -3206687748519892599
+    second: lava_text_43
+  - first:
+      213: -7007012249457199512
+    second: lava_text_44
+  - first:
+      213: 8877595922285700744
+    second: lava_text_45
+  - first:
+      213: 1324436222871584548
+    second: lava_text_46
+  - first:
+      213: -3368234285297392680
+    second: lava_text_47
+  - first:
+      213: -8208321918248687188
+    second: lava_text_48
+  - first:
+      213: 9213664876794054621
+    second: lava_text_49
+  - first:
+      213: 6031968269436531682
+    second: lava_text_50
+  - first:
+      213: -4743168843300737607
+    second: lava_text_51
+  - first:
+      213: -3945478065449824388
+    second: lava_text_52
+  - first:
+      213: 1475918615791473599
+    second: lava_text_53
+  - first:
+      213: 567275005150282325
+    second: lava_text_54
+  - first:
+      213: -752676682332561067
+    second: lava_text_55
+  - first:
+      213: -4426851669501661409
+    second: lava_text_56
+  - first:
+      213: -8282682953887854704
+    second: lava_text_57
+  - first:
+      213: 714932215583337077
+    second: lava_text_58
+  - first:
+      213: 3760813169355373049
+    second: lava_text_59
+  - first:
+      213: -5844188022677484257
+    second: lava_text_60
+  - first:
+      213: 8825649673869506476
+    second: lava_text_61
+  - first:
+      213: 182419141256155674
+    second: lava_text_62
+  - first:
+      213: 3775927289216709382
+    second: lava_text_63
+  - first:
+      213: -3108676983187420014
+    second: lava_text_64
+  - first:
+      213: -387267561144833379
+    second: lava_text_65
+  - first:
+      213: 6450890954846824382
+    second: lava_text_66
+  - first:
+      213: 8657888548235754183
+    second: lava_text_67
+  - first:
+      213: -8880311713298510845
+    second: lava_text_68
+  - first:
+      213: 6485661507650130646
+    second: lava_text_69
+  - first:
+      213: 7788304040093808637
+    second: lava_text_70
+  - first:
+      213: -1005230309637854560
+    second: lava_text_71
+  - first:
+      213: 29292710990733067
+    second: lava_text_72
+  - first:
+      213: 2335370392774590432
+    second: lava_text_73
+  - first:
+      213: -7121637805154106034
+    second: lava_text_74
+  - first:
+      213: 1761439134364088552
+    second: lava_text_75
+  - first:
+      213: 4185695544260464763
+    second: lava_text_76
+  - first:
+      213: 8249032204542297280
+    second: lava_text_77
+  - first:
+      213: 6213184428865031823
+    second: lava_text_78
+  - first:
+      213: -3174552254716665489
+    second: lava_text_79
+  - first:
+      213: 579520556183572056
+    second: lava_text_80
+  - first:
+      213: -7329547165120193502
+    second: lava_text_81
+  - first:
+      213: -6639009799604637693
+    second: lava_text_82
+  - first:
+      213: -6798959354651144549
+    second: lava_text_83
+  - first:
+      213: 5184180639351025910
+    second: lava_text_84
+  - first:
+      213: -2756705224873990957
+    second: lava_text_85
+  - first:
+      213: -4058612239994014021
+    second: lava_text_86
+  - first:
+      213: 5005853832622497321
+    second: lava_text_87
+  - first:
+      213: -7783105650035157273
+    second: lava_text_88
+  - first:
+      213: -3270095594368727765
+    second: lava_text_89
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lava_text_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd8c892112714ae80800000000000000
+      internalID: -8168378393329874725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lava_text_1
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eab2cdfde54976b0800000000000000
+      internalID: -5298126598157714713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lava_text_2
+      rect:
+        serializedVersion: 2
+        x: 1296
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2104ebbdb87dde700800000000000000
+      internalID: 571349723433025554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lava_text_3
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ffc9ee7a2bdec670800000000000000
+      internalID: 8561020917242253298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lava_text_4
+      rect:
+        serializedVersion: 2
+        x: 2592
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9887be95f5fb23900800000000000000
+      internalID: 662802511428286601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lava_text_5
+      rect:
+        serializedVersion: 2
+        x: 3240
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62949430e76537600800000000000000
+      internalID: 464810285770295590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lava_text_6
+      rect:
+        serializedVersion: 2
+        x: 3888
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d711a6045bd432e0800000000000000
+      internalID: -2146849968413927464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lava_text_7
+      rect:
+        serializedVersion: 2
+        x: 4536
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40f2c3cdb8dafa770800000000000000
+      internalID: 8624302627644780292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lava_text_8
+      rect:
+        serializedVersion: 2
+        x: 5184
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7416ead453d6d4ea0800000000000000
+      internalID: -5886929062199402169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lava_text_9
+      rect:
+        serializedVersion: 2
+        x: 5832
+        y: 0
+        width: 648
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baf19c54a97350880800000000000000
+      internalID: -8645442773932499029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 75d78280725e5684e8a30298b40cc21d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      lava_text_0: -8168378393329874725
+      lava_text_1: -5298126598157714713
+      lava_text_2: 571349723433025554
+      lava_text_3: 8561020917242253298
+      lava_text_4: 662802511428286601
+      lava_text_5: 464810285770295590
+      lava_text_6: -2146849968413927464
+      lava_text_7: 8624302627644780292
+      lava_text_8: -5886929062199402169
+      lava_text_9: -8645442773932499029
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

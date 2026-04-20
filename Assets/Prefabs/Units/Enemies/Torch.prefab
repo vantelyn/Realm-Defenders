@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3709362733402451947}
   - component: {fileID: 6944631563751228599}
   - component: {fileID: 8207039090586929198}
+  - component: {fileID: 6517436140756536767}
   m_Layer: 6
   m_Name: Torch
   m_TagString: Untagged
@@ -141,7 +142,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &8293972434143995840
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -218,13 +219,16 @@ MonoBehaviour:
   animatorControllers: []
   pathPoints: []
   waitTimeInPoint: 3
-  attackRange: 1.5
+  movementRadius: 5
+  waitTimeRandom: 4
+  attackRange: 1
   stopDistance: 0.5
   attackCooldown: 2
   targetLayer:
     serializedVersion: 2
-    m_Bits: 1536
-  motherTransform: {fileID: 0}
+    m_Bits: 1024
+  chaseRange: 3
+  stopDistanceFromPlayer: 1
 --- !u!114 &8207039090586929198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,8 +241,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584a42d2f17a15949805339930718c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
   currentHealth: 0
   itemsToDrop:
-  - {fileID: 1550681283597860653, guid: 8f4d6827330486d40b85ceb2e60ffee0, type: 3}
+  - prefab: {fileID: 1550681283597860653, guid: 8f4d6827330486d40b85ceb2e60ffee0, type: 3}
+    dropChance: 0.75
+  - prefab: {fileID: 2816344810698533642, guid: cbff509c328769b47bcb5892a3c04361, type: 3}
+    dropChance: 0.75
+  - prefab: {fileID: 2816344810698533642, guid: cbff509c328769b47bcb5892a3c04361, type: 3}
+    dropChance: 0.75
+  - prefab: {fileID: 436611437657991125, guid: 721ae6af1d73b12488168a31012598dc, type: 3}
+    dropChance: 0.75
+  dropRadius: 0.5
   forceImpulse: 5
+--- !u!58 &6517436140756536767
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6854911528546568843}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 3

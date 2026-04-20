@@ -1,0 +1,458 @@
+fileFormatVersion: 2
+guid: 3f2956a8140191a4e88c3517eae18e10
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5848451488396121869
+    second: portal_appear_spritesheet_0
+  - first:
+      213: -2706600879337691018
+    second: portal_appear_spritesheet_1
+  - first:
+      213: 7380517781578747130
+    second: portal_appear_spritesheet_2
+  - first:
+      213: 4783316688329873670
+    second: portal_appear_spritesheet_3
+  - first:
+      213: 3586200462496643820
+    second: portal_appear_spritesheet_4
+  - first:
+      213: 183850418415312886
+    second: portal_appear_spritesheet_5
+  - first:
+      213: 2787257040763693260
+    second: portal_appear_spritesheet_6
+  - first:
+      213: -4667016867402092502
+    second: portal_appear_spritesheet_7
+  - first:
+      213: -6902132334712468935
+    second: portal_appear_spritesheet_8
+  - first:
+      213: 5388171491099574030
+    second: portal_appear_spritesheet_9
+  - first:
+      213: 2004036988928064958
+    second: portal_appear_spritesheet_10
+  - first:
+      213: 4379640943681971866
+    second: portal_appear_spritesheet_11
+  - first:
+      213: 3239926517185177085
+    second: portal_appear_spritesheet_12
+  - first:
+      213: -7786389464391019571
+    second: portal_appear_spritesheet_13
+  - first:
+      213: 3764552321157117769
+    second: portal_appear_spritesheet_14
+  - first:
+      213: 5164674484182824013
+    second: portal_appear_spritesheet_15
+  - first:
+      213: 8171016541241622391
+    second: portal_appear_spritesheet_16
+  - first:
+      213: -6897955435701156280
+    second: portal_appear_spritesheet_17
+  - first:
+      213: -1968924756280247688
+    second: portal_appear_spritesheet_18
+  - first:
+      213: 1318403776575799169
+    second: portal_appear_spritesheet_19
+  - first:
+      213: 8070018595278336565
+    second: portal_appear_spritesheet_20
+  - first:
+      213: 5303701828405965894
+    second: portal_appear_spritesheet_21
+  - first:
+      213: 3188380098204229350
+    second: portal_appear_spritesheet_22
+  - first:
+      213: -2622283366992901457
+    second: portal_appear_spritesheet_23
+  - first:
+      213: -9062827106406670343
+    second: portal_appear_spritesheet_24
+  - first:
+      213: -1729835431873206759
+    second: portal_appear_spritesheet_25
+  - first:
+      213: 2643112983909254874
+    second: portal_appear_spritesheet_26
+  - first:
+      213: -8199185872638652302
+    second: portal_appear_spritesheet_27
+  - first:
+      213: 3836562358749635089
+    second: portal_appear_spritesheet_28
+  - first:
+      213: 1391959795730579757
+    second: portal_appear_spritesheet_29
+  - first:
+      213: -2015090483905957859
+    second: portal_appear_spritesheet_30
+  - first:
+      213: 6861922452674578450
+    second: portal_appear_spritesheet_31
+  - first:
+      213: -1197501766810284741
+    second: portal_appear_spritesheet_32
+  - first:
+      213: 3682072286451406722
+    second: portal_appear_spritesheet_33
+  - first:
+      213: -4309048260823166412
+    second: portal_appear_spritesheet_34
+  - first:
+      213: 2642348075738656701
+    second: portal_appear_spritesheet_35
+  - first:
+      213: -298941993756755663
+    second: portal_appear_spritesheet_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 156
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: portal_spawn_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7eb6dd904c24bd4baf8a61ff9f3ce2c
+      internalID: 1042495369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_spawn_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bfbbe0ef77e73d4aaf9ae334ec7d558
+      internalID: 286070216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_spawn_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aab146375409fec4fa6ceaca2a83770b
+      internalID: -36952282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_spawn_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b11000733f34ac74ea53135e9c71304c
+      internalID: -1842219613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_spawn_4
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 159688415848710469ea83a84a30c55c
+      internalID: 1079072114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_spawn_5
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec2373cb493f4fa42851985838216e92
+      internalID: -2129423589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_spawn_6
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd88227573587694488c12a609d24c22
+      internalID: 1125458188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_spawn_7
+      rect:
+        serializedVersion: 2
+        x: 2240
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9eea5e4d57c2ff940807ac0d4889860f
+      internalID: 576303396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_spawn_8
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53faedef395d953488c22f207cc6cb05
+      internalID: 945517517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_spawn_9
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e044927f2435d744bfca7b2f85b767d
+      internalID: 1953559116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 83f47b0b2a206874292b94c42ca995cf
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      portal_spawn_0: 1042495369
+      portal_spawn_1: 286070216
+      portal_spawn_2: -36952282
+      portal_spawn_3: -1842219613
+      portal_spawn_4: 1079072114
+      portal_spawn_5: -2129423589
+      portal_spawn_6: 1125458188
+      portal_spawn_7: 576303396
+      portal_spawn_8: 945517517
+      portal_spawn_9: 1953559116
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

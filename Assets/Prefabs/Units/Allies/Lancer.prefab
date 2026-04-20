@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2893969846843692370}
   - component: {fileID: 1884106609626805596}
   - component: {fileID: 4800375236625625884}
+  - component: {fileID: 2497281291816778284}
   m_Layer: 0
   m_Name: Lancer
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3620995358034244021}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.512905, y: -0.97402287, z: -0.043193113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -89,7 +90,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &2893969846843692370
 Animator:
   serializedVersion: 7
@@ -173,6 +174,18 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.047657304, y: -0.43985724}
-  m_Size: {x: 0.5870778, y: 0.21104339}
+  m_Offset: {x: -0.04088107, y: 0.0073964354}
+  m_Size: {x: 0.649262, y: 0.22007993}
   m_Direction: 1
+--- !u!114 &2497281291816778284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3620995358034244021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d832e3333c47f409cdccac35808474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

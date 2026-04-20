@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6805158796658087589}
   - component: {fileID: 2979895736593254952}
   - component: {fileID: 1572663278672635728}
+  - component: {fileID: 2023792411605362650}
+  - component: {fileID: 834835855636459172}
   m_Layer: 7
   m_Name: Sheep
   m_TagString: Untagged
@@ -80,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6367260613296689715, guid: 49b906e1fb99a2a438d09262c402d35d, type: 3}
+  m_Sprite: {fileID: -6879290243380990860, guid: c990dc5620f3d8e4f948f225def84945, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +103,7 @@ Animator:
   m_GameObject: {fileID: 8002409756092772004}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 38f4e212f399bd840b1944591dce660c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4e712bc05cf14ed4e8e88ceb9e9d370c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -126,8 +128,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+  currentHealth: 0
   itemsToDrop:
-  - {fileID: 420670266989839909, guid: 2e7794de35bf21c4f96a39e496ebe447, type: 3}
+  - prefab: {fileID: 420670266989839909, guid: 2e7794de35bf21c4f96a39e496ebe447, type: 3}
+    dropChance: 1
+  - prefab: {fileID: 420670266989839909, guid: 2e7794de35bf21c4f96a39e496ebe447, type: 3}
+    dropChance: 0.75
+  - prefab: {fileID: 420670266989839909, guid: 2e7794de35bf21c4f96a39e496ebe447, type: 3}
+    dropChance: 0.25
+  - prefab: {fileID: 2816344810698533642, guid: cbff509c328769b47bcb5892a3c04361, type: 3}
+    dropChance: 1
+  - prefab: {fileID: 2816344810698533642, guid: cbff509c328769b47bcb5892a3c04361, type: 3}
+    dropChance: 0.5
+  - prefab: {fileID: 2816344810698533642, guid: cbff509c328769b47bcb5892a3c04361, type: 3}
+    dropChance: 0.25
+  dropRadius: 0.5
   forceImpulse: 5
 --- !u!50 &2979895736593254952
 Rigidbody2D:
@@ -193,3 +208,44 @@ CapsuleCollider2D:
   m_Offset: {x: 0.000000004529589, y: 0.03799695}
   m_Size: {x: 0.7031251, y: 0.49497062}
   m_Direction: 1
+--- !u!114 &2023792411605362650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002409756092772004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6899ef1da033725439a96120fb5da757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 2
+  selectedSkin: 0
+  animatorControllers: []
+  pathPoints: []
+  waitTimeInPoint: 3
+  movementRadius: 5
+  waitTimeRandom: 4
+--- !u!195 &834835855636459172
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002409756092772004}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 2
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 5.04
+  m_BaseOffset: 2.52
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

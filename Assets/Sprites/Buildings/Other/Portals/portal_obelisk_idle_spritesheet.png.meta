@@ -1,0 +1,461 @@
+fileFormatVersion: 2
+guid: 2a4c4176449a11945ae6c0088155f951
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8769617539332486166
+    second: portal_obelisk_idle_spritesheet_0
+  - first:
+      213: -7932181193158741939
+    second: portal_obelisk_idle_spritesheet_1
+  - first:
+      213: -8156687571332630220
+    second: portal_obelisk_idle_spritesheet_2
+  - first:
+      213: -22729086240051219
+    second: portal_obelisk_idle_spritesheet_3
+  - first:
+      213: -6319731889611388748
+    second: portal_obelisk_idle_spritesheet_4
+  - first:
+      213: -760657403109838237
+    second: portal_obelisk_idle_spritesheet_5
+  - first:
+      213: 7296647914137263670
+    second: portal_obelisk_idle_spritesheet_6
+  - first:
+      213: 8453326568694420217
+    second: portal_obelisk_idle_spritesheet_7
+  - first:
+      213: 4873421833062392061
+    second: portal_obelisk_idle_spritesheet_8
+  - first:
+      213: 1778524383743720958
+    second: portal_obelisk_idle_spritesheet_9
+  - first:
+      213: -8120582699527653129
+    second: portal_obelisk_idle_spritesheet_10
+  - first:
+      213: 3130334703289856607
+    second: portal_obelisk_idle_spritesheet_11
+  - first:
+      213: 8380611371820100701
+    second: portal_obelisk_idle_spritesheet_12
+  - first:
+      213: 2571525841946208506
+    second: portal_obelisk_idle_spritesheet_13
+  - first:
+      213: -8355475550186641609
+    second: portal_obelisk_idle_spritesheet_14
+  - first:
+      213: 3542366188364107950
+    second: portal_obelisk_idle_spritesheet_15
+  - first:
+      213: -970320772849233571
+    second: portal_obelisk_idle_spritesheet_16
+  - first:
+      213: -8770041193331635694
+    second: portal_obelisk_idle_spritesheet_17
+  - first:
+      213: 5872117912242839975
+    second: portal_obelisk_idle_spritesheet_18
+  - first:
+      213: -3768441916131334284
+    second: portal_obelisk_idle_spritesheet_19
+  - first:
+      213: -2466743810163146491
+    second: portal_obelisk_idle_spritesheet_20
+  - first:
+      213: -769555169433682548
+    second: portal_obelisk_idle_spritesheet_21
+  - first:
+      213: -4851570644274846647
+    second: portal_obelisk_idle_spritesheet_22
+  - first:
+      213: -3435001472691540074
+    second: portal_obelisk_idle_spritesheet_23
+  - first:
+      213: -3712077175329204487
+    second: portal_obelisk_idle_spritesheet_24
+  - first:
+      213: 5398666108178996847
+    second: portal_obelisk_idle_spritesheet_25
+  - first:
+      213: -1984818861716371905
+    second: portal_obelisk_idle_spritesheet_26
+  - first:
+      213: -1062166221475747916
+    second: portal_obelisk_idle_spritesheet_27
+  - first:
+      213: -3605983327063612236
+    second: portal_obelisk_idle_spritesheet_28
+  - first:
+      213: -7198888249817289722
+    second: portal_obelisk_idle_spritesheet_29
+  - first:
+      213: 6391691957482706428
+    second: portal_obelisk_idle_spritesheet_30
+  - first:
+      213: 1609970033703519862
+    second: portal_obelisk_idle_spritesheet_31
+  - first:
+      213: 5907328500665156487
+    second: portal_obelisk_idle_spritesheet_32
+  - first:
+      213: -4845644350955299643
+    second: portal_obelisk_idle_spritesheet_33
+  - first:
+      213: 4655215620656733173
+    second: portal_obelisk_idle_spritesheet_34
+  - first:
+      213: -3840642280512121288
+    second: portal_obelisk_idle_spritesheet_35
+  - first:
+      213: -3648794121563586140
+    second: portal_obelisk_idle_spritesheet_36
+  - first:
+      213: 4732880068975683744
+    second: portal_obelisk_idle_spritesheet_37
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 156
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 614b2f740b0f3b970800000000000000
+      internalID: 8769617539332486166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d403db73b3b3be190800000000000000
+      internalID: -7932181193158741939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 439ffdeaedf9dce80800000000000000
+      internalID: -8156687571332630220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: defa79834004faff0800000000000000
+      internalID: -22729086240051219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b8410c645dcb48a0800000000000000
+      internalID: -6319731889611388748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 362fddb3f1a9175f0800000000000000
+      internalID: -760657403109838237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63e1f3d5e96e24560800000000000000
+      internalID: 7296647914137263670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 2240
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f217610abf305570800000000000000
+      internalID: 8453326568694420217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df02150365fd1a340800000000000000
+      internalID: 4873421833062392061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal_obelisk_idle_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efd3a6501869ea810800000000000000
+      internalID: 1778524383743720958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 737af393fc613254b8bd31e871a0f7be
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      portal_obelisk_idle_spritesheet_0: 8769617539332486166
+      portal_obelisk_idle_spritesheet_1: -7932181193158741939
+      portal_obelisk_idle_spritesheet_2: -8156687571332630220
+      portal_obelisk_idle_spritesheet_3: -22729086240051219
+      portal_obelisk_idle_spritesheet_4: -6319731889611388748
+      portal_obelisk_idle_spritesheet_5: -760657403109838237
+      portal_obelisk_idle_spritesheet_6: 7296647914137263670
+      portal_obelisk_idle_spritesheet_7: 8453326568694420217
+      portal_obelisk_idle_spritesheet_8: 4873421833062392061
+      portal_obelisk_idle_spritesheet_9: 1778524383743720958
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

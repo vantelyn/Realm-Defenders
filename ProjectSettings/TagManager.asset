@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - Mother
+  - MoneyBag
+  - Meat
+  - Wood
+  - Stump
+  - PlayerUnit
   layers:
   - Default
   - TransparentFX
@@ -15,7 +20,7 @@ TagManager:
   - Enemy
   - Sheep
   - Tree
-  - Mother
+  - Resources
   - Player
   - 
   - 

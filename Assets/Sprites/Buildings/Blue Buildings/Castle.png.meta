@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d1b5bf5f2516eb440aaad45d19d546bf
+guid: cbe8be7adca73b040992aa7b1361442a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6754239384357436178
-    second: Castle_0
+      213: -3146623167323606182
+    second: Castle_Blue_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Castle_0
+      name: Castle_Blue_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 6
-        width: 314
-        height: 210
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 11
+        y: 5
+        width: 298
+        height: 207
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ee40c6fb01f1442a0800000000000000
-      internalID: -6754239384357436178
+      spriteID: a5379ad96e2f454d0800000000000000
+      internalID: -3146623167323606182
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4420e7fdcb3d7a544a84d417d5c1e64f
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Castle_0: -6754239384357436178
+      Castle_Blue_0: -3146623167323606182
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -22,6 +22,10 @@ public class NPC : MonoBehaviour
     public float waitTimeInPoint = 3f;
     private int indexPath = 0;
 
+    [Header("Random Movement")]
+    public float movementRadius = 5f;
+    public float waitTimeRandom = 4f;
+
     protected Coroutine currentMovementRoutine;
 
     protected virtual void Start()
@@ -191,6 +195,28 @@ public class NPC : MonoBehaviour
 
             yield return new WaitForSeconds(waitTimeInPoint);
         }
+    }
+
+    protected IEnumerator RandomMovement()
+    {
+        while (true)
+        {
+            Vector3 randomPos = GetRandomNavMeshPosition();
+            navMeshAgent.SetDestination(randomPos);
+            yield return WaitUntilDestinationReached();
+            yield return new WaitForSeconds(waitTimeRandom);
+        }
+
+    }
+    private Vector3 GetRandomNavMeshPosition()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * movementRadius + transform.position;
+        if(NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, movementRadius, NavMesh.AllAreas))
+        {
+            return hit.position;
+        }
+        return transform.position;
+
     }
 
     protected virtual void OnDisable()
