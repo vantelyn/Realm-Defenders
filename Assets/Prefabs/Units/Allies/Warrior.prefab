@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 6389467047761297736}
   - component: {fileID: 1952310315507075274}
   - component: {fileID: 6385789646183534979}
-  - component: {fileID: 4011386276320473115}
   - component: {fileID: 5204784881550547245}
-  - component: {fileID: 3903287687817373474}
   - component: {fileID: 6907684271518358664}
+  - component: {fileID: 306111416977721393}
   m_Layer: 10
   m_Name: Warrior
   m_TagString: PlayerUnit
@@ -165,8 +164,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_Mass: 2
+  m_LinearDamping: 15
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -180,25 +179,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4011386276320473115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2727363506755996944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcf5acb92284a39438662355f0f161ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  maxHealth: 500
-  canMove: 1
-  attackRange: 0.6
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 448
 --- !u!114 &5204784881550547245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,23 +191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d832e3333c47f409cdccac35808474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3903287687817373474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2727363506755996944}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 584a42d2f17a15949805339930718c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 0
-  itemsToDrop: []
-  dropRadius: 0.5
-  forceImpulse: 5
 --- !u!114 &6907684271518358664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,3 +208,23 @@ MonoBehaviour:
   itemsToDrop: []
   dropRadius: 0.5
   forceImpulse: 5
+--- !u!114 &306111416977721393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2727363506755996944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf5acb92284a39438662355f0f161ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  maxHealth: 500
+  attackRange: 1.2
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 960
+  selectionIndicator: {fileID: 0}
+  canMove: 1

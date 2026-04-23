@@ -123,7 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c73d1dfaa3e0b46bbad0b063c27ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  torchPrefab: {fileID: 6854911528546568843, guid: 33e31ab29750fbb4983f984ea70807ee, type: 3}
-  totalToSpawn: 3
+  prefabs:
+  - {fileID: 2191447041407112255, guid: c8af2ad91ceecc24181fba8803354a05, type: 3}
+  - {fileID: 6854911528546568843, guid: 33e31ab29750fbb4983f984ea70807ee, type: 3}
+  totalToSpawn: 10
   minSpawnTime: 5
   maxSpawnTime: 20

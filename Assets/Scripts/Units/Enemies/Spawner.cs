@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class TorchSpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
-    [Header("Prefab a generar")]
-    public GameObject torchPrefab;
+    [Header("Prefabs a generar")]
+    public GameObject[] prefabs;
 
     [Header("Configuración")]
     public int totalToSpawn = 5;
@@ -15,6 +15,12 @@ public class TorchSpawner : MonoBehaviour
 
     void Start()
     {
+        if (prefabs == null || prefabs.Length == 0)
+        {
+            Debug.LogWarning("No hay prefabs asignados en el spawner.");
+            return;
+        }
+
         StartCoroutine(SpawnRoutine());
     }
 
@@ -25,7 +31,9 @@ public class TorchSpawner : MonoBehaviour
             float waitTime = Random.Range(minSpawnTime, maxSpawnTime);
             yield return new WaitForSeconds(waitTime);
 
-            Instantiate(torchPrefab, transform.position, Quaternion.identity);
+            GameObject prefabAleatorio = prefabs[Random.Range(0, prefabs.Length)];
+            Instantiate(prefabAleatorio, transform.position, Quaternion.identity);
+
             spawnedCount++;
         }
     }

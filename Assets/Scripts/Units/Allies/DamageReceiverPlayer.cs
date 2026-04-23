@@ -19,24 +19,33 @@ public class DamageReceiverPlayer : MonoBehaviour
 
     private Rigidbody2D rb2D;
     private Animator animator;
+    private PlayerUnit playerUnit;
     public float forceImpulse = 5;
+    private IDamageBlocker blocker;
 
     void Start()
     {
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
+        playerUnit = GetComponent<PlayerUnit>();
+        blocker = GetComponent<IDamageBlocker>();
     }
 
     public void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, Vector2 hitDirection)
     {
+        if (blocker != null && blocker.TryBlock(hitDirection))
+        {
+            return; // golpe bloqueado
+        }
+
         currentHealth -= amount;
 
         if (applyForce)
         {
-            GetComponent<WarriorScript>().canMove = false;
+            if (playerUnit != null) playerUnit.canMove = false;
             rb2D.AddForce(hitDirection.normalized * forceImpulse, ForceMode2D.Impulse);
-            Invoke("ResetMovement", 0.1f);
+            Invoke(nameof(ResetMovement), 0.1f);
         }
 
         if (applyHitAnimation)
@@ -68,14 +77,13 @@ public class DamageReceiverPlayer : MonoBehaviour
                 Vector2 offset = Random.insideUnitCircle * dropRadius;
                 spawnPos = transform.position + new Vector3(offset.x, offset.y, 0f);
             }
-
             Instantiate(item.prefab, spawnPos, Quaternion.identity);
         }
     }
 
     void ResetMovement()
     {
-        GetComponent<WarriorScript>().canMove = true;
+        if (playerUnit != null) playerUnit.canMove = true;
     }
 
     void GoToHell()

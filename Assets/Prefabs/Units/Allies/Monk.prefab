@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 3329179627285698278}
   - component: {fileID: 892772810018733096}
   - component: {fileID: 514856045498972972}
-  m_Layer: 0
+  - component: {fileID: -4439820824507249498}
+  m_Layer: 10
   m_Name: Monk
-  m_TagString: Untagged
+  m_TagString: PlayerUnit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +127,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 15
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -189,3 +190,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d832e3333c47f409cdccac35808474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4439820824507249498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343764445346676223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 190d2e6acd73d1c4890c8ecefed9c643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+  currentHealth: 2
+  itemsToDrop: []
+  dropRadius: 0.5
+  forceImpulse: 5

@@ -1,48 +1,64 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PawnScript : MonoBehaviour
+public class PawnScript : PlayerUnit
 {
-    public float speed = 5;
-    private Animator animator;
-    Rigidbody2D rb2D;
-    Vector2 movementInput;
+    public override bool HasSecondary => true;
 
-    void Start()
+    public override void PrimaryAttack(Vector2 worldAimDirection)
     {
-        rb2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-    }
+        if (isAttacking) return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        movementInput.x = Input.GetAxisRaw("Horizontal");
-        movementInput.y = Input.GetAxisRaw("Vertical");
-        movementInput = movementInput.normalized;
+        float horizontal = lastMovementDir.x;
+        if (Mathf.Abs(horizontal) < 0.01f)
+            horizontal = transform.localScale.x > 0 ? 1f : -1f;
 
-        if (Mathf.Abs(movementInput.x) > 0.1 || Mathf.Abs(movementInput.y) > 0.1 )
-        {            
-            animator.SetBool("isRunning", true);
-        }
-        else
+        attackDir = new Vector2(Mathf.Sign(horizontal), 0f);
+
+        if ((attackDir.x > 0 && transform.localScale.x < 0) ||
+            (attackDir.x < 0 && transform.localScale.x > 0))
         {
-            animator.SetBool("isRunning", false);
+            Vector3 s = transform.localScale;
+            s.x *= -1;
+            transform.localScale = s;
         }
 
-        CheckFlip();
+        animator.SetTrigger("doChop");
     }
 
-    private void FixedUpdate()
+    public override void SecondaryAction(Vector2 worldAimDirection)
     {
-        rb2D.linearVelocity = movementInput * speed;
+        if (isAttacking) return;
+        animator.SetTrigger("doBuild");
     }
 
-    private void CheckFlip()
+    // Animation Event llamado desde PawnChopping
+    public void DetectAndDamageTargets()
     {
-        if (movementInput.x > 0 && transform.localScale.x < 0  || movementInput.x < 0 && transform.localScale.x > 0)
+        Vector2 attackPoint = (Vector2)transform.position + attackDir.normalized * attackRange * 0.5f;
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(targetLayer);
+        filter.useLayerMask = true;
+        filter.useTriggers = false;
+
+        List<Collider2D> hits = new List<Collider2D>();
+        Physics2D.OverlapCircle(attackPoint, attackRange, filter, hits);
+
+        foreach (Collider2D target in hits)
         {
-            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            if (target == null) continue;
+            int layer = target.gameObject.layer;
+
+
+            Vector2 hitDirection = target.transform.position - transform.position;
+
+            if (layer == LayerMask.NameToLayer("Enemy"))
+                target.GetComponent<DamageReceiver>()?.ApplyDamage(1, true, false, hitDirection);
+            else if (layer == LayerMask.NameToLayer("Sheep"))
+                target.GetComponent<DamageReceiver>()?.ApplyDamage(1, true, false, hitDirection);
+            else if (layer == LayerMask.NameToLayer("Tree"))
+                target.GetComponent<DamageReceiver>()?.ApplyDamage(1, false, true, hitDirection);
         }
     }
-
 }

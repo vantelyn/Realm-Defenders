@@ -13,9 +13,9 @@ public class Enemy : NPC
     private bool canMove = true;
 
     public LayerMask targetLayer;
-    private Vector2 attackDirectionVector;
+    protected Vector2 attackDirectionVector;
 
-    private Transform motherTransform;
+    protected Transform motherTransform;
 
     [Header("Chase Player Unit")]
     public float chaseRange = 6f;
@@ -23,7 +23,7 @@ public class Enemy : NPC
     protected bool isChasingPlayerUnit = false;
 
     private readonly List<Transform> detectedUnits = new List<Transform>();
-    private Transform currentTargetUnit;
+    protected Transform currentTargetUnit;
 
     protected override void Start()
     {
@@ -103,7 +103,7 @@ public class Enemy : NPC
         }
     }
 
-    private void Attack()
+    protected void Attack()
     {
         isAttacking = true;
         canMove = false;
@@ -116,8 +116,7 @@ public class Enemy : NPC
         else
             transform.localScale = new Vector3(-1, 1, 1);
 
-        animator.SetInteger("attackDirection", attackDirection);
-        animator.SetTrigger("doAttack");
+        ApplyAttackAnimatorParams(attackDirection);
 
         Invoke(nameof(ResetAttack), 0.5f);
     }
@@ -144,7 +143,13 @@ public class Enemy : NPC
     public void DetectAndDamageTargets()
     {
         Vector2 attackPoint = (Vector2)transform.position + attackDirectionVector.normalized * attackRange * 0.5f;
-        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attackPoint, attackRange, targetLayer);
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(targetLayer);
+        filter.useLayerMask = true;
+        filter.useTriggers = false;
+        List<Collider2D> hitTargets = new List<Collider2D>();
+        Physics2D.OverlapCircle(attackPoint, attackRange, filter, hitTargets);
 
         foreach (Collider2D target in hitTargets)
         {
@@ -245,5 +250,11 @@ public class Enemy : NPC
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    protected virtual void ApplyAttackAnimatorParams(int attackDirection)
+    {
+        animator.SetInteger("attackDirection", attackDirection);
+        animator.SetTrigger("doAttack");
     }
 }
