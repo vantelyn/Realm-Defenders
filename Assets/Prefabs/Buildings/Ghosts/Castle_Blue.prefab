@@ -41,10 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5852749651838064544}
   - component: {fileID: 399627245684432142}
-  - component: {fileID: 5589490730896340593}
-  - component: {fileID: 5308789321119240468}
-  - component: {fileID: 4756529014996401077}
-  - component: {fileID: 1213676210253858202}
+  - component: {fileID: -4135916436813934499}
   m_Layer: 0
   m_Name: Castle_Blue
   m_TagString: Untagged
@@ -113,7 +110,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: -3146623167323606182, guid: cbe8be7adca73b040992aa7b1361442a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -125,44 +122,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!70 &5589490730896340593
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5956104352234609393}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.0051888684, y: 0.620747}
-  m_Size: {x: 4.1269913, y: 1.4499294}
-  m_Direction: 1
---- !u!114 &5308789321119240468
+--- !u!114 &-4135916436813934499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,53 +131,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5956104352234609393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa0352a4d56abd42ad2fc69deb72448, type: 3}
+  m_Script: {fileID: 11500000, guid: be1cfff95d53bee439cab98429d8d4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Size: {x: 3.778616, y: 0.8752117, z: 4}
-  m_Center: {x: 0.033689022, y: 0.42679667, z: 0}
-  m_Area: 1
-  m_AffectedAgents: ffffffff
---- !u!95 &4756529014996401077
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5956104352234609393}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 354ef20be3a41ca4396c8ceb2499f8f9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1213676210253858202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5956104352234609393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e09fe790592b1f9459558c1ca753905e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 2
-  slots:
-  - {fileID: 6680897056406844576}
-  - {fileID: 2078983665049116591}
-  rangeMultiplier: 1.5
-  doorPoint: {fileID: 1616145065319247066}
+  validColor: {r: 0.4, g: 1, b: 0.4, a: 0.6}
+  invalidColor: {r: 1, g: 0.3, b: 0.3, a: 0.6}
 --- !u!1 &7300713373371350944
 GameObject:
   m_ObjectHideFlags: 0

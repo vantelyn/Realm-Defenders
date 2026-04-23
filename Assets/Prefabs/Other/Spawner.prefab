@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3852715049530899562}
   - component: {fileID: 6131669429180956175}
   - component: {fileID: 818711027677313444}
-  m_Layer: 0
+  - component: {fileID: 869088524535213024}
+  m_Layer: 3
   m_Name: Spawner
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,3 +130,40 @@ MonoBehaviour:
   totalToSpawn: 20
   minSpawnTime: 5
   maxSpawnTime: 20
+--- !u!70 &869088524535213024
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6642755782997558412}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.009236745, y: -0.42290872}
+  m_Size: {x: 1.6320591, y: 1.3436106}
+  m_Direction: 1

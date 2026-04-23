@@ -7,6 +7,7 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] private Camera worldCamera;
     [SerializeField] private TargetingConfig targeting;
     [SerializeField] private KeyCode selectionKey = KeyCode.F;
+    [SerializeField] private BuildPlacer buildPlacer;
 
     private PlayerUnit selectedUnit;
     public PlayerUnit SelectedUnit => selectedUnit;
@@ -31,6 +32,7 @@ public class SelectionManager : MonoBehaviour
 
     private void HandleSelectionKey()
     {
+        if (buildPlacer != null && buildPlacer.IsPlacing) return;
         if (IsPointerOverUI()) return;
         if (targeting == null) return;
 
@@ -49,6 +51,7 @@ public class SelectionManager : MonoBehaviour
 
     private void HandleLeftClick()
     {
+        if (buildPlacer != null && buildPlacer.IsPlacing) return;
         if (IsPointerOverUI()) return;
         if (targeting == null) return;
 
@@ -84,6 +87,7 @@ public class SelectionManager : MonoBehaviour
 
     private void HandleSecondaryAction()
     {
+        if (buildPlacer != null && buildPlacer.IsPlacing) return;
         if (IsPointerOverUI()) return;
         if (selectedUnit == null) return;
         if (!selectedUnit.HasSecondary) return;
@@ -116,7 +120,7 @@ public class SelectionManager : MonoBehaviour
         if (cameraFollow != null) cameraFollow.SetFollowTarget(unit.transform);
     }
 
-    private void Deselect()
+    public void Deselect()
     {
         if (selectedUnit == null) return;
         selectedUnit.SetSelected(false);
