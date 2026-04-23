@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4045879096619958618}
   - component: {fileID: 3444717490163498704}
   - component: {fileID: 1116359615018133466}
+  - component: {fileID: 4492368291230993617}
   m_Layer: 8
   m_Name: Tree0
   m_TagString: Untagged
@@ -191,3 +192,40 @@ MonoBehaviour:
     dropChance: 1
   dropRadius: 0.5
   forceImpulse: 0
+--- !u!70 &4492368291230993617
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6662095426311807421}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.042564034, y: 1.1533661}
+  m_Size: {x: 1.3825762, y: 2.631113}
+  m_Direction: 0

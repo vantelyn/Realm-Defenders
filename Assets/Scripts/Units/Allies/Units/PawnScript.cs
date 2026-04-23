@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PawnScript : PlayerUnit
@@ -9,7 +8,7 @@ public class PawnScript : PlayerUnit
     {
         if (isAttacking) return;
 
-        float horizontal = lastMovementDir.x;
+        float horizontal = LastMovementDir.x;
         if (Mathf.Abs(horizontal) < 0.01f)
             horizontal = transform.localScale.x > 0 ? 1f : -1f;
 
@@ -30,26 +29,5 @@ public class PawnScript : PlayerUnit
     {
         if (isAttacking) return;
         animator.SetTrigger("doBuild");
-    }
-
-    // Animation Event llamado desde PawnChopping
-    public void DetectAndDamageTargets()
-    {
-        Vector2 attackPoint = (Vector2)transform.position + attackDir.normalized * attackRange * 0.5f;
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(targetLayer);
-        filter.useLayerMask = true;
-        filter.useTriggers = false;
-
-        List<Collider2D> hits = new List<Collider2D>();
-        Physics2D.OverlapCircle(attackPoint, attackRange, filter, hits);
-
-        foreach (Collider2D target in hits)
-        {
-            if (target == null) continue;
-            if (target.gameObject.layer != LayerMask.NameToLayer("Tree")) continue;
-            Vector2 hitDirection = target.transform.position - transform.position;
-            target.GetComponent<DamageReceiver>()?.ApplyDamage(1, false, true, hitDirection);
-        }
     }
 }

@@ -21,7 +21,13 @@ public class DamageReceiverPlayer : MonoBehaviour
     private Animator animator;
     private PlayerUnit playerUnit;
     private IDamageBlocker blocker;
+
     public float forceImpulse = 5;
+
+    public int CurrentHealth => currentHealth;
+    public int MaxHealth => maxHealth;
+    public bool IsAtFullHealth => currentHealth >= maxHealth;
+    public float HealthRatio => maxHealth > 0 ? (float)currentHealth / maxHealth : 1f;
 
     void Start()
     {
@@ -34,25 +40,26 @@ public class DamageReceiverPlayer : MonoBehaviour
 
     public void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, Vector2 hitDirection)
     {
+        Debug.Log($"[{name}] ApplyDamage called, amount={amount}, hp was {currentHealth}");
+
+        if (playerUnit != null && playerUnit.IsGarrisoned) return;
+
         if (blocker != null && blocker.TryBlock(hitDirection))
         {
             return;
         }
 
         currentHealth -= amount;
-
         if (applyForce)
         {
             if (playerUnit != null) playerUnit.canMove = false;
             rb2D.AddForce(hitDirection.normalized * forceImpulse, ForceMode2D.Impulse);
             Invoke(nameof(ResetMovement), 0.1f);
         }
-
         if (applyHitAnimation)
         {
             animator.SetTrigger("getHit");
         }
-
         if (currentHealth <= 0)
         {
             DropItem();
@@ -82,6 +89,7 @@ public class DamageReceiverPlayer : MonoBehaviour
                 Vector2 offset = Random.insideUnitCircle * dropRadius;
                 spawnPos = transform.position + new Vector3(offset.x, offset.y, 0f);
             }
+
             Instantiate(item.prefab, spawnPos, Quaternion.identity);
         }
     }

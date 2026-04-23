@@ -2,30 +2,25 @@ using UnityEngine;
 
 public class ResourceCollector : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private int money = 0;
-    private int meat = 0;
-    private int wood = 0;
-    private int maxMoney = 10;
-    private int maxMeat = 10;
-    private int maxWood = 10;
+    [SerializeField] private PlayerInventory inventory;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("MoneyBag") && money < maxMoney)
+        if (inventory == null) return;
+
+        GameObject obj = collision.gameObject;
+
+        if (obj.CompareTag("MoneyBag"))
         {
-            Destroy(collision.gameObject);
-            money++;
+            if (inventory.TryAddMoney()) Destroy(obj);
         }
-        if (collision.gameObject.CompareTag("Meat") && meat < maxMeat)
+        else if (obj.CompareTag("Meat"))
         {
-            Destroy(collision.gameObject);
-            meat++;
+            if (inventory.TryAddMeat()) Destroy(obj);
         }
-        if (collision.gameObject.CompareTag("Wood") && wood < maxWood)
+        else if (obj.CompareTag("Wood"))
         {
-            Destroy(collision.gameObject);
-            wood++;
+            if (inventory.TryAddWood()) Destroy(obj);
         }
     }
 }

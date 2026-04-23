@@ -12,11 +12,6 @@ public class NPC : MonoBehaviour
     public MovementType movementType;
     public enum MovementType { Static, Path, RandomMovement }
 
-    [Header("Skin")]
-    public NPCSkin selectedSkin;
-    public RuntimeAnimatorController[] animatorControllers;
-    public enum NPCSkin { Blue, Purple, Red, Yellow }
-
     [Header("Path Movement")]
     public Transform[] pathPoints;
     public float waitTimeInPoint = 3f;
@@ -39,8 +34,6 @@ public class NPC : MonoBehaviour
             navMeshAgent.updateUpAxis = false;
         }
 
-        ApplySkin();
-
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
             playerTransform = player.transform;
@@ -55,30 +48,19 @@ public class NPC : MonoBehaviour
 
     public void AdjustAnimationsAndRotation()
     {
-        if (navMeshAgent == null || animator == null)
-            return;
+        if (navMeshAgent == null || animator == null) return;
 
-        bool isMoving = navMeshAgent.velocity.sqrMagnitude > 0.01f;
+        // Desired velocity es más estable que velocity real (no tiene jitter por deceleración)
+        bool isMoving = !navMeshAgent.isStopped &&
+                        navMeshAgent.hasPath &&
+                        navMeshAgent.desiredVelocity.sqrMagnitude > 0.01f;
+
         animator.SetBool("isRunning", isMoving);
 
         if (navMeshAgent.desiredVelocity.x > 0.01f)
             transform.localScale = new Vector3(1f, 1f, 1f);
-
         if (navMeshAgent.desiredVelocity.x < -0.01f)
             transform.localScale = new Vector3(-1f, 1f, 1f);
-    }
-
-    void ApplySkin()
-    {
-        if (animatorControllers != null && animatorControllers.Length > 0)
-        {
-            int skinIndex = (int)selectedSkin;
-
-            if (animator != null && skinIndex < animatorControllers.Length)
-            {
-                animator.runtimeAnimatorController = animatorControllers[skinIndex];
-            }
-        }
     }
 
     private void ResumeOriginalBehavior()
@@ -125,7 +107,7 @@ public class NPC : MonoBehaviour
         currentMovementRoutine = StartCoroutine(RandomMovementRoutine());
     }
 
-    void StopCurrentRoutine()
+    protected void StopCurrentRoutine()
     {
         if (currentMovementRoutine != null)
         {
@@ -164,7 +146,7 @@ public class NPC : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitUntilDestinationReached()
+    protected IEnumerator WaitUntilDestinationReached()
     {
         if (navMeshAgent == null)
             yield break;
@@ -195,28 +177,6 @@ public class NPC : MonoBehaviour
 
             yield return new WaitForSeconds(waitTimeInPoint);
         }
-    }
-
-    protected IEnumerator RandomMovement()
-    {
-        while (true)
-        {
-            Vector3 randomPos = GetRandomNavMeshPosition();
-            navMeshAgent.SetDestination(randomPos);
-            yield return WaitUntilDestinationReached();
-            yield return new WaitForSeconds(waitTimeRandom);
-        }
-
-    }
-    private Vector3 GetRandomNavMeshPosition()
-    {
-        Vector3 randomDirection = Random.insideUnitSphere * movementRadius + transform.position;
-        if(NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, movementRadius, NavMesh.AllAreas))
-        {
-            return hit.position;
-        }
-        return transform.position;
-
     }
 
     protected virtual void OnDisable()

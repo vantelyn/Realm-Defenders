@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WarriorUnit : PlayerUnit, IDamageBlocker
@@ -16,7 +15,7 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
     public override void PrimaryAttack(Vector2 worldAimDirection)
     {
         if (isAttacking) return;
-        attackDir = lastMovementDir.normalized;
+        attackDir = LastMovementDir.normalized;
 
         int dirIndex = GetDirectionIndex(attackDir);
         int attackIndex = Random.Range(0, 2);
@@ -30,8 +29,8 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
     {
         if (isAttacking) return;
 
-        blockDir = lastMovementDir.sqrMagnitude > 0.01f
-            ? lastMovementDir.normalized
+        blockDir = LastMovementDir.sqrMagnitude > 0.01f
+            ? LastMovementDir.normalized
             : (transform.localScale.x > 0 ? Vector2.right : Vector2.left);
 
         int dirIndex = GetDirectionIndex(blockDir);
@@ -51,31 +50,4 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
     // Animation Events del clip de bloqueo
     public void StartBlock() { isBlocking = true; }
     public void EndBlock() { isBlocking = false; }
-
-    // Animation Event de los clips de ataque
-    public void DetectAndDamageTargets()
-    {
-        Vector2 attackPoint = (Vector2)transform.position + attackDir.normalized * attackRange * 0.5f;
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(targetLayer);
-        filter.useLayerMask = true;
-        filter.useTriggers = false;
-
-        List<Collider2D> hitTargets = new List<Collider2D>();
-        Physics2D.OverlapCircle(attackPoint, attackRange, filter, hitTargets);
-
-        foreach (Collider2D target in hitTargets)
-        {
-            if (target == null) continue;
-            Vector2 hitDirection = target.transform.position - transform.position;
-            int layer = target.gameObject.layer;
-
-            if (layer == LayerMask.NameToLayer("Enemy"))
-                target.GetComponent<DamageReceiver>()?.ApplyDamage(1, true, false, hitDirection);
-            else if (layer == LayerMask.NameToLayer("Sheep"))
-                target.GetComponent<DamageReceiver>()?.ApplyDamage(1, true, false, hitDirection);
-            else if (layer == LayerMask.NameToLayer("Tree"))
-                target.GetComponent<DamageReceiver>()?.ApplyDamage(1, false, true, hitDirection);
-        }
-    }
 }
