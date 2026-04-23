@@ -15,13 +15,7 @@ public class CursorController : MonoBehaviour
     [SerializeField] private CursorStyle[] styles;
     [SerializeField] private Camera worldCamera;
     [SerializeField] private SelectionManager selectionManager;
-    [SerializeField] private LayerMask selectableLayer;
-    [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private LayerMask treeLayer;
-    [SerializeField] private string unitTag = "Unit";
-    [SerializeField] private string buildingTag = "Building";
-
-    private static readonly Collider2D[] overlapBuffer = new Collider2D[16];
+    [SerializeField] private TargetingConfig targeting;
 
     private CursorType currentType = CursorType.Default;
 
@@ -46,23 +40,13 @@ public class CursorController : MonoBehaviour
 
     private CursorType DetectContext()
     {
+        if (targeting == null) return CursorType.Default;
+
         Vector3 mouseWorld = worldCamera.ScreenToWorldPoint(Input.mousePosition);
-
-        ContactFilter2D debugFilter = new ContactFilter2D();
-        debugFilter.SetLayerMask(selectableLayer);
-        debugFilter.useLayerMask = true;
-        debugFilter.useTriggers = true;
-        int debugCount = Physics2D.OverlapPoint(mouseWorld, debugFilter, overlapBuffer);
-        for (int i = 0; i < debugCount; i++)
-        {
-            if (overlapBuffer[i] != null)
-                Debug.Log($"HOVER: {overlapBuffer[i].name} | tag={overlapBuffer[i].tag} | layer={LayerMask.LayerToName(overlapBuffer[i].gameObject.layer)} | trigger={overlapBuffer[i].isTrigger}");
-        }
-
         mouseWorld.z = 0f;
 
-        Collider2D enemyHit = Physics2D.OverlapPoint(mouseWorld, enemyLayer);
-        if (enemyHit != null)
+        // Prioridad: enemigos.
+        if (QueryService.HasHitAt(mouseWorld, targeting.enemyLayer))
         {
             PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
             if (selected is ArcherUnit) return CursorType.EnemyBow;
@@ -70,44 +54,29 @@ public class CursorController : MonoBehaviour
             return CursorType.Enemy;
         }
 
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(selectableLayer);
-        filter.useLayerMask = true;
-        filter.useTriggers = true;
-
-        int count = Physics2D.OverlapPoint(mouseWorld, filter, overlapBuffer);
-        for (int i = 0; i < count; i++)
+        // Prioridad: edificios (puertas).
+        Building building = QueryService.FindBuildingAt(mouseWorld, targeting.buildingsLayer, targeting.buildingTag);
+        if (building != null)
         {
-            Collider2D col = overlapBuffer[i];
-            if (col == null) continue;
+            PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
+            if (selected == null) return CursorType.Default;
 
-            if (col.CompareTag(buildingTag))
-            {
-                PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
-                if (selected == null) return CursorType.Default;
-
-                Building b = col.GetComponentInParent<Building>();
-                if (b == null) return CursorType.Default;
-
-                if (selected.IsGarrisoned && selected.CurrentBuilding == b) return CursorType.Door;
-                if (b.HasFreeSlot) return CursorType.Door;
-                return CursorType.DoorBlocked;
-            }
-
-            if (col.CompareTag(unitTag))
-            {
-                PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
-                if (selected is MonkUnit monk)
-                {
-                    PlayerUnit hovered = col.GetComponentInParent<PlayerUnit>();
-                    if (CanMonkHeal(monk, hovered)) return CursorType.Heal;
-                }
-                return CursorType.Ally;
-            }
+            if (selected.IsGarrisoned && selected.CurrentBuilding == building) return CursorType.Door;
+            if (building.HasFreeSlot) return CursorType.Door;
+            return CursorType.DoorBlocked;
         }
 
-        Collider2D treeHit = Physics2D.OverlapPoint(mouseWorld, treeLayer);
-        if (treeHit != null) return CursorType.Wood;
+        // Prioridad: unidades aliadas.
+        PlayerUnit hovered = QueryService.FindUnitAt(mouseWorld, targeting.unitsLayer, targeting.unitTag);
+        if (hovered != null)
+        {
+            PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
+            if (selected is MonkUnit monk && CanMonkHeal(monk, hovered)) return CursorType.Heal;
+            return CursorType.Ally;
+        }
+
+        // Prioridad: árboles.
+        if (QueryService.HasHitAt(mouseWorld, targeting.treeLayer)) return CursorType.Wood;
 
         return CursorType.Default;
     }
@@ -118,8 +87,8 @@ public class CursorController : MonoBehaviour
         DamageReceiverPlayer hp = target.GetComponent<DamageReceiverPlayer>();
         if (hp == null) return false;
         if (hp.IsAtFullHealth) return false;
-        float distance = Vector2.Distance(monk.transform.position, target.transform.position);
-        if (distance > monk.HealRange) return false;
+        float distSqr = ((Vector2)monk.transform.position - (Vector2)target.transform.position).sqrMagnitude;
+        if (distSqr > monk.HealRange * monk.HealRange) return false;
         return true;
     }
 

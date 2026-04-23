@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1650508365844294881}
   - component: {fileID: 2950702504523755346}
   - component: {fileID: 5041529298834795098}
+  - component: {fileID: 4962004876502780070}
   m_Layer: 10
   m_Name: Lancer
   m_TagString: PlayerUnit
@@ -281,17 +282,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8577e947838a248b01d0c8de268959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detector: {fileID: 8609064919359846059}
+  enemyDetector: {fileID: 0}
   homeRadius: 2
-  maxChaseDistance: 10
-  attackRange: 1.4
-  attackCooldown: 1.5
-  chaseHysteresis: 0.5
+  maxTravelDistance: 10
   patrolStepRadius: 1
   patrolPauseMin: 2.5
   patrolPauseMax: 5
   patrolArriveDistance: 0.15
   repathInterval: 0.25
+  attackRange: 1.4
+  attackCooldown: 1.5
+  chaseHysteresis: 0.5
+  garrison:
+    seekBuildings: 0
+    searchRadius: 12
+    buildingsLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    buildingTag: Building
+    doorArriveDistance: 0.3
+--- !u!114 &4962004876502780070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3620995358034244021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a46632979520c4ebdb1862ba129f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatLevel: 2
 --- !u!1 &5401989657472980662
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +394,7 @@ GameObject:
   - component: {fileID: 6484360927010547191}
   - component: {fileID: 8192491834264080144}
   - component: {fileID: 6325976896567896107}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: PickupZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +476,7 @@ GameObject:
   - component: {fileID: 5809726229515610752}
   - component: {fileID: 5345125504595977470}
   - component: {fileID: 8609064919359846059}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: EnemyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

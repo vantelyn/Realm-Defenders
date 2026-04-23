@@ -228,7 +228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1616145065319247066}
   - component: {fileID: 2640646293001407963}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Door
   m_TagString: Building
   m_Icon: {fileID: 0}

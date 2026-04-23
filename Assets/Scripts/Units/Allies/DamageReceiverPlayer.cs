@@ -21,6 +21,7 @@ public class DamageReceiverPlayer : MonoBehaviour
     private Animator animator;
     private PlayerUnit playerUnit;
     private IDamageBlocker blocker;
+    private bool knockbackActive;
 
     public float forceImpulse = 5;
 
@@ -53,6 +54,15 @@ public class DamageReceiverPlayer : MonoBehaviour
         if (applyForce)
         {
             if (playerUnit != null) playerUnit.canMove = false;
+
+            // Si el rb estaba en Kinematic (modo IA), hay que pasarlo temporalmente a Dynamic
+            // para que AddForce tenga efecto.
+            if (rb2D.bodyType == RigidbodyType2D.Kinematic)
+            {
+                rb2D.bodyType = RigidbodyType2D.Dynamic;
+                knockbackActive = true;
+            }
+
             rb2D.AddForce(hitDirection.normalized * forceImpulse, ForceMode2D.Impulse);
             Invoke(nameof(ResetMovement), 0.1f);
         }
@@ -97,6 +107,13 @@ public class DamageReceiverPlayer : MonoBehaviour
     void ResetMovement()
     {
         if (playerUnit != null) playerUnit.canMove = true;
+
+        if (knockbackActive)
+        {
+            rb2D.linearVelocity = Vector2.zero;
+            rb2D.bodyType = RigidbodyType2D.Kinematic;
+            knockbackActive = false;
+        }
     }
 
     void GoToHell()

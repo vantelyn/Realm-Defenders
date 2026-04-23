@@ -1,134 +1,52 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(MonkUnit))]
-public class MonkUnitAI : MonoBehaviour, IUnitAI
+public class MonkUnitAI : BaseUnitAI
 {
     public enum AIState { Idle, MoveToAlly, Heal, Flee, ReturnHome, MoveToBuilding }
 
-    [Header("References")]
-    [SerializeField] private EnemyDetector enemyDetector;
+    [Header("Monk References")]
     [SerializeField] private AllyDetector allyDetector;
 
-    [Header("Home Zone")]
-    [SerializeField] private float homeRadius = 1.5f;
-    [SerializeField] private float maxTravelDistance = 10f;
-
     [Header("Healing")]
-    [SerializeField] private float healRange = 3f;
     [SerializeField] private float healCooldown = 2f;
 
     [Header("Flee")]
     [SerializeField] private float enemyDangerDistance = 2.5f;
     [SerializeField] private float fleeDistance = 3.5f;
 
-    [Header("Patrol")]
-    [SerializeField] private float patrolStepRadius = 1.0f;
-    [SerializeField] private float patrolPauseMin = 2.5f;
-    [SerializeField] private float patrolPauseMax = 5.0f;
-    [SerializeField] private float patrolArriveDistance = 0.15f;
-
-    [Header("Repath")]
-    [SerializeField] private float repathInterval = 0.25f;
-
     [Header("Buildings")]
-    [SerializeField] private float buildingSearchRadius = 12f;
-    [SerializeField] private LayerMask buildingSearchLayerMask;
-    [SerializeField] private string buildingTag = "Building";
+    [SerializeField] private BuildingGarrisonHelper garrison = new BuildingGarrisonHelper();
 
     private MonkUnit monk;
-    private PlayerUnit unit;
-    private NavMeshAgent agent;
-    private Rigidbody2D rb;
-    private DamageReceiverPlayer selfHealth;
 
     private AIState state = AIState.Idle;
-    private Vector3 homePosition;
     private PlayerUnit currentHealTarget;
-    private Building targetBuilding;
     private float lastHealTime = -999f;
-    private float lastRepathTime = -999f;
-
-    private float nextPatrolTime = -1f;
-    private bool hasPatrolDestination;
 
     public AIState State => state;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         monk = GetComponent<MonkUnit>();
-        unit = GetComponent<PlayerUnit>();
-        agent = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody2D>();
-        selfHealth = GetComponent<DamageReceiverPlayer>();
-
-        if (agent != null)
-        {
-            agent.updateRotation = false;
-            agent.updateUpAxis = false;
-        }
-
-        homePosition = transform.position;
     }
 
-    private void Start()
+    protected override void CleanDetectors()
     {
-        Enable();
-    }
-
-    public void SetHome(Vector3 position) { homePosition = position; }
-
-    public void Enable()
-    {
-        unit.SetMode(PlayerUnit.ControlMode.AI);
-
-        if (!monk.IsGarrisoned)
-        {
-            if (agent != null)
-            {
-                if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
-                {
-                    transform.position = hit.position;
-                }
-                agent.enabled = true;
-            }
-
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector2.zero;
-                rb.bodyType = RigidbodyType2D.Kinematic;
-            }
-        }
-
-        TransitionTo(AIState.Idle);
-    }
-
-    public void Disable()
-    {
-        if (agent != null && agent.enabled)
-        {
-            agent.ResetPath();
-            agent.enabled = false;
-        }
-
-        if (rb != null && !monk.IsGarrisoned)
-        {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            rb.linearVelocity = Vector2.zero;
-        }
-
-        currentHealTarget = null;
-        targetBuilding = null;
-        unit.SetMode(PlayerUnit.ControlMode.Player);
-    }
-
-    private void Update()
-    {
-        if (unit.Mode != PlayerUnit.ControlMode.AI) return;
-
-        if (enemyDetector != null) enemyDetector.CleanNulls();
         if (allyDetector != null) allyDetector.CleanNulls();
+    }
 
+    protected override void ResetStateOnEnable() => TransitionTo(AIState.Idle);
+
+    protected override void ClearTargetsOnDisable()
+    {
+        currentHealTarget = null;
+        garrison.ClearTarget();
+    }
+
+    protected override void TickStates()
+    {
         if (monk.IsGarrisoned)
         {
             TickGarrisoned();
@@ -144,17 +62,11 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
             case AIState.ReturnHome: TickReturnHome(); break;
             case AIState.MoveToBuilding: TickMoveToBuilding(); break;
         }
-
-        if (agent != null && agent.enabled)
-        {
-            Vector2 vel = agent.velocity;
-            unit.SetMovementInput(vel.sqrMagnitude > 0.01f ? vel.normalized : Vector2.zero);
-        }
     }
 
     private void TickIdle()
     {
-        if (agent != null && agent.enabled && agent.isStopped) agent.isStopped = false;
+        ResumeAgent();
 
         if (ShouldFlee())
         {
@@ -170,12 +82,15 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
             return;
         }
 
-        Building freeBuilding = FindFreeBuilding();
-        if (freeBuilding != null)
+        if (garrison.SeekBuildings)
         {
-            targetBuilding = freeBuilding;
-            TransitionTo(AIState.MoveToBuilding);
-            return;
+            Building freeBuilding = garrison.FindFreeBuilding(transform.position);
+            if (freeBuilding != null)
+            {
+                garrison.SetTarget(freeBuilding);
+                TransitionTo(AIState.MoveToBuilding);
+                return;
+            }
         }
 
         if (DistanceToHome() > homeRadius)
@@ -216,11 +131,7 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
             return;
         }
 
-        if (Time.time - lastRepathTime > repathInterval && agent != null && agent.enabled)
-        {
-            agent.SetDestination(currentHealTarget.transform.position);
-            lastRepathTime = Time.time;
-        }
+        RepathTo(currentHealTarget.transform.position);
     }
 
     private void TickHeal()
@@ -232,16 +143,12 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
             return;
         }
 
-        if (agent != null && agent.enabled)
-        {
-            if (agent.hasPath) agent.ResetPath();
-            agent.isStopped = true;
-        }
+        StopAgent();
 
         float dist = Vector2.Distance(transform.position, currentHealTarget.transform.position);
         if (dist > monk.HealRange)
         {
-            if (agent != null && agent.enabled) agent.isStopped = false;
+            ResumeAgent();
             TransitionTo(AIState.MoveToAlly);
             return;
         }
@@ -259,7 +166,7 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
 
     private void TickFlee()
     {
-        if (agent != null && agent.enabled && agent.isStopped) agent.isStopped = false;
+        ResumeAgent();
 
         Transform enemy = FindClosestEnemy();
         if (enemy == null)
@@ -279,20 +186,16 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
             return;
         }
 
-        if (Time.time - lastRepathTime > repathInterval && agent != null && agent.enabled)
+        Vector3 target = transform.position + (Vector3)(awayDir * (fleeDistance - distanceNow + 1f));
+        if (UnityEngine.AI.NavMesh.SamplePosition(target, out UnityEngine.AI.NavMeshHit hit, 2f, UnityEngine.AI.NavMesh.AllAreas))
         {
-            Vector3 target = transform.position + (Vector3)(awayDir * (fleeDistance - distanceNow + 1f));
-            if (NavMesh.SamplePosition(target, out NavMeshHit hit, 2f, NavMesh.AllAreas))
-            {
-                agent.SetDestination(hit.position);
-            }
-            lastRepathTime = Time.time;
+            RepathTo(hit.position);
         }
     }
 
     private void TickReturnHome()
     {
-        if (agent != null && agent.enabled && agent.isStopped) agent.isStopped = false;
+        ResumeAgent();
 
         if (ShouldFlee())
         {
@@ -314,18 +217,14 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
             return;
         }
 
-        if (Time.time - lastRepathTime > repathInterval && agent != null && agent.enabled)
-        {
-            agent.SetDestination(homePosition);
-            lastRepathTime = Time.time;
-        }
+        RepathTo(homePosition);
     }
 
     private void TickMoveToBuilding()
     {
         if (ShouldFlee())
         {
-            targetBuilding = null;
+            garrison.ClearTarget();
             TransitionTo(AIState.Flee);
             return;
         }
@@ -333,39 +232,30 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
         PlayerUnit patient = FindHealTarget();
         if (patient != null)
         {
-            targetBuilding = null;
+            garrison.ClearTarget();
             currentHealTarget = patient;
             TransitionTo(AIState.MoveToAlly);
             return;
         }
 
-        if (targetBuilding == null || !targetBuilding.HasFreeSlot)
+        if (!garrison.IsTargetValid())
         {
-            targetBuilding = null;
+            garrison.ClearTarget();
             TransitionTo(AIState.Idle);
             return;
         }
 
-        Vector3 door = targetBuilding.DoorPosition;
-        float dist = Vector2.Distance(transform.position, door);
-        if (dist <= 0.3f)
+        if (garrison.IsAtDoor(transform.position))
         {
-            targetBuilding.TryEnter(monk);
-            targetBuilding = null;
+            garrison.TryEnter(monk);
             return;
         }
 
-        if (Time.time - lastRepathTime > repathInterval && agent != null && agent.enabled)
-        {
-            agent.SetDestination(door);
-            lastRepathTime = Time.time;
-        }
+        RepathTo(garrison.GetDoorPosition());
     }
 
     private void TickGarrisoned()
     {
-        if (agent != null && agent.enabled) agent.enabled = false;
-
         if (currentHealTarget == null || IsFullHealth(currentHealTarget))
         {
             currentHealTarget = FindHealTarget();
@@ -387,68 +277,11 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
         }
     }
 
-    private void TickPatrol()
-    {
-        if (hasPatrolDestination)
-        {
-            if (agent != null && agent.enabled && !agent.pathPending &&
-                agent.remainingDistance <= patrolArriveDistance)
-            {
-                hasPatrolDestination = false;
-                ScheduleNextPatrol();
-                if (agent.hasPath) agent.ResetPath();
-            }
-            return;
-        }
-
-        if (nextPatrolTime < 0f) ScheduleNextPatrol();
-
-        if (Time.time >= nextPatrolTime)
-        {
-            if (TryPickPatrolPoint(out Vector3 dest))
-            {
-                if (agent != null && agent.enabled)
-                {
-                    agent.SetDestination(dest);
-                    hasPatrolDestination = true;
-                }
-            }
-            else
-            {
-                nextPatrolTime = Time.time + 1f;
-            }
-        }
-    }
-
-    private void ScheduleNextPatrol()
-    {
-        nextPatrolTime = Time.time + Random.Range(patrolPauseMin, patrolPauseMax);
-    }
-
-    private bool TryPickPatrolPoint(out Vector3 dest)
-    {
-        Vector2 offset = Random.insideUnitCircle * patrolStepRadius;
-        Vector3 candidate = homePosition + new Vector3(offset.x, offset.y, 0f);
-        if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, patrolStepRadius, NavMesh.AllAreas))
-        {
-            dest = hit.position;
-            return true;
-        }
-        dest = Vector3.zero;
-        return false;
-    }
-
     private bool ShouldFlee()
     {
         Transform enemy = FindClosestEnemy();
         if (enemy == null) return false;
         return Vector2.Distance(transform.position, enemy.position) < enemyDangerDistance;
-    }
-
-    private Transform FindClosestEnemy()
-    {
-        if (enemyDetector == null) return null;
-        return enemyDetector.FindClosest(transform.position);
     }
 
     private PlayerUnit FindHealTarget()
@@ -461,7 +294,7 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
             foreach (PlayerUnit ally in allyDetector.Detected)
             {
                 if (ally == null || ally == monk) continue;
-                DamageReceiverPlayer hp = ally.GetComponent<DamageReceiverPlayer>();
+                DamageReceiverPlayer hp = ally.Health;
                 if (hp == null || hp.IsAtFullHealth) continue;
 
                 if (hp.HealthRatio < bestRatio)
@@ -474,34 +307,15 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
 
         if (best != null) return best;
 
-        if (selfHealth != null && !selfHealth.IsAtFullHealth) return monk;
+        if (monk.Health != null && !monk.Health.IsAtFullHealth) return monk;
         return null;
-    }
-
-    private Building FindFreeBuilding()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, buildingSearchRadius, buildingSearchLayerMask);
-        Building best = null;
-        float bestDist = float.MaxValue;
-        foreach (Collider2D c in hits)
-        {
-            if (c == null) continue;
-            if (!c.CompareTag(buildingTag)) continue;
-            Building b = c.GetComponentInParent<Building>();
-            if (b == null || !b.HasFreeSlot) continue;
-            float d = Vector2.Distance(transform.position, b.DoorPosition);
-            if (d < bestDist) { bestDist = d; best = b; }
-        }
-        return best;
     }
 
     private bool IsFullHealth(PlayerUnit p)
     {
-        DamageReceiverPlayer hp = p.GetComponent<DamageReceiverPlayer>();
+        DamageReceiverPlayer hp = p.Health;
         return hp == null || hp.IsAtFullHealth;
     }
-
-    private float DistanceToHome() => Vector2.Distance(transform.position, homePosition);
 
     private void TransitionTo(AIState next)
     {
@@ -510,12 +324,11 @@ public class MonkUnitAI : MonoBehaviour, IUnitAI
         lastRepathTime = -999f;
     }
 
-    private void OnDrawGizmosSelected()
+    protected override void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(0f, 1f, 0f, 0.4f);
-        Gizmos.DrawWireSphere(Application.isPlaying ? homePosition : transform.position, homeRadius);
+        base.OnDrawGizmosSelected();
         Gizmos.color = new Color(0f, 0.7f, 1f, 0.4f);
-        Gizmos.DrawWireSphere(transform.position, healRange);
+        if (Application.isPlaying && monk != null) Gizmos.DrawWireSphere(transform.position, monk.HealRange);
         Gizmos.color = new Color(1f, 0.3f, 0.3f, 0.4f);
         Gizmos.DrawWireSphere(transform.position, enemyDangerDistance);
     }

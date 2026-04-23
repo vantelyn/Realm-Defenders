@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 366200958143918000}
   - component: {fileID: 8170446233921839466}
   - component: {fileID: 2531584566507326306}
+  - component: {fileID: 1308628826002594140}
   m_Layer: 10
   m_Name: Archer
   m_TagString: PlayerUnit
@@ -273,17 +274,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8577e947838a248b01d0c8de268959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detector: {fileID: 6094680510622377694}
+  enemyDetector: {fileID: 6094680510622377694}
   homeRadius: 1.5
-  maxChaseDistance: 12
-  attackRange: 7
-  attackCooldown: 1.5
-  chaseHysteresis: 1
+  maxTravelDistance: 10
   patrolStepRadius: 1
   patrolPauseMin: 2.5
   patrolPauseMax: 5
   patrolArriveDistance: 0.15
   repathInterval: 0.25
+  attackRange: 7
+  attackCooldown: 1.5
+  chaseHysteresis: 1
+  garrison:
+    seekBuildings: 1
+    searchRadius: 12
+    buildingsLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    buildingTag: Building
+    doorArriveDistance: 0.6
+--- !u!114 &1308628826002594140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960303648852572394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a46632979520c4ebdb1862ba129f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatLevel: 2
 --- !u!1 &2692884531329752975
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +317,7 @@ GameObject:
   - component: {fileID: 2756842296690538534}
   - component: {fileID: 4134715868016355112}
   - component: {fileID: 6094680510622377694}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: EnemyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8629457840454448524}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ArrowSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +501,7 @@ GameObject:
   - component: {fileID: 4448265755750819752}
   - component: {fileID: 5363880568179294721}
   - component: {fileID: 5583934871425614734}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: PickupZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

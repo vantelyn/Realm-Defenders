@@ -25,6 +25,8 @@ public abstract class PlayerUnit : MonoBehaviour
 
     private IUnitAI ai;
     private Building currentBuilding;
+    private SpriteRenderer cachedSpriteRenderer;
+    private DamageReceiverPlayer cachedHealth;
     private int originalSortingOrder;
 
     public bool canMove = true;
@@ -35,6 +37,7 @@ public abstract class PlayerUnit : MonoBehaviour
     public bool IsGarrisoned => currentBuilding != null;
     public Building CurrentBuilding => currentBuilding;
     public float RangeMultiplier => currentBuilding != null ? currentBuilding.RangeMultiplier : 1f;
+    public DamageReceiverPlayer Health => cachedHealth;
 
     public Vector2 LastMovementDir { get; set; } = Vector2.right;
     public ControlMode Mode { get; private set; } = ControlMode.Player;
@@ -44,6 +47,8 @@ public abstract class PlayerUnit : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         ai = GetComponent<IUnitAI>();
+        cachedSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        cachedHealth = GetComponent<DamageReceiverPlayer>();
         if (selectionIndicator != null) selectionIndicator.SetActive(false);
     }
 
@@ -126,22 +131,16 @@ public abstract class PlayerUnit : MonoBehaviour
         movementInput = Vector2.zero;
         if (rb2D != null) rb2D.linearVelocity = Vector2.zero;
 
-        UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        if (agent != null && agent.enabled)
-        {
-            agent.ResetPath();
-            agent.enabled = false;
-        }
+        if (ai != null) ai.OnHostEnteredBuilding();
 
         transform.position = slot.position;
         canMove = false;
         if (animator != null) animator.SetBool("isRunning", false);
 
-        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-        if (sr != null)
+        if (cachedSpriteRenderer != null)
         {
-            originalSortingOrder = sr.sortingOrder;
-            sr.sortingOrder = 10;
+            originalSortingOrder = cachedSpriteRenderer.sortingOrder;
+            cachedSpriteRenderer.sortingOrder = 10;
         }
     }
 
@@ -151,21 +150,17 @@ public abstract class PlayerUnit : MonoBehaviour
         transform.position = doorPosition;
         canMove = true;
 
-        if (rb2D != null)
+        if (ai != null) ai.OnHostExitedBuilding();
+        else if (rb2D != null)
         {
-            rb2D.bodyType = Mode == ControlMode.Player ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
+            // Fallback para unidades sin AI.
+            rb2D.bodyType = RigidbodyType2D.Dynamic;
             rb2D.linearVelocity = Vector2.zero;
         }
 
-        if (Mode == ControlMode.AI)
-        {
-            UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-            if (agent != null) agent.enabled = true;
-        }
-
-        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-        if (sr != null) sr.sortingOrder = originalSortingOrder;
+        if (cachedSpriteRenderer != null) cachedSpriteRenderer.sortingOrder = originalSortingOrder;
     }
+
     public abstract void PrimaryAttack(Vector2 worldAimDirection);
     public virtual void SecondaryAction(Vector2 worldAimDirection, PlayerUnit hoveredUnit) { }
 

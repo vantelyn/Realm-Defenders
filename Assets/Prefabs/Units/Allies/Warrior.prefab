@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9001083175895556677}
   - component: {fileID: 5987062352361108772}
   - component: {fileID: 3960382261870210046}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: EnemyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 306111416977721393}
   - component: {fileID: 6040089335782895844}
   - component: {fileID: 8016181923370614160}
+  - component: {fileID: 3078725998814492476}
   m_Layer: 10
   m_Name: Warrior
   m_TagString: PlayerUnit
@@ -237,8 +238,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.048863217, y: 0.1865167}
-  m_Size: {x: 0.6503691, y: 0.26254603}
+  m_Offset: {x: -0.04886322, y: 0.15015084}
+  m_Size: {x: 0.6503692, y: 0.33527777}
   m_Direction: 1
 --- !u!50 &6385789646183534979
 Rigidbody2D:
@@ -352,17 +353,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8577e947838a248b01d0c8de268959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detector: {fileID: 3960382261870210046}
+  enemyDetector: {fileID: 3960382261870210046}
   homeRadius: 1.5
-  maxChaseDistance: 10
-  attackRange: 1
-  attackCooldown: 1.2
-  chaseHysteresis: 0.5
+  maxTravelDistance: 10
   patrolStepRadius: 1
   patrolPauseMin: 2.5
   patrolPauseMax: 5
   patrolArriveDistance: 0.15
   repathInterval: 0.25
+  attackRange: 1
+  attackCooldown: 1.2
+  chaseHysteresis: 0.5
+  garrison:
+    seekBuildings: 0
+    searchRadius: 12
+    buildingsLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    buildingTag: Building
+    doorArriveDistance: 0.3
+--- !u!114 &3078725998814492476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2727363506755996944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a46632979520c4ebdb1862ba129f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatLevel: 2
 --- !u!1 &2875990695874415965
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +396,7 @@ GameObject:
   - component: {fileID: 2568167925799033653}
   - component: {fileID: 5178320516815338513}
   - component: {fileID: 4990612072297797779}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: PickupZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

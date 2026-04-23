@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 28530472757691847}
   - component: {fileID: 5507003024570728412}
   - component: {fileID: 8838171614997356015}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: PickupZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: -2988040480801537046}
   - component: {fileID: 4760573010958501943}
   - component: {fileID: 8454324989996071366}
+  - component: {fileID: 5527158393224111723}
   m_Layer: 10
   m_Name: Pawn
   m_TagString: PlayerUnit
@@ -421,10 +422,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDetector: {fileID: 5826219270887966107}
+  homeRadius: 3
+  maxTravelDistance: 10
+  patrolStepRadius: 3
+  patrolPauseMin: 2.5
+  patrolPauseMax: 5
+  patrolArriveDistance: 0.15
+  repathInterval: 0.25
   treeDetector: {fileID: 5750426982317292384}
   resourceDetector: {fileID: 1523883975426064519}
-  homeRadius: 1.5
-  maxTravelDistance: 10
   attackRange: 1
   attackCooldown: 1.2
   chaseHysteresis: 0.5
@@ -432,11 +438,19 @@ MonoBehaviour:
   chopCooldown: 1.2
   resourceOpportunityRadius: 2
   resourceArriveDistance: 0.3
-  patrolStepRadius: 1
-  patrolPauseMin: 2.5
-  patrolPauseMax: 5
-  patrolArriveDistance: 0.15
-  repathInterval: 0.25
+--- !u!114 &5527158393224111723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048341638465990237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a46632979520c4ebdb1862ba129f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatLevel: 0.5
 --- !u!1 &3156476810101527678
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +462,7 @@ GameObject:
   - component: {fileID: 5984366490220036799}
   - component: {fileID: 2032202931774901712}
   - component: {fileID: 1523883975426064519}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: ResourceDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +546,7 @@ GameObject:
   - component: {fileID: 3631096568092085952}
   - component: {fileID: 3557692208223477876}
   - component: {fileID: 5826219270887966107}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: EnemyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +630,7 @@ GameObject:
   - component: {fileID: 378339047494769276}
   - component: {fileID: 1218254826090210333}
   - component: {fileID: 5750426982317292384}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: TreeDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

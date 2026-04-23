@@ -5,12 +5,8 @@ public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private CameraFollowController cameraFollow;
     [SerializeField] private Camera worldCamera;
-    [SerializeField] private LayerMask selectableLayerMask;
-    [SerializeField] private string unitTag = "Unit";
-    [SerializeField] private string buildingTag = "Building";
+    [SerializeField] private TargetingConfig targeting;
     [SerializeField] private KeyCode selectionKey = KeyCode.F;
-
-    private static readonly Collider2D[] overlapBuffer = new Collider2D[16];
 
     private PlayerUnit selectedUnit;
     public PlayerUnit SelectedUnit => selectedUnit;
@@ -36,9 +32,10 @@ public class SelectionManager : MonoBehaviour
     private void HandleSelectionKey()
     {
         if (IsPointerOverUI()) return;
+        if (targeting == null) return;
 
         Vector3 mouseWorld = GetMouseWorld();
-        PlayerUnit hit = GetUnitAt(mouseWorld);
+        PlayerUnit hit = QueryService.FindUnitAt(mouseWorld, targeting.unitsLayer, targeting.unitTag);
 
         if (hit != null && hit != selectedUnit)
         {
@@ -53,11 +50,11 @@ public class SelectionManager : MonoBehaviour
     private void HandleLeftClick()
     {
         if (IsPointerOverUI()) return;
+        if (targeting == null) return;
 
         Vector3 mouseWorld = GetMouseWorld();
 
-        // Prioridad 1: puerta de edificio con unidad seleccionada.
-        Building building = GetBuildingAt(mouseWorld);
+        Building building = QueryService.FindBuildingAt(mouseWorld, targeting.buildingsLayer, targeting.buildingTag);
         if (building != null && selectedUnit != null)
         {
             if (selectedUnit.IsGarrisoned && selectedUnit.CurrentBuilding == building)
@@ -73,15 +70,13 @@ public class SelectionManager : MonoBehaviour
             return;
         }
 
-        // Prioridad 2: hover sobre unidad seleccionable → seleccionar / cambiar.
-        PlayerUnit hit = GetUnitAt(mouseWorld);
+        PlayerUnit hit = QueryService.FindUnitAt(mouseWorld, targeting.unitsLayer, targeting.unitTag);
         if (hit != null)
         {
             if (hit != selectedUnit) Select(hit);
             return;
         }
 
-        // Prioridad 3: primary attack.
         if (selectedUnit == null) return;
         Vector2 aim = (Vector2)(mouseWorld - selectedUnit.transform.position);
         selectedUnit.PrimaryAttack(aim);
@@ -92,9 +87,10 @@ public class SelectionManager : MonoBehaviour
         if (IsPointerOverUI()) return;
         if (selectedUnit == null) return;
         if (!selectedUnit.HasSecondary) return;
+        if (targeting == null) return;
 
         Vector3 mouseWorld = GetMouseWorld();
-        PlayerUnit hit = GetUnitAt(mouseWorld);
+        PlayerUnit hit = QueryService.FindUnitAt(mouseWorld, targeting.unitsLayer, targeting.unitTag);
 
         if (hit != null && hit != selectedUnit && !selectedUnit.SecondaryTargetsAllies)
         {
@@ -110,44 +106,6 @@ public class SelectionManager : MonoBehaviour
         Vector3 p = worldCamera.ScreenToWorldPoint(Input.mousePosition);
         p.z = 0f;
         return p;
-    }
-
-    private PlayerUnit GetUnitAt(Vector2 worldPoint)
-    {
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(selectableLayerMask);
-        filter.useLayerMask = true;
-        filter.useTriggers = true;
-
-        int count = Physics2D.OverlapPoint(worldPoint, filter, overlapBuffer);
-        for (int i = 0; i < count; i++)
-        {
-            Collider2D col = overlapBuffer[i];
-            if (col == null) continue;
-            if (!col.CompareTag(unitTag)) continue;
-            PlayerUnit u = col.GetComponentInParent<PlayerUnit>();
-            if (u != null) return u;
-        }
-        return null;
-    }
-
-    private Building GetBuildingAt(Vector2 worldPoint)
-    {
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(selectableLayerMask);
-        filter.useLayerMask = true;
-        filter.useTriggers = true;
-
-        int count = Physics2D.OverlapPoint(worldPoint, filter, overlapBuffer);
-        for (int i = 0; i < count; i++)
-        {
-            Collider2D col = overlapBuffer[i];
-            if (col == null) continue;
-            if (!col.CompareTag(buildingTag)) continue;
-            Building b = col.GetComponentInParent<Building>();
-            if (b != null) return b;
-        }
-        return null;
     }
 
     private void Select(PlayerUnit unit)

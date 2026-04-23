@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 306844536653417613}
   - component: {fileID: 3451827852757638371}
   - component: {fileID: 8214250211477270944}
+  - component: {fileID: 5010712784666993579}
   m_Layer: 10
   m_Name: Monk
   m_TagString: PlayerUnit
@@ -252,18 +253,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDetector: {fileID: 6054377270493417344}
-  allyDetector: {fileID: 2608333648906598491}
   homeRadius: 1.5
   maxTravelDistance: 10
-  healRange: 3
-  healCooldown: 2
-  enemyDangerDistance: 2.5
-  fleeDistance: 3.5
   patrolStepRadius: 1
   patrolPauseMin: 2.5
   patrolPauseMax: 5
   patrolArriveDistance: 0.15
   repathInterval: 0.25
+  allyDetector: {fileID: 2608333648906598491}
+  healCooldown: 2
+  enemyDangerDistance: 2.5
+  fleeDistance: 3.5
+  garrison:
+    seekBuildings: 1
+    searchRadius: 12
+    buildingsLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    buildingTag: Building
+    doorArriveDistance: 0.6
 --- !u!195 &8214250211477270944
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -286,6 +294,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5010712784666993579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343764445346676223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a46632979520c4ebdb1862ba129f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatLevel: 1.5
 --- !u!1 &2037114791946978625
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +318,7 @@ GameObject:
   - component: {fileID: 8270173550307347345}
   - component: {fileID: 7952569935727570751}
   - component: {fileID: 620713112010203080}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: PickupZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +469,7 @@ GameObject:
   - component: {fileID: 4100326775712597658}
   - component: {fileID: 643086345881474858}
   - component: {fileID: 6054377270493417344}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: EnemyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +553,7 @@ GameObject:
   - component: {fileID: 6372716642678993900}
   - component: {fileID: 7723984797593837084}
   - component: {fileID: 2608333648906598491}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: AllyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
