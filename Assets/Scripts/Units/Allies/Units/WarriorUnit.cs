@@ -26,7 +26,7 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
         animator.SetTrigger("doAttack");
     }
 
-    public override void SecondaryAction(Vector2 worldAimDirection)
+    public override void SecondaryAction(Vector2 worldAimDirection, PlayerUnit hoveredUnit)
     {
         if (isAttacking) return;
 

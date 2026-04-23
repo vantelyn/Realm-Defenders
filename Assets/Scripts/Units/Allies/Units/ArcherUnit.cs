@@ -21,7 +21,6 @@ public class ArcherUnit : PlayerUnit
             ? worldAimDirection / rawDistance
             : (transform.localScale.x > 0 ? Vector2.right : Vector2.left);
 
-        // Clamp al rango máximo. Si el ratón está más lejos, la flecha cae en el borde del rango.
         pendingDistance = Mathf.Min(rawDistance, maxRange);
         pendingDistance = Mathf.Max(0.5f, pendingDistance);
 
@@ -33,7 +32,7 @@ public class ArcherUnit : PlayerUnit
             transform.localScale = s;
         }
 
-        animator.SetTrigger("doAttack");
+        animator.SetTrigger("doShoot");
     }
 
     // Animation Event en el clip de disparo

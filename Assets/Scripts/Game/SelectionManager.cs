@@ -5,8 +5,8 @@ public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private CameraFollowController cameraFollow;
     [SerializeField] private Camera worldCamera;
-    [SerializeField] private LayerMask playerLayerMask;
-    [SerializeField] private string playerUnitTag = "PlayerUnit";
+    [SerializeField] private LayerMask selectableLayerMask;
+    [SerializeField] private string unitTag = "Unit";
 
     private PlayerUnit selectedUnit;
 
@@ -52,13 +52,16 @@ public class SelectionManager : MonoBehaviour
         Vector3 mouseWorld = GetMouseWorld();
         PlayerUnit hit = GetUnitAt(mouseWorld);
 
-        if (hit != null && hit != selectedUnit) return;
-
         if (selectedUnit == null) return;
         if (!selectedUnit.HasSecondary) return;
 
+        if (hit != null && hit != selectedUnit && !selectedUnit.SecondaryTargetsAllies)
+        {
+            return;
+        }
+
         Vector2 aim = (Vector2)(mouseWorld - selectedUnit.transform.position);
-        selectedUnit.SecondaryAction(aim);
+        selectedUnit.SecondaryAction(aim, hit);
     }
 
     private Vector3 GetMouseWorld()
@@ -70,9 +73,9 @@ public class SelectionManager : MonoBehaviour
 
     private PlayerUnit GetUnitAt(Vector2 worldPoint)
     {
-        Collider2D col = Physics2D.OverlapPoint(worldPoint, playerLayerMask);
+        Collider2D col = Physics2D.OverlapPoint(worldPoint, selectableLayerMask);
         if (col == null) return null;
-        if (!col.CompareTag(playerUnitTag)) return null;
+        if (!col.CompareTag(unitTag)) return null;
         return col.GetComponentInParent<PlayerUnit>();
     }
 

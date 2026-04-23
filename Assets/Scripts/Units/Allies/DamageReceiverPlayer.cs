@@ -20,8 +20,8 @@ public class DamageReceiverPlayer : MonoBehaviour
     private Rigidbody2D rb2D;
     private Animator animator;
     private PlayerUnit playerUnit;
-    public float forceImpulse = 5;
     private IDamageBlocker blocker;
+    public float forceImpulse = 5;
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class DamageReceiverPlayer : MonoBehaviour
     {
         if (blocker != null && blocker.TryBlock(hitDirection))
         {
-            return; // golpe bloqueado
+            return;
         }
 
         currentHealth -= amount;
@@ -58,6 +58,11 @@ public class DamageReceiverPlayer : MonoBehaviour
             DropItem();
             GoToHell();
         }
+    }
+
+    public void Heal(int amount)
+    {
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
     }
 
     void DropItem()

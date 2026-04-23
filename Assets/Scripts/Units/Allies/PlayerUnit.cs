@@ -23,6 +23,7 @@ public abstract class PlayerUnit : MonoBehaviour
     public bool canMove = true;
     public bool IsSelected { get; private set; }
     public virtual bool HasSecondary => false;
+    public virtual bool SecondaryTargetsAllies => false;
     public bool IsAttacking => isAttacking;
 
     protected virtual void Awake()
@@ -34,7 +35,7 @@ public abstract class PlayerUnit : MonoBehaviour
 
     protected virtual void Update()
     {
-        movementInput = IsSelected ? CameraFollowController.ReadWasd() : Vector2.zero;
+        movementInput = (IsSelected && !isAttacking) ? CameraFollowController.ReadWasd() : Vector2.zero;
 
         bool moving = movementInput.sqrMagnitude > 0.01f;
         animator.SetBool("isRunning", moving);
@@ -61,7 +62,7 @@ public abstract class PlayerUnit : MonoBehaviour
     }
 
     public abstract void PrimaryAttack(Vector2 worldAimDirection);
-    public virtual void SecondaryAction(Vector2 worldAimDirection) { }
+    public virtual void SecondaryAction(Vector2 worldAimDirection, PlayerUnit hoveredUnit) { }
 
     // Animation Events
     public void StartAttack()

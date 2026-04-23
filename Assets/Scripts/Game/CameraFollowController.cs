@@ -21,7 +21,7 @@ public class CameraFollowController : MonoBehaviour
 
     private void Update()
     {
-        if (followTarget != null) return; // mientras sigue a una unidad, WASD no afecta a la cámara aquí
+        if (followTarget != null) return;
         Vector2 dir = ReadWasd();
         transform.position += (Vector3)(dir * freeMoveSpeed * Time.deltaTime);
     }
@@ -29,7 +29,6 @@ public class CameraFollowController : MonoBehaviour
     private void LateUpdate()
     {
         if (followTarget == null) return;
-        // LateUpdate garantiza que leemos la posición después de que FixedUpdate haya movido el Rigidbody.
         Vector3 p = followTarget.position;
         p.z = transform.position.z;
         transform.position = p;

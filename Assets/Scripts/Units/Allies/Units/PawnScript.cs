@@ -26,7 +26,7 @@ public class PawnScript : PlayerUnit
         animator.SetTrigger("doChop");
     }
 
-    public override void SecondaryAction(Vector2 worldAimDirection)
+    public override void SecondaryAction(Vector2 worldAimDirection, PlayerUnit hoveredUnit)
     {
         if (isAttacking) return;
         animator.SetTrigger("doBuild");
@@ -36,7 +36,6 @@ public class PawnScript : PlayerUnit
     public void DetectAndDamageTargets()
     {
         Vector2 attackPoint = (Vector2)transform.position + attackDir.normalized * attackRange * 0.5f;
-
         ContactFilter2D filter = new ContactFilter2D();
         filter.SetLayerMask(targetLayer);
         filter.useLayerMask = true;
@@ -48,17 +47,9 @@ public class PawnScript : PlayerUnit
         foreach (Collider2D target in hits)
         {
             if (target == null) continue;
-            int layer = target.gameObject.layer;
-
-
+            if (target.gameObject.layer != LayerMask.NameToLayer("Tree")) continue;
             Vector2 hitDirection = target.transform.position - transform.position;
-
-            if (layer == LayerMask.NameToLayer("Enemy"))
-                target.GetComponent<DamageReceiver>()?.ApplyDamage(1, true, false, hitDirection);
-            else if (layer == LayerMask.NameToLayer("Sheep"))
-                target.GetComponent<DamageReceiver>()?.ApplyDamage(1, true, false, hitDirection);
-            else if (layer == LayerMask.NameToLayer("Tree"))
-                target.GetComponent<DamageReceiver>()?.ApplyDamage(1, false, true, hitDirection);
+            target.GetComponent<DamageReceiver>()?.ApplyDamage(1, false, true, hitDirection);
         }
     }
 }
