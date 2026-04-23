@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TNTScript : Enemy
+public class TNTEnemy : BaseEnemyAI
 {
     [Header("TNT Throwing")]
     [SerializeField] private GameObject dynamitePrefab;
@@ -18,16 +18,16 @@ public class TNTScript : Enemy
     }
 
     // Solo trigger; nos saltamos attackDirection en este enemigo
-    protected override void ApplyAttackAnimatorParams(int attackDirection)
+    protected override void ApplyAttackAnimatorParams(int directionIndex)
     {
         animator.SetTrigger("doAttack");
     }
 
     private void UpdateFacingByMovement()
     {
-        if (navMeshAgent == null || !navMeshAgent.hasPath) return;
+        if (agent == null || !agent.hasPath) return;
 
-        float vx = navMeshAgent.velocity.x;
+        float vx = agent.velocity.x;
         if (Mathf.Abs(vx) > facingVelocityThreshold)
         {
             float sign = vx > 0f ? 1f : -1f;
@@ -35,9 +35,10 @@ public class TNTScript : Enemy
         }
     }
 
-    // Llamado desde Animation Event en el frame de suelta
+    // Animation Event en el frame de soltar la dinamita
     public void SpawnDynamite()
     {
+
         if (dynamitePrefab == null) return;
 
         Vector3 spawnPos = throwPoint != null ? throwPoint.position : transform.position;
@@ -49,8 +50,8 @@ public class TNTScript : Enemy
 
     private Vector3 GetCurrentTargetPosition()
     {
-        if (currentTargetUnit != null) return currentTargetUnit.position;
-        if (motherTransform != null) return motherTransform.position;
+        if (currentOpportunityTarget != null) return currentOpportunityTarget.position;
+        if (currentStrategicTarget != null) return currentStrategicTarget.Transform.position;
         return transform.position + (Vector3)attackDirectionVector.normalized * attackRange;
     }
 }

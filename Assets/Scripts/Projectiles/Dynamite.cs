@@ -11,12 +11,12 @@ public class Dynamite : MonoBehaviour
     [Header("Explosión")]
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private float explosionRadius = 1.5f;
-    [SerializeField] private int damageToPlayerUnit = 1;
-    [SerializeField] private float damageToMother = 10f;
+    [SerializeField] private int damageToUnits = 1;
+    [SerializeField] private int damageToBuildings = 10;
     [SerializeField] private LayerMask damageableLayers;
 
     [Header("Referencias")]
-    [SerializeField] private Transform spriteChild; // hijo con el sprite + chispa
+    [SerializeField] private Transform spriteChild;
 
     private Vector3 startPos;
     private Vector3 targetPos;
@@ -40,10 +40,8 @@ public class Dynamite : MonoBehaviour
         elapsed += Time.deltaTime;
         float t = Mathf.Clamp01(elapsed / flightDuration);
 
-        // Base sobre el plano del suelo
         transform.position = Vector3.Lerp(startPos, targetPos, t);
 
-        // Altura falsa (parábola)
         float h = Mathf.Sin(t * Mathf.PI) * arcHeight;
         if (spriteChild != null)
         {
@@ -54,45 +52,54 @@ public class Dynamite : MonoBehaviour
         if (t >= 1f) Explode();
     }
 
-void Explode()
-{
-    launched = false;
-
-    if (explosionPrefab != null)
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-
-    // Filtro que ignora colliders marcados como Trigger
-    ContactFilter2D filter = new ContactFilter2D();
-    filter.SetLayerMask(damageableLayers);
-    filter.useLayerMask = true;
-    filter.useTriggers = false; // ← clave
-    List<Collider2D> hits = new List<Collider2D>();
-    Physics2D.OverlapCircle(transform.position, explosionRadius, filter, hits);
-
-    foreach (var hit in hits)
+    void Explode()
     {
-        if (hit == null) continue;
+        launched = false;
 
-        Vector2 delta = (Vector2)(hit.transform.position - transform.position);
-        Vector2 dir;
-        if (delta.sqrMagnitude > 0.0001f)
-            dir = delta.normalized;
-        else
+        if (explosionPrefab != null)
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(damageableLayers);
+        filter.useLayerMask = true;
+        filter.useTriggers = false;
+
+        List<Collider2D> hits = new List<Collider2D>();
+        Physics2D.OverlapCircle(transform.position, explosionRadius, filter, hits);
+
+        foreach (var hit in hits)
         {
-            float angle = Random.Range(0f, Mathf.PI * 2f);
-            dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+            if (hit == null) continue;
+
+            Vector2 delta = (Vector2)(hit.transform.position - transform.position);
+            Vector2 dir;
+            if (delta.sqrMagnitude > 0.0001f)
+            {
+                dir = delta.normalized;
+            }
+            else
+            {
+                float angle = Random.Range(0f, Mathf.PI * 2f);
+                dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+            }
+
+            DamageReceiverPlayer playerHp = hit.GetComponent<DamageReceiverPlayer>();
+            if (playerHp != null)
+            {
+                playerHp.ApplyDamage(damageToUnits, true, false, dir);
+                continue;
+            }
+
+            DamageReceiverBuilding buildingHp = hit.GetComponent<DamageReceiverBuilding>();
+            if (buildingHp != null)
+            {
+                buildingHp.ApplyDamage(damageToBuildings, false, false, dir);
+                continue;
+            }
         }
 
-        if (hit.CompareTag("Mother"))
-            hit.GetComponent<MotherHealth>()?.TakeDamage(damageToMother);
-        else if (hit.CompareTag("PlayerUnit"))
-            hit.GetComponent<DamageReceiverPlayer>()?.ApplyDamage(damageToPlayerUnit, true, false, dir);
-        else
-            hit.GetComponent<DamageReceiver>()?.ApplyDamage(damageToPlayerUnit, true, false, dir);
+        Destroy(gameObject);
     }
-
-    Destroy(gameObject);
-}
 
     void OnDrawGizmosSelected()
     {

@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 3649938375850412411}
   - component: {fileID: 2531749941461803743}
   - component: {fileID: -5753440921298926028}
-  - component: {fileID: 6296756244066252269}
+  - component: {fileID: 9073991624785012445}
   m_Layer: 6
   m_Name: TNT
   m_TagString: Untagged
@@ -295,7 +295,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 5
---- !u!114 &6296756244066252269
+--- !u!114 &9073991624785012445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,21 +307,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2310f3c5a37c646b20c8f934a7fc7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementType: 0
-  selectedSkin: 0
-  animatorControllers: []
-  pathPoints: []
-  waitTimeInPoint: 3
-  movementRadius: 5
-  waitTimeRandom: 4
-  attackRange: 5
-  stopDistance: 4
-  attackCooldown: 3
+  attackRange: 1.5
+  attackCooldown: 2
+  attackAnimationDuration: 0.5
   targetLayer:
     serializedVersion: 2
-    m_Bits: 1024
-  chaseRange: 5
-  stopDistanceFromPlayer: 4
+    m_Bits: 9216
+  stopDistanceStrategic: 0.5
+  stopDistanceOpportunity: 1.5
+  repathInterval: 0.25
   dynamitePrefab: {fileID: 264293439663450383, guid: 3654fe81195f17b41b0cd4ebe680462f, type: 3}
   throwPoint: {fileID: 4928864262448777556}
   throwFlightDuration: 0.8

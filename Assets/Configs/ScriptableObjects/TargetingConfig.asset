@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a74cc733dbca44883b7215840de2bf, type: 3}
   m_Name: TargetingConfig
   m_EditorClassIdentifier: 
-  selectableLayer:
+  unitsLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  buildingsLayer:
     serializedVersion: 2
     m_Bits: 2048
   enemyLayer:

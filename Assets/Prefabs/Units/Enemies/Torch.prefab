@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2165352814510819436}
   - component: {fileID: 8293972434143995840}
   - component: {fileID: 3709362733402451947}
-  - component: {fileID: 6944631563751228599}
   - component: {fileID: 8207039090586929198}
   - component: {fileID: 6517436140756536767}
   - component: {fileID: 9101759830822365567}
@@ -203,31 +202,6 @@ NavMeshAgent:
   m_BaseOffset: 0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6944631563751228599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6854911528546568843}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4c954327d1904d4085727508cb4ee79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementType: 1
-  pathPoints: []
-  waitTimeInPoint: 3
-  movementRadius: 5
-  waitTimeRandom: 4
-  attackRange: 1
-  stopDistance: 0.5
-  attackCooldown: 2
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  chaseRange: 3
-  stopDistanceFromPlayer: 1
 --- !u!114 &8207039090586929198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +281,6 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 9216
-  opportunityTargetTag: PlayerUnit
   stopDistanceStrategic: 0.5
   stopDistanceOpportunity: 1.5
   repathInterval: 0.25
