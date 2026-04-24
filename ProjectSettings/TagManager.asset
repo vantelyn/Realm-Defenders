@@ -18,7 +18,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NotTargetable
   - Water
   - UI
   - Enemy
@@ -29,7 +29,7 @@ TagManager:
   - Selectable
   - Detectors
   - PlayerBuilding
-  - 
+  - Stump
   - 
   - 
   - 

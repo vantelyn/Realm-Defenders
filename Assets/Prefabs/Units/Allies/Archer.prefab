@@ -290,7 +290,7 @@ MonoBehaviour:
     searchRadius: 12
     buildingsLayer:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 2048
     buildingTag: Building
     doorArriveDistance: 0.6
 --- !u!114 &1308628826002594140

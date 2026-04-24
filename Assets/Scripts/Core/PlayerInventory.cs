@@ -8,6 +8,15 @@ public class PlayerInventory : ScriptableObject
     [SerializeField] private int maxMeat = 100;
     [SerializeField] private int maxWood = 100;
 
+    [Header("Starting Amounts")]
+    [SerializeField] private int startingMoney = 20;
+    [SerializeField] private int startingMeat = 20;
+    [SerializeField] private int startingWood = 20;
+
+    // ...
+
+
+
     private int money;
     private int meat;
     private int wood;
@@ -48,8 +57,8 @@ public class PlayerInventory : ScriptableObject
 
     private void OnEnable()
     {
-        money = 0;
-        meat = 0;
-        wood = 0;
+        money = startingMoney;
+        meat = startingMeat;
+        wood = startingWood;
     }
 }

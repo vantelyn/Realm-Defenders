@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 63aaade889cb3844490d061b4ee47c80
+guid: a02399a74e9608f42b8e26f7d5af29b6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 60076317226833714
-    second: Button_Red_0
+      213: -2133827381829125347
+    second: Portal_Malvado_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 125
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.76}
+  spritePixelsToUnits: 400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button_Red_0
+      name: Portal_Malvado_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 7
-        width: 52
-        height: 57
+        x: 0
+        y: 0
+        width: 720
+        height: 720
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 23718bb971f65d000800000000000000
-      internalID: 60076317226833714
+      spriteID: d1bb21e3d4f1362e0800000000000000
+      internalID: -2133827381829125347
       vertices: []
       indices: 
       edges: []
@@ -125,8 +125,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
-    internalID: 0
+    spriteID: 4e8ee2a8d0607a141b62747f57f40303
+    internalID: -1413695727
     vertices: []
     indices: 
     edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Button_Red_0: 60076317226833714
+      Portal_Malvado_0: -2133827381829125347
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

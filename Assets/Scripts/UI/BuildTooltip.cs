@@ -2,8 +2,8 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Popup que muestra información de un BuildingRecipe. Único en la escena, se
-/// muestra y oculta bajo demanda.
+/// Popup que muestra información de una IRecipe (building o unit). Único en la
+/// escena, se muestra y oculta bajo demanda.
 /// </summary>
 public class BuildTooltip : MonoBehaviour
 {
@@ -34,12 +34,12 @@ public class BuildTooltip : MonoBehaviour
         FollowMouse();
     }
 
-    public void Show(BuildingRecipe recipe)
+    public void Show(IRecipe recipe)
     {
         if (recipe == null) { Hide(); return; }
 
-        if (titleLabel != null) titleLabel.text = recipe.displayName;
-        if (descriptionLabel != null) descriptionLabel.text = recipe.description;
+        if (titleLabel != null) titleLabel.text = recipe.DisplayName;
+        if (descriptionLabel != null) descriptionLabel.text = recipe.Description;
         if (costsLabel != null) costsLabel.text = BuildCostLine(recipe);
 
         root.gameObject.SetActive(true);
@@ -59,7 +59,6 @@ public class BuildTooltip : MonoBehaviour
 
         Vector2 mouseScreen = (Vector2)Input.mousePosition + mouseOffset;
 
-        // Conversión de pantalla a coordenadas locales del canvas.
         RectTransform canvasRect = parentCanvas.transform as RectTransform;
         Camera cam = parentCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : parentCanvas.worldCamera;
 
@@ -69,12 +68,12 @@ public class BuildTooltip : MonoBehaviour
         }
     }
 
-    private static string BuildCostLine(BuildingRecipe recipe)
+    private static string BuildCostLine(IRecipe recipe)
     {
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
-        if (recipe.woodCost > 0) sb.Append($"Wood {recipe.woodCost}  ");
-        if (recipe.meatCost > 0) sb.Append($"Meat {recipe.meatCost}  ");
-        if (recipe.moneyCost > 0) sb.Append($"Gold {recipe.moneyCost}  ");
+        if (recipe.WoodCost > 0) sb.Append($"Wood {recipe.WoodCost}  ");
+        if (recipe.MeatCost > 0) sb.Append($"Meat {recipe.MeatCost}  ");
+        if (recipe.MoneyCost > 0) sb.Append($"Gold {recipe.MoneyCost}  ");
         return sb.ToString().TrimEnd();
     }
 }

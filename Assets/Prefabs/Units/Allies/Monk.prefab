@@ -269,7 +269,7 @@ MonoBehaviour:
     searchRadius: 12
     buildingsLayer:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 2048
     buildingTag: Building
     doorArriveDistance: 0.6
 --- !u!195 &8214250211477270944
@@ -625,4 +625,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 1024

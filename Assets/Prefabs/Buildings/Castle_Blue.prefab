@@ -45,7 +45,9 @@ GameObject:
   - component: {fileID: 5308789321119240468}
   - component: {fileID: 4756529014996401077}
   - component: {fileID: 1213676210253858202}
-  m_Layer: 0
+  - component: {fileID: 1955911473338940187}
+  - component: {fileID: 4187233463853583843}
+  m_Layer: 13
   m_Name: Castle_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,6 +220,34 @@ MonoBehaviour:
   - {fileID: 2078983665049116591}
   rangeMultiplier: 1.5
   doorPoint: {fileID: 1616145065319247066}
+--- !u!114 &1955911473338940187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5956104352234609393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a46632979520c4ebdb1862ba129f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatLevel: 15
+--- !u!114 &4187233463853583843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5956104352234609393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8045c3b5f61fa094d9b185ee971f67ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 300
+  currentHealth: 0
+  destroyedPrefab: {fileID: 0}
 --- !u!1 &7300713373371350944
 GameObject:
   m_ObjectHideFlags: 0

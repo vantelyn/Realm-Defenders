@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CursorController : MonoBehaviour
 {
-    public enum CursorType { Default, Ally, Heal, Enemy, EnemyBow, EnemyFist, Wood, Door, DoorBlocked }
+    public enum CursorType { Default, Ally, Heal, Enemy, EnemyBow, Hammer, Wood, Door, DoorBlocked }
 
     [System.Serializable]
     public class CursorStyle
@@ -45,12 +45,13 @@ public class CursorController : MonoBehaviour
         Vector3 mouseWorld = worldCamera.ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0f;
 
+        PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
+
         // Prioridad: enemigos.
         if (QueryService.HasHitAt(mouseWorld, targeting.enemyLayer))
         {
-            PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
+            if (selected is PawnScript) return CursorType.Enemy;
             if (selected is ArcherUnit) return CursorType.EnemyBow;
-            if (selected is PawnScript) return CursorType.EnemyFist;
             return CursorType.Enemy;
         }
 
@@ -58,7 +59,6 @@ public class CursorController : MonoBehaviour
         Building building = QueryService.FindBuildingAt(mouseWorld, targeting.buildingsLayer, targeting.buildingTag);
         if (building != null)
         {
-            PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
             if (selected == null) return CursorType.Default;
 
             if (selected.IsGarrisoned && selected.CurrentBuilding == building) return CursorType.Door;
@@ -70,13 +70,24 @@ public class CursorController : MonoBehaviour
         PlayerUnit hovered = QueryService.FindUnitAt(mouseWorld, targeting.unitsLayer, targeting.unitTag);
         if (hovered != null)
         {
-            PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
             if (selected is MonkUnit monk && CanMonkHeal(monk, hovered)) return CursorType.Heal;
             return CursorType.Ally;
         }
 
         // Prioridad: árboles.
-        if (QueryService.HasHitAt(mouseWorld, targeting.treeLayer)) return CursorType.Wood;
+        if (QueryService.HasHitAt(mouseWorld, targeting.treeLayer))
+        {
+            if (selected is PawnScript) return CursorType.Wood;
+            return CursorType.Wood;
+        }
+
+        // Prioridad: ovejas.
+        if (QueryService.HasHitAt(mouseWorld, targeting.sheepLayer))
+        {
+            if (selected is PawnScript) return CursorType.Enemy;
+
+            return CursorType.Enemy;
+        }
 
         return CursorType.Default;
     }

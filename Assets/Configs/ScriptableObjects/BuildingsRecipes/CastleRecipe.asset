@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01bc071b7aa624e4890c3b9c02dabec1, type: 3}
   m_Name: CastleRecipe
   m_EditorClassIdentifier: 
-  displayName: Tower
-  woodCost: 40
-  meatCost: 0
+  displayName: Castle
+  description: Central stronghold with two defensive posts. Evolves in late game
+    into a crystal capable of ending the invasion.
+  woodCost: 20
+  meatCost: 10
   moneyCost: 40
   buildingPrefab: {fileID: 5956104352234609393, guid: edc46a40f7635864da6240278b48cf08, type: 3}
   ghostPrefab: {fileID: 5956104352234609393, guid: 08919acb722ef8d419d906f4102a9ca7, type: 3}
+  footprintSize: {x: 1.6, y: 1.6}
+  footprintOffset: {x: 0, y: 0}

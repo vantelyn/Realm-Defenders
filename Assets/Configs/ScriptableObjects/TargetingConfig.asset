@@ -24,5 +24,8 @@ MonoBehaviour:
   treeLayer:
     serializedVersion: 2
     m_Bits: 256
+  sheepLayer:
+    serializedVersion: 2
+    m_Bits: 128
   unitTag: Unit
   buildingTag: Building

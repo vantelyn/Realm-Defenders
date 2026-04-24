@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 6831532324032216254}
   - component: {fileID: 3649938375850412411}
   - component: {fileID: 2531749941461803743}
-  - component: {fileID: -5753440921298926028}
   - component: {fileID: 9073991624785012445}
   m_Layer: 6
   m_Name: TNT
@@ -69,6 +68,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4928864262448777556}
+  - {fileID: 2516876860564996130}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4862659111736906190
@@ -259,13 +259,71 @@ MonoBehaviour:
     dropChance: 0.75
   dropRadius: 0.5
   forceImpulse: 5
---- !u!58 &-5753440921298926028
-CircleCollider2D:
+--- !u!114 &9073991624785012445
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2191447041407112255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2310f3c5a37c646b20c8f934a7fc7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 1.5
+  attackCooldown: 2
+  attackAnimationDuration: 0.5
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 9216
+  stopDistanceStrategic: 0.5
+  stopDistanceOpportunity: 1.5
+  repathInterval: 0.25
+  dynamitePrefab: {fileID: 264293439663450383, guid: 3654fe81195f17b41b0cd4ebe680462f, type: 3}
+  throwPoint: {fileID: 4928864262448777556}
+  throwFlightDuration: 0.8
+  throwArcHeight: 1.5
+  facingVelocityThreshold: 0.05
+--- !u!1 &3101369271794523426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2516876860564996130}
+  - component: {fileID: 5217784839000193321}
+  m_Layer: 12
+  m_Name: EnemyDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2516876860564996130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101369271794523426}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6194194423625756587}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &5217784839000193321
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101369271794523426}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -295,29 +353,3 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 5
---- !u!114 &9073991624785012445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2191447041407112255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2310f3c5a37c646b20c8f934a7fc7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRange: 1.5
-  attackCooldown: 2
-  attackAnimationDuration: 0.5
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 9216
-  stopDistanceStrategic: 0.5
-  stopDistanceOpportunity: 1.5
-  repathInterval: 0.25
-  dynamitePrefab: {fileID: 264293439663450383, guid: 3654fe81195f17b41b0cd4ebe680462f, type: 3}
-  throwPoint: {fileID: 4928864262448777556}
-  throwFlightDuration: 0.8
-  throwArcHeight: 1.5
-  facingVelocityThreshold: 0.05

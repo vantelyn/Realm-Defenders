@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8577e947838a248b01d0c8de268959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDetector: {fileID: 0}
+  enemyDetector: {fileID: 8609064919359846059}
   homeRadius: 2
   maxTravelDistance: 10
   patrolStepRadius: 1
@@ -298,7 +298,7 @@ MonoBehaviour:
     searchRadius: 12
     buildingsLayer:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 2048
     buildingTag: Building
     doorArriveDistance: 0.3
 --- !u!114 &4962004876502780070
