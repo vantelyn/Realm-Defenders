@@ -15,3 +15,6 @@ MonoBehaviour:
   maxMoney: 99
   maxMeat: 99
   maxWood: 99
+  startingMoney: 20
+  startingMeat: 20
+  startingWood: 20

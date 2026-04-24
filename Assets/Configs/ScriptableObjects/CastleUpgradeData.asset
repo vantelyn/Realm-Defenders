@@ -23,9 +23,9 @@ MonoBehaviour:
   - displayName: Castle
     description: The crystal begins to grow. Greatly increased defenses. Evolution
       toward final form begins automatically.
-    woodCost: 50
-    meatCost: 35
-    moneyCost: 35
+    woodCost: 45
+    meatCost: 20
+    moneyCost: 65
     maxHealth: 200
     threatLevel: 45
   - displayName: Castle
@@ -36,4 +36,4 @@ MonoBehaviour:
     moneyCost: 0
     maxHealth: 200
     threatLevel: 100
-  evolutionDuration: 120
+  evolutionDuration: 90
