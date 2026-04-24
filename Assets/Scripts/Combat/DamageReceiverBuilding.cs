@@ -38,6 +38,13 @@ public class DamageReceiverBuilding : MonoBehaviour
         }
     }
 
+    public void ResetToFull(int newMaxHealth)
+    {
+        maxHealth = newMaxHealth;
+        currentHealth = newMaxHealth;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
