@@ -1,9 +1,13 @@
 using UnityEngine;
+using Game.Targeting;
+
+namespace Game.Combat
+{
 
 /// <summary>
-/// Receptor de daño para edificios del jugador. No aplica fuerzas (los edificios
-/// no se mueven) ni animación de golpe. Al morir destruye el GameObject, lo que
-/// automáticamente desregistra cualquier StrategicTarget asociado.
+/// Receptor de daï¿½o para edificios del jugador. No aplica fuerzas (los edificios
+/// no se mueven) ni animaciï¿½n de golpe. Al morir destruye el GameObject, lo que
+/// automï¿½ticamente desregistra cualquier StrategicTarget asociado.
 /// </summary>
 public class DamageReceiverBuilding : MonoBehaviour
 {
@@ -59,4 +63,5 @@ public class DamageReceiverBuilding : MonoBehaviour
         }
         Destroy(gameObject);
     }
+}
 }

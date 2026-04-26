@@ -1,5 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using Game.Targeting;
+
+namespace Game.Enemies
+{
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -7,13 +11,13 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] prefabs;
 
     [Header("Spawn rate")]
-    [Tooltip("Tiempo base de espera entre spawns (en segundos). Se divide por la amenaza normalizada (0..1) + 1, de forma que a threat=0 el tiempo es el base, a threat=max el tiempo es base/2... pero usamos interpolación directa contra minDelay.")]
+    [Tooltip("Tiempo base de espera entre spawns (en segundos). Se divide por la amenaza normalizada (0..1) + 1, de forma que a threat=0 el tiempo es el base, a threat=max el tiempo es base/2... pero usamos interpolaciï¿½n directa contra minDelay.")]
     public float baseDelay = 20f;
 
-    [Tooltip("Tiempo mínimo de espera cuando la amenaza es máxima.")]
+    [Tooltip("Tiempo mï¿½nimo de espera cuando la amenaza es mï¿½xima.")]
     public float minDelay = 1f;
 
-    [Tooltip("Valor de amenaza en el que la frecuencia es máxima. Por encima de esto no acelera más.")]
+    [Tooltip("Valor de amenaza en el que la frecuencia es mï¿½xima. Por encima de esto no acelera mï¿½s.")]
     public float maxThreat = 100f;
 
     void Start()
@@ -41,4 +45,5 @@ public class EnemySpawner : MonoBehaviour
         float t = Mathf.Clamp01(ThreatRegistry.GetTotalThreat() / maxThreat);
         return Mathf.Lerp(baseDelay, minDelay, t);
     }
+}
 }

@@ -1,5 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
+using Game.Combat;
+
+namespace Game.Projectiles
+{
 
 public class Dynamite : MonoBehaviour
 {
@@ -106,4 +110,5 @@ public class Dynamite : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
+}
 }

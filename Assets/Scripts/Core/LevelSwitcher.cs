@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+namespace Game.Core
+{
+
 public class LevelSwitcher : MonoBehaviour
 {
     [SerializeField] private string nextSceneName = "Level2";
@@ -14,9 +17,10 @@ public class LevelSwitcher : MonoBehaviour
         }
     }
 
-    // Para conectarlo también a un botón de UI si quieres.
+    // Para conectarlo tambiï¿½n a un botï¿½n de UI si quieres.
     public void GoToNextLevel()
     {
         SceneManager.LoadScene(nextSceneName);
     }
+}
 }

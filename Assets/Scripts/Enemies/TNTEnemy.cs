@@ -1,4 +1,9 @@
 using UnityEngine;
+using Game.AI;
+using Game.Projectiles;
+
+namespace Game.Enemies
+{
 
 public class TNTEnemy : BaseEnemyAI
 {
@@ -54,4 +59,5 @@ public class TNTEnemy : BaseEnemyAI
         if (currentStrategicTarget != null) return currentStrategicTarget.Transform.position;
         return transform.position + (Vector3)attackDirectionVector.normalized * attackRange;
     }
+}
 }

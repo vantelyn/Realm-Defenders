@@ -1,4 +1,9 @@
 using UnityEngine;
+using Game.Core;
+using Game.UI;
+
+namespace Game.Buildings
+{
 
 [CreateAssetMenu(fileName = "BuildingRecipe", menuName = "Game/Building Recipe")]
 public class BuildingRecipe : ScriptableObject, IRecipe
@@ -18,11 +23,11 @@ public class BuildingRecipe : ScriptableObject, IRecipe
     [Tooltip("Prefab del edificio final que se instancia al construir.")]
     public GameObject buildingPrefab;
 
-    [Tooltip("Prefab del ghost translúcido que sigue al ratón antes de colocar.")]
+    [Tooltip("Prefab del ghost translï¿½cido que sigue al ratï¿½n antes de colocar.")]
     public GameObject ghostPrefab;
 
     [Header("Footprint (fallback)")]
-    [Tooltip("Tamaño de la zona bloqueante. Se usa solo si el prefab no tiene CapsuleCollider2D ni BoxCollider2D.")]
+    [Tooltip("Tamaï¿½o de la zona bloqueante. Se usa solo si el prefab no tiene CapsuleCollider2D ni BoxCollider2D.")]
     public Vector2 footprintSize = new Vector2(1.6f, 1.6f);
 
     [Tooltip("Offset del centro del footprint respecto al pivote del ghost.")]
@@ -50,4 +55,5 @@ public class BuildingRecipe : ScriptableObject, IRecipe
         if (moneyCost > 0) inv.TrySpendMoney(moneyCost);
         return true;
     }
+}
 }

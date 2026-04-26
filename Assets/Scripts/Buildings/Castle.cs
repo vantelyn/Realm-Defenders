@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
+using Game.Combat;
+using Game.Core;
+using Game.Targeting;
+
+namespace Game.Buildings
+{
 
 /// <summary>
 /// Único castillo por partida. Gestiona sus 3 niveles:
@@ -170,4 +176,5 @@ public class Castle : MonoBehaviour
         if (lvl.meatCost > 0) inv.TrySpendMeat(lvl.meatCost);
         if (lvl.moneyCost > 0) inv.TrySpendMoney(lvl.moneyCost);
     }
+}
 }

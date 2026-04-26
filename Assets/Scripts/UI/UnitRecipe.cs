@@ -1,4 +1,8 @@
 using UnityEngine;
+using Game.Core;
+
+namespace Game.UI
+{
 
 [CreateAssetMenu(fileName = "UnitRecipe", menuName = "Game/Unit Recipe")]
 public class UnitRecipe : ScriptableObject, IRecipe
@@ -39,4 +43,5 @@ public class UnitRecipe : ScriptableObject, IRecipe
         if (moneyCost > 0) inv.TrySpendMoney(moneyCost);
         return true;
     }
+}
 }

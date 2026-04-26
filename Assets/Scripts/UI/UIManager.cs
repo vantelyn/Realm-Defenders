@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace Game.UI
+{
+
 public class UIManager : MonoBehaviour
 {
     public GameObject pauseMenu;
@@ -30,4 +33,5 @@ public class UIManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
     }
+}
 }

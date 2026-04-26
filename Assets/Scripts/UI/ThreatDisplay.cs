@@ -1,9 +1,13 @@
 using TMPro;
 using UnityEngine;
+using Game.Targeting;
+
+namespace Game.UI
+{
 
 /// <summary>
 /// Muestra la amenaza total del ThreatRegistry en un TextMeshProUGUI.
-/// Reactivo: se actualiza automáticamente cuando el registro cambia (registro,
+/// Reactivo: se actualiza automï¿½ticamente cuando el registro cambia (registro,
 /// muerte, cambio de threatLevel).
 /// </summary>
 [RequireComponent(typeof(TMP_Text))]
@@ -36,4 +40,5 @@ public class ThreatDisplay : MonoBehaviour
             label.text = ThreatRegistry.GetTotalThreat().ToString(format);
         }
     }
+}
 }

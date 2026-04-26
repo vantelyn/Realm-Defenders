@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Game.Buildings
+{
+
 /// <summary>
-/// Visual del preview de construcción. Pinta todos los SpriteRenderer hijos
-/// con tinte verde o rojo según si la colocación es válida.
+/// Visual del preview de construcciï¿½n. Pinta todos los SpriteRenderer hijos
+/// con tinte verde o rojo segï¿½n si la colocaciï¿½n es vï¿½lida.
 /// </summary>
 public class BuildGhost : MonoBehaviour
 {
@@ -25,4 +28,5 @@ public class BuildGhost : MonoBehaviour
             if (renderers[i] != null) renderers[i].color = c;
         }
     }
+}
 }

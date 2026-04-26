@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Game.Targeting
+{
+
 public class EnemyDetector : MonoBehaviour
 {
     [SerializeField] private LayerMask detectLayers;
@@ -53,4 +56,5 @@ public class EnemyDetector : MonoBehaviour
         if (col == null) return false;
         return ((1 << col.gameObject.layer) & detectLayers) != 0;
     }
+}
 }

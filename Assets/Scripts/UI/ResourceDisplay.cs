@@ -1,9 +1,13 @@
 using TMPro;
 using UnityEngine;
+using Game.Core;
+
+namespace Game.UI
+{
 
 /// <summary>
 /// Muestra un recurso del PlayerInventory en un TextMeshPro.
-/// Reactivo: se actualiza automáticamente cuando el inventario cambia.
+/// Reactivo: se actualiza automï¿½ticamente cuando el inventario cambia.
 /// </summary>
 [RequireComponent(typeof(TMP_Text))]
 public class ResourceDisplay : MonoBehaviour
@@ -55,4 +59,5 @@ public class ResourceDisplay : MonoBehaviour
 
         label.text = showMax ? $"{current}/{max}" : current.ToString();
     }
+}
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace Game.UI
+{
+
 [RequireComponent(typeof(Button))]
 public class SpawnButton : MonoBehaviour
 {
@@ -24,4 +27,5 @@ public class SpawnButton : MonoBehaviour
     {
         if (spawner != null && recipe != null) spawner.TrySpawn(recipe);
     }
+}
 }

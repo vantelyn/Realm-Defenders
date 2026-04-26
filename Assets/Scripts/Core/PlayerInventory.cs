@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace Game.Core
+{
+
 [CreateAssetMenu(fileName = "PlayerInventory", menuName = "Game/Player Inventory")]
 public class PlayerInventory : ScriptableObject
 {
@@ -61,4 +64,5 @@ public class PlayerInventory : ScriptableObject
         meat = startingMeat;
         wood = startingWood;
     }
+}
 }

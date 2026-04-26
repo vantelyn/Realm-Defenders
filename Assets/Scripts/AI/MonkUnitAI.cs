@@ -1,4 +1,11 @@
 using UnityEngine;
+using Game.Buildings;
+using Game.Combat;
+using Game.Targeting;
+using Game.Units;
+
+namespace Game.AI
+{
 
 [RequireComponent(typeof(MonkUnit))]
 public class MonkUnitAI : BaseUnitAI
@@ -332,4 +339,5 @@ public class MonkUnitAI : BaseUnitAI
         Gizmos.color = new Color(1f, 0.3f, 0.3f, 0.4f);
         Gizmos.DrawWireSphere(transform.position, enemyDangerDistance);
     }
+}
 }

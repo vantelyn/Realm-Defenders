@@ -1,6 +1,10 @@
 using UnityEngine;
 
+namespace Game.CameraSystem
+{
+
 [DisallowMultipleComponent]
+
 public class CameraFollowController : MonoBehaviour
 {
     [SerializeField] private float freeMoveSpeed = 8f;
@@ -44,4 +48,5 @@ public class CameraFollowController : MonoBehaviour
         Vector2 dir = new Vector2(h, v);
         return dir.sqrMagnitude > 1f ? dir.normalized : dir;
     }
+}
 }

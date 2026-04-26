@@ -1,7 +1,10 @@
 using UnityEngine;
 
+namespace Game.Targeting
+{
+
 /// <summary>
-/// Marca una entidad del jugador como objetivo estratégico que aparece en el
+/// Marca una entidad del jugador como objetivo estratï¿½gico que aparece en el
 /// ThreatRegistry. Unidades y edificios lo llevan con distintos threatLevel.
 /// </summary>
 [DisallowMultipleComponent]
@@ -29,4 +32,5 @@ public class StrategicTarget : MonoBehaviour
     {
         ThreatRegistry.Unregister(this);
     }
+}
 }

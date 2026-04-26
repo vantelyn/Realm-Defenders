@@ -2,9 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+namespace Game.Enemies
+{
+
 /// <summary>
-/// Genera ovejas periódicamente dentro de un radio alrededor del spawner.
-/// Se mantiene un límite máximo de ovejas vivas generadas por este spawner.
+/// Genera ovejas periï¿½dicamente dentro de un radio alrededor del spawner.
+/// Se mantiene un lï¿½mite mï¿½ximo de ovejas vivas generadas por este spawner.
 /// </summary>
 public class SheepSpawner : MonoBehaviour
 {
@@ -19,11 +22,11 @@ public class SheepSpawner : MonoBehaviour
     [Tooltip("Radio alrededor del spawner en el que aparecen las ovejas.")]
     [SerializeField] private float spawnRadius = 4f;
 
-    [Tooltip("Si está activo, ajusta la posición a un punto válido del NavMesh.")]
+    [Tooltip("Si estï¿½ activo, ajusta la posiciï¿½n a un punto vï¿½lido del NavMesh.")]
     [SerializeField] private bool snapToNavMesh = true;
 
     [Header("Population Cap")]
-    [Tooltip("Máximo de ovejas vivas generadas por este spawner. 0 = sin límite.")]
+    [Tooltip("Mï¿½ximo de ovejas vivas generadas por este spawner. 0 = sin lï¿½mite.")]
     [SerializeField] private int maxAlive = 6;
 
     private int aliveCount = 0;
@@ -100,4 +103,5 @@ public class SheepLifetimeTracker : MonoBehaviour
     {
         if (spawner != null) spawner.NotifySheepDestroyed();
     }
+}
 }

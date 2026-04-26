@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Game.Core;
+
+namespace Game.Buildings
+{
 
 /// <summary>
-/// Botón específico para el castillo. Tiene dos modos:
-/// - Sin castillo construido: entra en modo colocación (BuildPlacer + CastleRecipe).
+/// Botï¿½n especï¿½fico para el castillo. Tiene dos modos:
+/// - Sin castillo construido: entra en modo colocaciï¿½n (BuildPlacer + CastleRecipe).
 /// - Con castillo existente: intenta hacer upgrade in-place.
 /// Se actualiza reactivamente cuando cambian los recursos o el nivel del castillo.
 /// </summary>
@@ -11,7 +15,7 @@ using UnityEngine.UI;
 public class CastleBuildButton : MonoBehaviour
 {
     [SerializeField] private BuildPlacer placer;
-    [SerializeField] private BuildingRecipe initialRecipe;  // la misma receta de construcción original.
+    [SerializeField] private BuildingRecipe initialRecipe;  // la misma receta de construcciï¿½n original.
     [SerializeField] private PlayerInventory inventory;
 
     private Button button;
@@ -74,4 +78,5 @@ public class CastleBuildButton : MonoBehaviour
 
         button.interactable = castle.CanAffordNextUpgrade(inventory);
     }
+}
 }

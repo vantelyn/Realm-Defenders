@@ -1,4 +1,8 @@
 using UnityEngine;
+using Game.Combat;
+
+namespace Game.Units
+{
 
 public class WarriorUnit : PlayerUnit, IDamageBlocker
 {
@@ -50,4 +54,5 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
     // Animation Events del clip de bloqueo
     public void StartBlock() { isBlocking = true; }
     public void EndBlock() { isBlocking = false; }
+}
 }

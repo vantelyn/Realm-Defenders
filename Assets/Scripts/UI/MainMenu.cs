@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+namespace Game.UI
+{
+
 public class MainMenu : MonoBehaviour
 {
     public GameObject mainMenu;
@@ -61,4 +64,5 @@ public class MainMenu : MonoBehaviour
         QualitySettings.SetQualityLevel(index, true);
         PlayerPrefs.SetInt("QualityLevel", index);
     }
+}
 }

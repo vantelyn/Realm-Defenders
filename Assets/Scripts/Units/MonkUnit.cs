@@ -1,4 +1,9 @@
 using UnityEngine;
+using Game.Combat;
+using Game.PlayerInput;
+
+namespace Game.Units
+{
 
 public class MonkUnit : PlayerUnit
 {
@@ -23,7 +28,7 @@ public class MonkUnit : PlayerUnit
         TryHeal(hoveredUnit);
     }
 
-    // Ruta compartida: la IA llama a esto con un objetivo explícito.
+    // Ruta compartida: la IA llama a esto con un objetivo explï¿½cito.
     public bool TryHeal(PlayerUnit target)
     {
         if (isAttacking) return false;
@@ -53,4 +58,5 @@ public class MonkUnit : PlayerUnit
         }
         pendingHealTarget = null;
     }
+}
 }

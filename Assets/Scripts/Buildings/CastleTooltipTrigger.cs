@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Game.UI;
+
+namespace Game.Buildings
+{
 
 /// <summary>
-/// Muestra en el tooltip el contenido adecuado según si existe castillo:
-/// - Sin castillo: la receta de construcción inicial.
-/// - Con castillo: una receta sintética del siguiente upgrade.
+/// Muestra en el tooltip el contenido adecuado segï¿½n si existe castillo:
+/// - Sin castillo: la receta de construcciï¿½n inicial.
+/// - Con castillo: una receta sintï¿½tica del siguiente upgrade.
 /// </summary>
 public class CastleTooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -48,7 +52,7 @@ public class CastleTooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointe
     }
 }
 
-/// <summary>Receta sintética: refleja el siguiente upgrade del castillo.</summary>
+/// <summary>Receta sintï¿½tica: refleja el siguiente upgrade del castillo.</summary>
 public class CastleLevelRecipe : IRecipe
 {
     private CastleUpgradeData.Level level;
@@ -77,4 +81,5 @@ public class CastleEvolvingRecipe : IRecipe
     public int WoodCost => 0;
     public int MeatCost => 0;
     public int MoneyCost => 0;
+}
 }

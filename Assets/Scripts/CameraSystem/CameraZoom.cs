@@ -1,6 +1,9 @@
 using UnityEngine;
 using Unity.Cinemachine;
 
+namespace Game.CameraSystem
+{
+
 public class CameraZoom : MonoBehaviour
 {
     [Header("Zoom Settings")]
@@ -27,4 +30,5 @@ public class CameraZoom : MonoBehaviour
             vcam.Lens = lens;
         }
     }
+}
 }

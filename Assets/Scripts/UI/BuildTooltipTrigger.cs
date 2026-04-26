@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Game.Buildings;
+
+namespace Game.UI
+{
 
 /// <summary>
-/// Se añade al mismo GameObject que un BuildButton o SpawnButton. Muestra el
-/// tooltip con la información de la receta cuando el ratón entra en el botón.
+/// Se aï¿½ade al mismo GameObject que un BuildButton o SpawnButton. Muestra el
+/// tooltip con la informaciï¿½n de la receta cuando el ratï¿½n entra en el botï¿½n.
 /// </summary>
 public class BuildTooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private BuildTooltip tooltip;
-    [Tooltip("Arrastra aquí un BuildingRecipe o UnitRecipe.")]
+    [Tooltip("Arrastra aquï¿½ un BuildingRecipe o UnitRecipe.")]
     [SerializeField] private ScriptableObject recipeAsset;
 
     private IRecipe Recipe => recipeAsset as IRecipe;
@@ -28,4 +32,5 @@ public class BuildTooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         if (tooltip != null) tooltip.Hide();
     }
+}
 }

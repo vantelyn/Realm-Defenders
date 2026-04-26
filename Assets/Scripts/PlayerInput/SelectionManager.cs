@@ -1,5 +1,13 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using Game.Buildings;
+using Game.CameraSystem;
+using Game.Config;
+using Game.Core;
+using Game.Units;
+
+namespace Game.PlayerInput
+{
 
 public class SelectionManager : MonoBehaviour
 {
@@ -132,4 +140,5 @@ public class SelectionManager : MonoBehaviour
     {
         return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
     }
+}
 }

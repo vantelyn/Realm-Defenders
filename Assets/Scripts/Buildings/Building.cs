@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Units;
+
+namespace Game.Buildings
+{
 
 public class Building : MonoBehaviour
 {
@@ -78,4 +82,5 @@ public class Building : MonoBehaviour
             }
         }
     }
+}
 }

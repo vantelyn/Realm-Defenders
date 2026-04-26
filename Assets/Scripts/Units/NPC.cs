@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+namespace Game.Units
+{
+
 public class NPC : MonoBehaviour
 {
     protected NavMeshAgent navMeshAgent;
@@ -50,7 +53,7 @@ public class NPC : MonoBehaviour
     {
         if (navMeshAgent == null || animator == null) return;
 
-        // Desired velocity es más estable que velocity real (no tiene jitter por deceleración)
+        // Desired velocity es mï¿½s estable que velocity real (no tiene jitter por deceleraciï¿½n)
         bool isMoving = !navMeshAgent.isStopped &&
                         navMeshAgent.hasPath &&
                         navMeshAgent.desiredVelocity.sqrMagnitude > 0.01f;
@@ -183,4 +186,5 @@ public class NPC : MonoBehaviour
     {
         StopCurrentRoutine();
     }
+}
 }

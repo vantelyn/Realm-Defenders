@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+namespace Game.Units
+{
+
 public class SheepScript : NPC
 {
     [Header("Sheep Behavior")]
@@ -19,7 +22,7 @@ public class SheepScript : NPC
 
     private IEnumerator WanderAndEatRoutine()
     {
-        // Pequeña espera para que el agente esté listo tras el Start del padre
+        // Pequeï¿½a espera para que el agente estï¿½ listo tras el Start del padre
         yield return null;
 
         while (true)
@@ -46,7 +49,7 @@ public class SheepScript : NPC
             // Caminar hasta llegar
             while (navMeshAgent.remainingDistance > arriveDistance)
             {
-                if (!navMeshAgent.hasPath) break; // path se perdió, salir
+                if (!navMeshAgent.hasPath) break; // path se perdiï¿½, salir
                 yield return null;
             }
 
@@ -54,7 +57,7 @@ public class SheepScript : NPC
             navMeshAgent.isStopped = true;
             navMeshAgent.ResetPath();
 
-            // Forzar animación a Idle antes del trigger
+            // Forzar animaciï¿½n a Idle antes del trigger
             if (animator != null)
             {
                 animator.SetBool("isRunning", false);
@@ -79,4 +82,5 @@ public class SheepScript : NPC
         dest = transform.position;
         return false;
     }
+}
 }

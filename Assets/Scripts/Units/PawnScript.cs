@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace Game.Units
+{
+
 public class PawnScript : PlayerUnit
 {
     public override bool HasSecondary => true;
@@ -30,4 +33,5 @@ public class PawnScript : PlayerUnit
         if (isAttacking) return;
         animator.SetTrigger("doBuild");
     }
+}
 }

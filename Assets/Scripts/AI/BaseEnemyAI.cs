@@ -1,10 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Game.Combat;
+using Game.Targeting;
+
+namespace Game.AI
+{
 
 /// <summary>
 /// Base abstracta para IAs enemigas. Gestiona el targeting (omnisciente +
-/// oportunidad), el movimiento vía NavMeshAgent, el ciclo de ataque y la
+/// oportunidad), el movimiento via NavMeshAgent, el ciclo de ataque y la
 /// limpieza de detectados. Las subclases implementan el ataque concreto.
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
@@ -134,7 +139,7 @@ public abstract class BaseEnemyAI : MonoBehaviour
 
     private void TickStrategic()
     {
-        // Refrescamos el top threat cada tick porque puede cambiar dinámicamente.
+        // Refrescamos el top threat cada tick porque puede cambiar dinamicamente.
         currentStrategicTarget = ThreatRegistry.GetTopThreat();
 
         if (currentStrategicTarget == null)
@@ -222,7 +227,7 @@ public abstract class BaseEnemyAI : MonoBehaviour
 
     /// <summary>
     /// Llamado desde un Animation Event en el clip de ataque. Busca objetivos
-    /// en un pequeño círculo y les aplica daño según su tipo.
+    /// en un pequeï¿½o cï¿½rculo y les aplica daï¿½o segï¿½n su tipo.
     /// </summary>
     public virtual void DetectAndDamageTargets()
     {
@@ -245,8 +250,8 @@ public abstract class BaseEnemyAI : MonoBehaviour
     }
 
     /// <summary>
-    /// Aplica daño a un objetivo concreto. Virtual por si una subclase quiere
-    /// comportarse distinto (p. ej. un boss que hace más daño a edificios).
+    /// Aplica daï¿½o a un objetivo concreto. Virtual por si una subclase quiere
+    /// comportarse distinto (p. ej. un boss que hace mï¿½s daï¿½o a edificios).
     /// </summary>
     protected virtual void ApplyDamageToTarget(Collider2D target, Vector2 hitDirection)
     {
@@ -304,4 +309,5 @@ public abstract class BaseEnemyAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+}
 }

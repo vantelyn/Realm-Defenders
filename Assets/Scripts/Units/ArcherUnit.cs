@@ -1,4 +1,8 @@
 using UnityEngine;
+using Game.Projectiles;
+
+namespace Game.Units
+{
 
 public class ArcherUnit : PlayerUnit
 {
@@ -46,4 +50,5 @@ public class ArcherUnit : PlayerUnit
         Arrow arrow = arrowGO.GetComponent<Arrow>();
         if (arrow != null) arrow.Launch(targetPos);
     }
+}
 }

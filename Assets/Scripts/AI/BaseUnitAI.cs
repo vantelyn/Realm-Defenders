@@ -1,5 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Game.Targeting;
+using Game.Units;
+
+namespace Game.AI
+{
 
 public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
 {
@@ -110,7 +115,7 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
         }
     }
 
-    // ---- Métodos que las subclases implementan / sobrescriben ----
+    // ---- Mï¿½todos que las subclases implementan / sobrescriben ----
 
     /// <summary>Resetear estado al entrar en modo AI (normalmente ir a Idle).</summary>
     protected abstract void ResetStateOnEnable();
@@ -124,7 +129,7 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
     /// <summary>Limpieza adicional de detectores propios de la subclase.</summary>
     protected virtual void CleanDetectors() { }
 
-    // ---- Helpers comunes de navegación y targeting ----
+    // ---- Helpers comunes de navegaciï¿½n y targeting ----
 
     protected void TickPatrol()
     {
@@ -240,4 +245,5 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
             agent.enabled = true;
         }
     }
+}
 }

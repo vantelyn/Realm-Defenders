@@ -1,4 +1,9 @@
 using UnityEngine;
+using Game.Targeting;
+using Game.Units;
+
+namespace Game.AI
+{
 
 [RequireComponent(typeof(PawnScript))]
 public class PawnUnitAI : BaseUnitAI
@@ -340,4 +345,5 @@ public class PawnUnitAI : BaseUnitAI
         Gizmos.color = new Color(1f, 1f, 0f, 0.5f);
         Gizmos.DrawWireSphere(transform.position, resourceOpportunityRadius);
     }
+}
 }

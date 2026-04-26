@@ -1,3 +1,6 @@
+
+namespace Game.UI
+{
 public interface IRecipe
 {
     string DisplayName { get; }
@@ -5,4 +8,5 @@ public interface IRecipe
     int WoodCost { get; }
     int MeatCost { get; }
     int MoneyCost { get; }
+}
 }

@@ -1,4 +1,8 @@
 using UnityEngine;
+using Game.UI;
+
+namespace Game.Core
+{
 
 public class GameManager : MonoBehaviour
 {
@@ -26,4 +30,5 @@ public class GameManager : MonoBehaviour
         
         }
     }
+}
 }

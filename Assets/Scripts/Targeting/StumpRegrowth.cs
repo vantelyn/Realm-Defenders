@@ -1,8 +1,11 @@
 using UnityEngine;
 
+namespace Game.Targeting
+{
+
 /// <summary>
 /// Se coloca en el prefab del Stump. Pasado un tiempo aleatorio entre min/max,
-/// instancia el prefab del árbol en su misma posición y se autodestruye.
+/// instancia el prefab del ï¿½rbol en su misma posiciï¿½n y se autodestruye.
 /// </summary>
 public class StumpRegrowth : MonoBehaviour
 {
@@ -38,4 +41,5 @@ public class StumpRegrowth : MonoBehaviour
 
         Destroy(gameObject);
     }
+}
 }

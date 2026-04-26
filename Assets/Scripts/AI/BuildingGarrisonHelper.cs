@@ -1,4 +1,10 @@
 using UnityEngine;
+using Game.Buildings;
+using Game.Core;
+using Game.Units;
+
+namespace Game.AI
+{
 
 [System.Serializable]
 public class BuildingGarrisonHelper
@@ -44,4 +50,5 @@ public class BuildingGarrisonHelper
     }
 
     public Vector3 GetDoorPosition() => targetBuilding != null ? targetBuilding.DoorPosition : Vector3.zero;
+}
 }

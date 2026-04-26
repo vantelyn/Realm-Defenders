@@ -1,4 +1,9 @@
 using UnityEngine;
+using Game.Buildings;
+using Game.Units;
+
+namespace Game.AI
+{
 
 [RequireComponent(typeof(PlayerUnit))]
 public class PlayerUnitAI : BaseUnitAI
@@ -241,4 +246,5 @@ public class PlayerUnitAI : BaseUnitAI
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+}
 }

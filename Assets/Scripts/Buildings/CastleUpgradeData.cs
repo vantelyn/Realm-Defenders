@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
+
+namespace Game.Buildings
+{
 
 [CreateAssetMenu(fileName = "CastleUpgradeData", menuName = "Game/Castle Upgrade Data")]
 public class CastleUpgradeData : ScriptableObject
@@ -34,4 +37,5 @@ public class CastleUpgradeData : ScriptableObject
 
     public bool HasLevel(int lv) => lv >= 1 && lv <= levels.Length;
     public int MaxLevel => levels.Length;
+}
 }

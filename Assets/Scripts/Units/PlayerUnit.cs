@@ -1,5 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Game.AI;
+using Game.Buildings;
+using Game.CameraSystem;
+using Game.Combat;
+
+namespace Game.Units
+{
 
 public abstract class PlayerUnit : MonoBehaviour
 {
@@ -234,4 +241,5 @@ public abstract class PlayerUnit : MonoBehaviour
         else
             return dir.y > 0 ? 2 : 3;
     }
+}
 }

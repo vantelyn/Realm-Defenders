@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+namespace Game.Enemies
+{
+
 public class TorchScript : MonoBehaviour
 {
     public float speed = 7;
@@ -36,4 +39,5 @@ public class TorchScript : MonoBehaviour
         if (navMeshAgent.desiredVelocity.x < 0.01f)
             transform.localScale = new Vector3(-1,1,1);
     }
+}
 }

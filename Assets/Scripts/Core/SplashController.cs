@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+namespace Game.Core
+{
+
 public class SplashController : MonoBehaviour
 {
     [SerializeField] private string nextSceneName = "MenuPrincipal";
@@ -25,4 +28,5 @@ public class SplashController : MonoBehaviour
     {
         SceneManager.LoadScene(nextSceneName);
     }
+}
 }

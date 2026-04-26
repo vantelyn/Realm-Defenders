@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace Game.Projectiles
+{
+
 [RequireComponent(typeof(Animator))]
 public class HealEffect : MonoBehaviour
 {
@@ -9,4 +12,5 @@ public class HealEffect : MonoBehaviour
         float duration = anim.GetCurrentAnimatorStateInfo(0).length;
         Destroy(gameObject, duration);
     }
+}
 }

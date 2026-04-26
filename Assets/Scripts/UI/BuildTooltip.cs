@@ -1,8 +1,11 @@
 using TMPro;
 using UnityEngine;
 
+namespace Game.UI
+{
+
 /// <summary>
-/// Popup que muestra información de una IRecipe (building o unit). Único en la
+/// Popup que muestra informaciï¿½n de una IRecipe (building o unit). ï¿½nico en la
 /// escena, se muestra y oculta bajo demanda.
 /// </summary>
 public class BuildTooltip : MonoBehaviour
@@ -13,10 +16,10 @@ public class BuildTooltip : MonoBehaviour
     [SerializeField] private TMP_Text costsLabel;
 
     [Header("Follow")]
-    [Tooltip("Offset del popup respecto al ratón (en píxeles de pantalla).")]
+    [Tooltip("Offset del popup respecto al ratï¿½n (en pï¿½xeles de pantalla).")]
     [SerializeField] private Vector2 mouseOffset = new Vector2(16, -16);
 
-    [Tooltip("Canvas al que pertenece. Se usa para convertir coords de ratón a posición del RectTransform.")]
+    [Tooltip("Canvas al que pertenece. Se usa para convertir coords de ratï¿½n a posiciï¿½n del RectTransform.")]
     [SerializeField] private Canvas parentCanvas;
 
     private bool visible;
@@ -76,4 +79,5 @@ public class BuildTooltip : MonoBehaviour
         if (recipe.MoneyCost > 0) sb.Append($"Gold {recipe.MoneyCost}  ");
         return sb.ToString().TrimEnd();
     }
+}
 }

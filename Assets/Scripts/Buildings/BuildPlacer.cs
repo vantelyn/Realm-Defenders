@@ -2,6 +2,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using NavMeshPlus.Components;
+using Game.Core;
+using Game.PlayerInput;
+
+namespace Game.Buildings
+{
 
 public class BuildPlacer : MonoBehaviour
 {
@@ -11,13 +16,13 @@ public class BuildPlacer : MonoBehaviour
     [SerializeField] private SelectionManager selectionManager;
 
     [Header("Validation")]
-    [Tooltip("Layers con los que el ghost no puede solapar (edificios, unidades, árboles, agua...).")]
+    [Tooltip("Layers con los que el ghost no puede solapar (edificios, unidades, ï¿½rboles, agua...).")]
     [SerializeField] private LayerMask blockingLayers;
 
     [SerializeField] private float placementZ = 0f;
 
     [Header("Navigation")]
-    [Tooltip("NavMeshSurface a rebakear tras construir un edificio. Si está vacío, no se rebake.")]
+    [Tooltip("NavMeshSurface a rebakear tras construir un edificio. Si estï¿½ vacï¿½o, no se rebake.")]
     [SerializeField] private NavMeshSurface navMeshSurface;
 
     private BuildingRecipe activeRecipe;
@@ -164,4 +169,5 @@ public class BuildPlacer : MonoBehaviour
         Gizmos.color = canPlaceHere ? Color.green : Color.red;
         Gizmos.DrawWireCube(center, currentFootprintSize);
     }
+}
 }

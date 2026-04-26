@@ -1,8 +1,14 @@
 using UnityEngine;
+using Game.Buildings;
+using Game.PlayerInput;
+using Game.Units;
+
+namespace Game.Core
+{
 
 /// <summary>
-/// Búsquedas de Physics2D centralizadas. Cachea buffer y filtros para evitar allocs por frame.
-/// Todos los consumidores del juego (SelectionManager, CursorController, AIs) pasan por aquí.
+/// Bï¿½squedas de Physics2D centralizadas. Cachea buffer y filtros para evitar allocs por frame.
+/// Todos los consumidores del juego (SelectionManager, CursorController, AIs) pasan por aquï¿½.
 /// </summary>
 public static class QueryService
 {
@@ -11,7 +17,7 @@ public static class QueryService
 
     // ---- Point queries ----
 
-    /// <summary>Busca una PlayerUnit en el punto. Filtra por layer + tag, y devuelve la primera válida.</summary>
+    /// <summary>Busca una PlayerUnit en el punto. Filtra por layer + tag, y devuelve la primera vï¿½lida.</summary>
     public static PlayerUnit FindUnitAt(Vector2 worldPoint, LayerMask layer, string tag)
     {
         ContactFilter2D filter = BuildFilter(layer);
@@ -44,8 +50,8 @@ public static class QueryService
     }
 
     /// <summary>
-    /// Versión genérica para simple hit en layer (sin filtro de tag).
-    /// Devuelve true si hay algún collider.
+    /// Versiï¿½n genï¿½rica para simple hit en layer (sin filtro de tag).
+    /// Devuelve true si hay algï¿½n collider.
     /// </summary>
     public static bool HasHitAt(Vector2 worldPoint, LayerMask layer)
     {
@@ -54,7 +60,7 @@ public static class QueryService
 
     // ---- Radius queries ----
 
-    /// <summary>Busca el Building libre más cercano a origin dentro del radio.</summary>
+    /// <summary>Busca el Building libre mï¿½s cercano a origin dentro del radio.</summary>
     public static Building FindClosestFreeBuilding(Vector3 origin, float radius, LayerMask layer, string tag)
     {
         ContactFilter2D filter = BuildFilter(layer);
@@ -84,4 +90,5 @@ public static class QueryService
         filter.useTriggers = true;
         return filter;
     }
+}
 }

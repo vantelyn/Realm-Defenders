@@ -1,5 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Game.Core;
+
+namespace Game.UI
+{
 
 public class UnitSpawner : MonoBehaviour
 {
@@ -13,7 +17,7 @@ public class UnitSpawner : MonoBehaviour
     [Tooltip("Radio alrededor del spawnPoint en el que aparecen las unidades al azar.")]
     [SerializeField] private float spawnRadius = 1.5f;
 
-    [Tooltip("Si está activo, ajusta la posición a un punto válido del NavMesh (evita spawns sobre agua o dentro de edificios).")]
+    [Tooltip("Si estï¿½ activo, ajusta la posiciï¿½n a un punto vï¿½lido del NavMesh (evita spawns sobre agua o dentro de edificios).")]
     [SerializeField] private bool snapToNavMesh = true;
 
     public bool TrySpawn(UnitRecipe recipe)
@@ -48,4 +52,5 @@ public class UnitSpawner : MonoBehaviour
         Gizmos.color = new Color(0.3f, 1f, 0.3f, 0.4f);
         Gizmos.DrawWireSphere(center, spawnRadius);
     }
+}
 }

@@ -1,7 +1,11 @@
 using UnityEngine;
+using Game.AI;
+
+namespace Game.Enemies
+{
 
 /// <summary>
-/// Enemigo con antorcha. De momento solo cambia los parámetros del animator.
+/// Enemigo con antorcha. De momento solo cambia los parï¿½metros del animator.
 /// </summary>
 public class TorchEnemy : BaseEnemyAI
 {
@@ -10,4 +14,5 @@ public class TorchEnemy : BaseEnemyAI
         animator.SetInteger("attackDirection", directionIndex);
         animator.SetTrigger("doAttack");
     }
+}
 }

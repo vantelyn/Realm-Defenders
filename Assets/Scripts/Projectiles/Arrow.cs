@@ -1,5 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Game.Combat;
+
+namespace Game.Projectiles
+{
 
 public class Arrow : MonoBehaviour
 {
@@ -108,4 +112,5 @@ public class Arrow : MonoBehaviour
         if (spriteChild != null) spriteChild.localPosition = Vector3.zero;
         Destroy(gameObject, timeToDestroyAfterLanding);
     }
+}
 }

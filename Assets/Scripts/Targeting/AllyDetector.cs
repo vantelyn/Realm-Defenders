@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Units;
+
+namespace Game.Targeting
+{
 
 public class AllyDetector : MonoBehaviour
 {
@@ -28,4 +32,5 @@ public class AllyDetector : MonoBehaviour
         if (unit == null) return;
         detected.Remove(unit);
     }
+}
 }

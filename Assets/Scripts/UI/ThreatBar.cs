@@ -1,8 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Game.Targeting;
+
+namespace Game.UI
+{
 
 /// <summary>
-/// Ajusta el fillAmount de una Image según la amenaza total del ThreatRegistry.
+/// Ajusta el fillAmount de una Image segï¿½n la amenaza total del ThreatRegistry.
 /// Reactivo: se actualiza cuando el registro cambia.
 /// </summary>
 [RequireComponent(typeof(Image))]
@@ -35,4 +39,5 @@ public class ThreatBar : MonoBehaviour
         float ratio = Mathf.Clamp01(ThreatRegistry.GetTotalThreat() / maxThreat);
         fillImage.fillAmount = ratio;
     }
+}
 }

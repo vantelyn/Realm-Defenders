@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace Game.Buildings
+{
+
 /// <summary>
-/// Conecta un botón de UI con una receta concreta.
-/// Al hacer clic entra en modo construcción.
+/// Conecta un botï¿½n de UI con una receta concreta.
+/// Al hacer clic entra en modo construcciï¿½n.
 /// </summary>
 [RequireComponent(typeof(Button))]
 public class BuildButton : MonoBehaviour
@@ -31,4 +34,5 @@ public class BuildButton : MonoBehaviour
             placer.BeginPlacement(recipe);
         }
     }
+}
 }

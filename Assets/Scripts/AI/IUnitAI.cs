@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace Game.AI
+{
+
 public interface IUnitAI
 {
     void Enable();
@@ -9,4 +12,5 @@ public interface IUnitAI
     // Hooks opcionales: se invocan cuando la unidad entra/sale de un edificio.
     void OnHostEnteredBuilding() { }
     void OnHostExitedBuilding() { }
+}
 }

@@ -1,4 +1,12 @@
 using UnityEngine;
+using Game.Buildings;
+using Game.Combat;
+using Game.Config;
+using Game.Core;
+using Game.Units;
+
+namespace Game.PlayerInput
+{
 
 public class CursorController : MonoBehaviour
 {
@@ -74,7 +82,7 @@ public class CursorController : MonoBehaviour
             return CursorType.Ally;
         }
 
-        // Prioridad: árboles.
+        // Prioridad: ï¿½rboles.
         if (QueryService.HasHitAt(mouseWorld, targeting.treeLayer))
         {
             if (selected is PawnScript) return CursorType.Wood;
@@ -116,4 +124,5 @@ public class CursorController : MonoBehaviour
         }
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
+}
 }

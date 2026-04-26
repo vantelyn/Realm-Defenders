@@ -1,4 +1,8 @@
 using UnityEngine;
+using Game.Core;
+
+namespace Game.Targeting
+{
 
 public class ResourceCollector : MonoBehaviour
 {
@@ -23,4 +27,5 @@ public class ResourceCollector : MonoBehaviour
             if (inventory.TryAddWood()) Destroy(obj);
         }
     }
+}
 }

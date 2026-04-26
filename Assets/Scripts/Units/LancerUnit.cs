@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace Game.Units
+{
+
 public class LancerUnit : PlayerUnit
 {
     private struct AttackAnim
@@ -66,4 +69,5 @@ public class LancerUnit : PlayerUnit
         }
         return best;
     }
+}
 }

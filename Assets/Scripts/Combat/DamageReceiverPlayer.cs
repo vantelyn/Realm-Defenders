@@ -1,4 +1,8 @@
 using UnityEngine;
+using Game.Units;
+
+namespace Game.Combat
+{
 
 public class DamageReceiverPlayer : MonoBehaviour
 {
@@ -120,4 +124,5 @@ public class DamageReceiverPlayer : MonoBehaviour
     {
         Destroy(gameObject);
     }
+}
 }

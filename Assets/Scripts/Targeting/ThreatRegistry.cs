@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Game.Targeting
+{
+
 /// <summary>
 /// Registro central de todos los StrategicTarget vivos. Los enemigos lo
-/// consultan para decidir a qué ir cuando no tienen objetivo de oportunidad.
+/// consultan para decidir a quï¿½ ir cuando no tienen objetivo de oportunidad.
 /// </summary>
 public static class ThreatRegistry
 {
@@ -46,7 +49,7 @@ public static class ThreatRegistry
         float bestLevel = float.NegativeInfinity;
         int tieCount = 0;
 
-        // Primera pasada: encontrar el máximo y contar empates.
+        // Primera pasada: encontrar el mï¿½ximo y contar empates.
         for (int i = 0; i < targets.Count; i++)
         {
             StrategicTarget t = targets[i];
@@ -80,7 +83,7 @@ public static class ThreatRegistry
         return null;
     }
 
-    /// <summary>Suma total de amenaza. Útil para calcular ritmo de spawn de portales.</summary>
+    /// <summary>Suma total de amenaza. ï¿½til para calcular ritmo de spawn de portales.</summary>
     public static float GetTotalThreat()
     {
         float total = 0f;
@@ -91,10 +94,11 @@ public static class ThreatRegistry
         return total;
     }
 
-    /// <summary>Limpia el registro (útil al cargar escena).</summary>
+    /// <summary>Limpia el registro (ï¿½til al cargar escena).</summary>
     public static void Clear()
     {
         targets.Clear();
         OnRegistryChanged?.Invoke();
     }
+}
 }

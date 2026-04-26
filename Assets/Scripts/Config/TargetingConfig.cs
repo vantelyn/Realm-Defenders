@@ -1,6 +1,11 @@
 using UnityEngine;
+using Game.Buildings;
+
+namespace Game.Config
+{
 
 [CreateAssetMenu(fileName = "TargetingConfig", menuName = "Game/Targeting Config")]
+
 public class TargetingConfig : ScriptableObject
 {
     [Header("Layers")]
@@ -13,4 +18,5 @@ public class TargetingConfig : ScriptableObject
     [Header("Tags")]
     public string unitTag = "Unit";
     public string buildingTag = "Building";
+}
 }

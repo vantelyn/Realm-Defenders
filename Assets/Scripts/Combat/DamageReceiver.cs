@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace Game.Combat
+{
+
 public class DamageReceiver : MonoBehaviour
 {
     [System.Serializable]
@@ -84,4 +87,5 @@ public class DamageReceiver : MonoBehaviour
     {
         Destroy(gameObject);
     }
+}
 }
