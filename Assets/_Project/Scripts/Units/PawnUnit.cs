@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Game.Units
 {
 
-public class PawnScript : PlayerUnit
+public class PawnUnit : PlayerUnit
 {
     public override bool HasSecondary => true;
 

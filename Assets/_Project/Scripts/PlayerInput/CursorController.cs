@@ -58,7 +58,7 @@ public class CursorController : MonoBehaviour
         // Prioridad: enemigos.
         if (QueryService.HasHitAt(mouseWorld, targeting.enemyLayer))
         {
-            if (selected is PawnScript) return CursorType.Enemy;
+            if (selected is PawnUnit) return CursorType.Enemy;
             if (selected is ArcherUnit) return CursorType.EnemyBow;
             return CursorType.Enemy;
         }
@@ -85,14 +85,14 @@ public class CursorController : MonoBehaviour
         // Prioridad: �rboles.
         if (QueryService.HasHitAt(mouseWorld, targeting.treeLayer))
         {
-            if (selected is PawnScript) return CursorType.Wood;
+            if (selected is PawnUnit) return CursorType.Wood;
             return CursorType.Wood;
         }
 
         // Prioridad: ovejas.
         if (QueryService.HasHitAt(mouseWorld, targeting.sheepLayer))
         {
-            if (selected is PawnScript) return CursorType.Enemy;
+            if (selected is PawnUnit) return CursorType.Enemy;
 
             return CursorType.Enemy;
         }

@@ -5,7 +5,7 @@ using Game.Units;
 namespace Game.AI
 {
 
-[RequireComponent(typeof(PawnScript))]
+[RequireComponent(typeof(PawnUnit))]
 public class PawnUnitAI : BaseUnitAI
 {
     public enum AIState { Idle, ChaseEnemy, AttackEnemy, MoveToTree, Chop, MoveToResource, ReturnHome }
@@ -27,7 +27,7 @@ public class PawnUnitAI : BaseUnitAI
     [SerializeField] private float resourceOpportunityRadius = 2.0f;
     [SerializeField] private float resourceArriveDistance = 0.3f;
 
-    private PawnScript pawn;
+    private PawnUnit pawn;
 
     private AIState state = AIState.Idle;
     private Transform currentEnemy;
@@ -40,7 +40,7 @@ public class PawnUnitAI : BaseUnitAI
     protected override void Awake()
     {
         base.Awake();
-        pawn = GetComponent<PawnScript>();
+        pawn = GetComponent<PawnUnit>();
     }
 
     protected override void CleanDetectors()

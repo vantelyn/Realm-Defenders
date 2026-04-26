@@ -11,13 +11,13 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] prefabs;
 
     [Header("Spawn rate")]
-    [Tooltip("Tiempo base de espera entre spawns (en segundos). Se divide por la amenaza normalizada (0..1) + 1, de forma que a threat=0 el tiempo es el base, a threat=max el tiempo es base/2... pero usamos interpolaci�n directa contra minDelay.")]
+    [Tooltip("Tiempo base de espera entre spawns (en segundos). Se divide por la amenaza normalizada (0..1) + 1, de forma que a threat=0 el tiempo es el base, a threat=max el tiempo es base/2... pero usamos interpolacion directa contra minDelay.")]
     public float baseDelay = 20f;
 
     [Tooltip("Tiempo m�nimo de espera cuando la amenaza es m�xima.")]
     public float minDelay = 1f;
 
-    [Tooltip("Valor de amenaza en el que la frecuencia es m�xima. Por encima de esto no acelera m�s.")]
+    [Tooltip("Valor de amenaza en el que la frecuencia es maxima. Por encima de esto no acelera m�s.")]
     public float maxThreat = 100f;
 
     void Start()

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 namespace Game.Units
 {
 
-public class SheepScript : NPC
+public class SheepUnit : NPC
 {
     [Header("Sheep Behavior")]
     [SerializeField] private float wanderRadius = 5f;
