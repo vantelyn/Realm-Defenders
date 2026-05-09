@@ -55,7 +55,6 @@ public class PlayerUnitAI : BaseUnitAI
     private void TickIdle()
     {
 
-        Debug.Log($"[{name}] Idle tick, hasPatrol={hasPatrolDestination}");
         ResumeAgent();
 
         Transform enemy = FindClosestEnemy();
@@ -168,7 +167,6 @@ public class PlayerUnitAI : BaseUnitAI
 
     private void TickMoveToBuilding()
     {
-        Debug.Log($"[{name}] MoveToBuilding tick, target={(garrison.HasTarget ? garrison.TargetBuilding.name : "NULL")}, dist={(garrison.HasTarget ? Vector2.Distance(transform.position, garrison.GetDoorPosition()).ToString("F2") : "-")}");
         Transform enemy = FindClosestEnemy();
         if (enemy != null)
         {
@@ -193,7 +191,6 @@ public class PlayerUnitAI : BaseUnitAI
 
         if (agent != null)
         {
-            Debug.Log($"[{name}] agent.enabled={agent.enabled}, hasPath={agent.hasPath}, pathStatus={agent.pathStatus}, remaining={agent.remainingDistance:F2}, vel={agent.velocity.magnitude:F2}, stopped={agent.isStopped}");
         }
 
         RepathTo(garrison.GetDoorPosition());
@@ -232,7 +229,6 @@ public class PlayerUnitAI : BaseUnitAI
 
     private void TransitionTo(AIState next)
     {
-        Debug.Log($"[{name}] {state} -> {next}");
         if (state == AIState.Idle && next != AIState.Idle) hasPatrolDestination = false;
         state = next;
         lastRepathTime = -999f;

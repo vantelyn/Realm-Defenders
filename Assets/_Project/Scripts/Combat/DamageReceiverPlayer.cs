@@ -45,7 +45,6 @@ public class DamageReceiverPlayer : MonoBehaviour
 
     public void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, Vector2 hitDirection)
     {
-        Debug.Log($"[{name}] ApplyDamage called, amount={amount}, hp was {currentHealth}");
 
         if (playerUnit != null && playerUnit.IsGarrisoned) return;
 
