@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitsLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 32768
   buildingsLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 32768
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65536
   treeLayer:
     serializedVersion: 2
     m_Bits: 256

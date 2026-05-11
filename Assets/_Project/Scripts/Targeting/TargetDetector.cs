@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game.Targeting
 {
 
-public class EnemyDetector : MonoBehaviour
+public class TargetDetector : MonoBehaviour
 {
     [SerializeField] private LayerMask detectLayers;
 

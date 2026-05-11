@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 3278178111886151105}
   m_Layer: 13
   m_Name: Castle_Blue
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -273,8 +273,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1616145065319247066}
   - component: {fileID: 2640646293001407963}
-  m_Layer: 11
-  m_Name: Door
+  m_Layer: 15
+  m_Name: Hitbox
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,13 +325,13 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0040216446, y: 0.25985277}
-  m_Size: {x: 0.6045685, y: 0.8824761}
-  m_Direction: 0
+  m_Offset: {x: -0.0051888684, y: 0.620747}
+  m_Size: {x: 4.1269913, y: 1.4499294}
+  m_Direction: 1
 --- !u!1 &8741400796899883792
 GameObject:
   m_ObjectHideFlags: 0

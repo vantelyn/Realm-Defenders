@@ -90,11 +90,11 @@ public class Arrow : MonoBehaviour
 
             Vector2 hitDirection = hit.transform.position - transform.position;
 
-            DamageReceiver receiver = hit.GetComponent<DamageReceiver>();
+            IDamageReceiver receiver = hit.GetComponentInParent<IDamageReceiver>();
             if (receiver != null)
             {
                 int layer = hit.gameObject.layer;
-                bool isEnemy = layer == LayerMask.NameToLayer("Enemy") ||
+                bool isEnemy = layer == LayerMask.NameToLayer("EnemyHitbox") ||
                                layer == LayerMask.NameToLayer("Sheep");
                 bool isTree = layer == LayerMask.NameToLayer("Tree");
                 receiver.ApplyDamage(damage, isEnemy, isTree, hitDirection);

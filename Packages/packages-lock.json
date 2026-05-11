@@ -8,7 +8,7 @@
         "com.unity.nuget.newtonsoft-json": "3.0.2",
         "com.unity.test-framework": "1.1.31"
       },
-      "hash": "48169fcf3ee2e5f1f40682e9bf247849e293da81"
+      "hash": "a2a5edf8d8e3f715881c0db4589c18feff7c379f"
     },
     "com.merry-yellow.code-assist": {
       "version": "file:com.merry-yellow.code-assist",

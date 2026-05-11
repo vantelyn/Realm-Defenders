@@ -41,8 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7740651611567795644}
   - component: {fileID: 8218772114794804569}
-  m_Layer: 11
-  m_Name: Door
+  m_Layer: 15
+  m_Name: Hitbox
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,13 +93,13 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0040216446, y: 0.2956035}
-  m_Size: {x: 0.6045685, y: 0.8109746}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0.3}
+  m_Size: {x: 1.293501, y: 0.7867825}
+  m_Direction: 1
 --- !u!1 &7901322314456821520
 GameObject:
   m_ObjectHideFlags: 0

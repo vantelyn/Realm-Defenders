@@ -290,7 +290,7 @@ MonoBehaviour:
     searchRadius: 12
     buildingsLayer:
       serializedVersion: 2
-      m_Bits: 2048
+      m_Bits: 32768
     buildingTag: Building
     doorArriveDistance: 0.6
 --- !u!114 &1308628826002594140
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65536
 --- !u!1 &4053240044697884919
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,8 +400,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1407983437718638127}
   - component: {fileID: 851180456335037194}
-  m_Layer: 11
-  m_Name: SelectionHitbox
+  m_Layer: 15
+  m_Name: Hitbox
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,12 +452,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.018487453, y: 0.49433917}
-  m_Size: {x: 0.7958021, y: 1.1603261}
+  m_Offset: {x: -0.0146451, y: 0.48266387}
+  m_Size: {x: 0.629302, y: 1.0168862}
   m_Direction: 0
 --- !u!1 &6403986496380678814
 GameObject:
@@ -557,8 +557,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.3
+  m_Offset: {x: 0, y: 0.2}
+  m_Radius: 0.5
 --- !u!114 &5583934871425614734
 MonoBehaviour:
   m_ObjectHideFlags: 0

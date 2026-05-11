@@ -9,7 +9,7 @@ namespace Game.Combat
 /// no se mueven) ni animaci�n de golpe. Al morir destruye el GameObject, lo que
 /// autom�ticamente desregistra cualquier StrategicTarget asociado.
 /// </summary>
-public class DamageReceiverBuilding : MonoBehaviour
+public class DamageReceiverBuilding : MonoBehaviour, IDamageReceiver
 {
     [Header("Stats")]
     public int maxHealth = 200;
@@ -22,6 +22,7 @@ public class DamageReceiverBuilding : MonoBehaviour
     public int MaxHealth => maxHealth;
     public bool IsAtFullHealth => currentHealth >= maxHealth;
     public float HealthRatio => maxHealth > 0 ? (float)currentHealth / maxHealth : 1f;
+    public bool IsStructure => true;
 
     public event System.Action<int, int> OnHealthChanged;
 

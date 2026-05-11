@@ -255,21 +255,12 @@ public abstract class BaseEnemyAI : MonoBehaviour
     /// </summary>
     protected virtual void ApplyDamageToTarget(Collider2D target, Vector2 hitDirection)
     {
-        // Prioridad: DamageReceiverPlayer (unidades aliadas).
-        DamageReceiverPlayer playerHp = target.GetComponent<DamageReceiverPlayer>();
-        if (playerHp != null)
-        {
-            playerHp.ApplyDamage(GetDamageVsUnits(), true, false, hitDirection);
-            return;
-        }
+        IDamageReceiver receiver = target.GetComponentInParent<IDamageReceiver>();
+        if (receiver == null) return;
 
-        // DamageReceiverBuilding (edificios aliados).
-        DamageReceiverBuilding buildingHp = target.GetComponent<DamageReceiverBuilding>();
-        if (buildingHp != null)
-        {
-            buildingHp.ApplyDamage(GetDamageVsBuildings(), false, false, hitDirection);
-            return;
-        }
+        int damage = receiver.IsStructure ? GetDamageVsBuildings() : GetDamageVsUnits();
+        bool applyForce = !receiver.IsStructure;
+        receiver.ApplyDamage(damage, applyForce, false, hitDirection);
     }
 
     protected virtual int GetDamageVsUnits() => 1;

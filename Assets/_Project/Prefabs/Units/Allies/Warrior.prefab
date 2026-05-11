@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65536
 --- !u!1 &2727363506755996944
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,8 +238,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.04886322, y: 0.15015084}
-  m_Size: {x: 0.6503692, y: 0.33527777}
+  m_Offset: {x: -0.020069828, y: 0.09782813}
+  m_Size: {x: 0.6387182, y: 0.20408227}
   m_Direction: 1
 --- !u!50 &6385789646183534979
 Rigidbody2D:
@@ -282,7 +282,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
-  itemsToDrop: []
+  itemsToDrop:
+  - prefab: {fileID: 2816344810698533642, guid: cbff509c328769b47bcb5892a3c04361, type: 3}
+    dropChance: 1
+  - prefab: {fileID: 2816344810698533642, guid: cbff509c328769b47bcb5892a3c04361, type: 3}
+    dropChance: 0.8
+  - prefab: {fileID: 436611437657991125, guid: 721ae6af1d73b12488168a31012598dc, type: 3}
+    dropChance: 0.5
   dropRadius: 0.5
   forceImpulse: 5
 --- !u!114 &306111416977721393
@@ -299,12 +305,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   maxHealth: 500
-  attackRange: 1.2
+  attackRange: 1
   targetLayer:
     serializedVersion: 2
-    m_Bits: 960
+    m_Bits: 66432
   damageRules:
-  - layerName: Enemy
+  - layerName: EnemyHitbox
     damage: 1
     applyForce: 1
     applyHitAnimation: 0
@@ -337,7 +343,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.3
+  m_Height: 0.2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -369,7 +375,7 @@ MonoBehaviour:
     searchRadius: 12
     buildingsLayer:
       serializedVersion: 2
-      m_Bits: 2048
+      m_Bits: 32768
     buildingTag: Building
     doorArriveDistance: 0.3
 --- !u!114 &3078725998814492476
@@ -452,8 +458,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.3
+  m_Offset: {x: 0, y: 0.2}
+  m_Radius: 0.5
 --- !u!114 &4990612072297797779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,8 +483,8 @@ GameObject:
   m_Component:
   - component: {fileID: 413112824950173288}
   - component: {fileID: 1961311482601392433}
-  m_Layer: 11
-  m_Name: SelectionHitbox
+  m_Layer: 15
+  m_Name: Hitbox
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,7 +535,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

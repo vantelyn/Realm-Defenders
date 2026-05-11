@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Mother
   - MoneyBag
   - Meat
   - Wood
@@ -21,17 +20,17 @@ TagManager:
   - NotTargetable
   - Water
   - UI
-  - Enemy
+  - EnemyUnit
   - Sheep
   - Tree
   - Resources
-  - Player
-  - Selectable
+  - PlayerUnit
+  - 
   - Detectors
   - PlayerBuilding
   - Stump
-  - 
-  - 
+  - AllyHitbox
+  - EnemyHitbox
   - 
   - 
   - 

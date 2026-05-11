@@ -11,8 +11,8 @@ public class PawnUnitAI : BaseUnitAI
     public enum AIState { Idle, ChaseEnemy, AttackEnemy, MoveToTree, Chop, MoveToResource, ReturnHome }
 
     [Header("Pawn References")]
-    [SerializeField] private EnemyDetector treeDetector;
-    [SerializeField] private EnemyDetector resourceDetector;
+    [SerializeField] private TargetDetector treeDetector;
+    [SerializeField] private TargetDetector resourceDetector;
 
     [Header("Combat")]
     [SerializeField] private float attackRange = 1.0f;

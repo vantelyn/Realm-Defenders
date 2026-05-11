@@ -87,19 +87,12 @@ public class Dynamite : MonoBehaviour
                 dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
             }
 
-            DamageReceiverPlayer playerHp = hit.GetComponent<DamageReceiverPlayer>();
-            if (playerHp != null)
-            {
-                playerHp.ApplyDamage(damageToUnits, true, false, dir);
-                continue;
-            }
+            IDamageReceiver receiver = hit.GetComponentInParent<IDamageReceiver>();
+            if (receiver == null) continue;
 
-            DamageReceiverBuilding buildingHp = hit.GetComponent<DamageReceiverBuilding>();
-            if (buildingHp != null)
-            {
-                buildingHp.ApplyDamage(damageToBuildings, false, false, dir);
-                continue;
-            }
+            int damage = receiver.IsStructure ? damageToBuildings : damageToUnits;
+            bool applyForce = !receiver.IsStructure;
+            receiver.ApplyDamage(damage, applyForce, false, dir);
         }
 
         Destroy(gameObject);

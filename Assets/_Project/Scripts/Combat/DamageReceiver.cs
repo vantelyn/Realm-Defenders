@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Game.Combat
 {
 
-public class DamageReceiver : MonoBehaviour
+public class DamageReceiver : MonoBehaviour, IDamageReceiver
 {
     [System.Serializable]
     public class DroppableItem
@@ -23,6 +23,12 @@ public class DamageReceiver : MonoBehaviour
     private Rigidbody2D rb2D;
     private Animator animator;
     public float forceImpulse = 5;
+
+    public int CurrentHealth => currentHealth;
+    public int MaxHealth => maxHealth;
+    public bool IsAtFullHealth => currentHealth >= maxHealth;
+    public float HealthRatio => maxHealth > 0 ? (float)currentHealth / maxHealth : 1f;
+    public bool IsStructure => false;
 
     void Start()
     {

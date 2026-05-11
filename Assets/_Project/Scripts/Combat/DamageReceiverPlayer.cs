@@ -4,7 +4,7 @@ using Game.Units;
 namespace Game.Combat
 {
 
-public class DamageReceiverPlayer : MonoBehaviour
+public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
 {
     [System.Serializable]
     public class DroppableItem
@@ -33,6 +33,7 @@ public class DamageReceiverPlayer : MonoBehaviour
     public int MaxHealth => maxHealth;
     public bool IsAtFullHealth => currentHealth >= maxHealth;
     public float HealthRatio => maxHealth > 0 ? (float)currentHealth / maxHealth : 1f;
+    public bool IsStructure => false;
 
     void Start()
     {

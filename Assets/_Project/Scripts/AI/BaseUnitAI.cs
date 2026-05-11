@@ -9,7 +9,7 @@ namespace Game.AI
 public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
 {
     [Header("References")]
-    [SerializeField] protected EnemyDetector enemyDetector;
+    [SerializeField] protected TargetDetector enemyDetector;
 
     [Header("Home Zone")]
     [SerializeField] protected float homeRadius = 1.5f;

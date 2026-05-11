@@ -63,7 +63,7 @@ public class CursorController : MonoBehaviour
             return CursorType.Enemy;
         }
 
-        // Prioridad: edificios (puertas).
+        // Prioridad: edificios.
         Building building = QueryService.FindBuildingAt(mouseWorld, targeting.buildingsLayer, targeting.buildingTag);
         if (building != null)
         {

@@ -203,7 +203,7 @@ public abstract class PlayerUnit : MonoBehaviour
             DamageRule rule = GetRuleForLayer(target.gameObject.layer);
             if (rule == null) continue;
 
-            DamageReceiver receiver = target.GetComponent<DamageReceiver>();
+            IDamageReceiver receiver = target.GetComponentInParent<IDamageReceiver>();
             if (receiver == null) continue;
 
             Vector2 hitDirection = target.transform.position - transform.position;
