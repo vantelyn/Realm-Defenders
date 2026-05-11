@@ -305,16 +305,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   maxHealth: 500
-  attackRange: 1
+  attackRange: 0.8
   targetLayer:
     serializedVersion: 2
-    m_Bits: 66432
+    m_Bits: 68352
   damageRules:
   - layerName: EnemyHitbox
     damage: 1
     applyForce: 1
     applyHitAnimation: 0
-  - layerName: Sheep
+  - layerName: SheepHitbox
     damage: 1
     applyForce: 1
     applyHitAnimation: 0
@@ -367,7 +367,7 @@ MonoBehaviour:
   patrolPauseMax: 5
   patrolArriveDistance: 0.15
   repathInterval: 0.25
-  attackRange: 1
+  attackRange: 0.8
   attackCooldown: 1.2
   chaseHysteresis: 0.5
   garrison:
@@ -538,6 +538,6 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.033348322, y: 0.5466547}
-  m_Size: {x: 0.7326646, y: 1.1290803}
+  m_Offset: {x: -0.048496008, y: 0.52285147}
+  m_Size: {x: 0.6417794, y: 1.0381951}
   m_Direction: 0

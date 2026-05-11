@@ -350,16 +350,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   maxHealth: 500
-  attackRange: 1.2
+  attackRange: 0.8
   targetLayer:
     serializedVersion: 2
-    m_Bits: 66432
+    m_Bits: 68352
   damageRules:
   - layerName: Tree
     damage: 1
     applyForce: 0
     applyHitAnimation: 1
-  - layerName: Sheep
+  - layerName: SheepHitbox
     damage: 1
     applyForce: 1
     applyHitAnimation: 0
@@ -430,7 +430,7 @@ MonoBehaviour:
   repathInterval: 0.25
   treeDetector: {fileID: 5750426982317292384}
   resourceDetector: {fileID: 1523883975426064519}
-  attackRange: 1
+  attackRange: 0.8
   attackCooldown: 1.2
   chaseHysteresis: 0.5
   chopRange: 1
