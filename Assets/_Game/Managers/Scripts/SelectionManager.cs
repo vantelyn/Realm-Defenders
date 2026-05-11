@@ -25,8 +25,9 @@ public class SelectionManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed && selectedUnit != null)
         {
+            InputArbiter.EscapeConsumed = true;
             Deselect();
             return;
         }

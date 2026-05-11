@@ -7,6 +7,7 @@ using Game.Buildings;
 namespace Game.Managers
 {
 
+[DefaultExecutionOrder(-100)]
 public class BuildingManager : MonoBehaviour
 {
     [Header("References")]
@@ -100,7 +101,13 @@ public class BuildingManager : MonoBehaviour
     {
         if (!IsPlacing) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape) || (Input.GetMouseButtonDown(1) && !IsPointerOverUI()))
+        if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed)
+        {
+            InputArbiter.EscapeConsumed = true;
+            CancelPlacement();
+            return;
+        }
+        if (Input.GetMouseButtonDown(1) && !IsPointerOverUI())
         {
             CancelPlacement();
             return;
