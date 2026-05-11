@@ -103,12 +103,12 @@ TextureImporter:
       name: Ribbon_Red_Connection_Right_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 13
-        width: 61
-        height: 50
+        x: 1
+        y: 14
+        width: 59
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7ac271f0f47386547aca303e9dc688e0
     internalID: 0
     vertices: []
     indices: 

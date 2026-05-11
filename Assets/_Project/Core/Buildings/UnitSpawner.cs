@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Game.Core;
 
-namespace Game.UI
+namespace Game.Buildings
 {
 
 public class UnitSpawner : MonoBehaviour

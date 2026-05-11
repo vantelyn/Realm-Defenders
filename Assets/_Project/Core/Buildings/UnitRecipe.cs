@@ -1,7 +1,7 @@
 using UnityEngine;
 using Game.Core;
 
-namespace Game.UI
+namespace Game.Buildings
 {
 
 [CreateAssetMenu(fileName = "UnitRecipe", menuName = "Game/Unit Recipe")]

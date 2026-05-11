@@ -1,5 +1,5 @@
 
-namespace Game.UI
+namespace Game.Buildings
 {
 public interface IRecipe
 {

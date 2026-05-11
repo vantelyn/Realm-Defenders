@@ -1,6 +1,5 @@
 using UnityEngine;
 using Game.Core;
-using Game.UI;
 
 namespace Game.Buildings
 {
