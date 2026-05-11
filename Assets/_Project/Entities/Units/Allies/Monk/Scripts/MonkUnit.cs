@@ -1,6 +1,5 @@
 using UnityEngine;
 using Game.Combat;
-using Game.PlayerInput;
 
 namespace Game.Units
 {

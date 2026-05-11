@@ -5,10 +5,10 @@ using Game.Config;
 using Game.Core;
 using Game.Units;
 
-namespace Game.PlayerInput
+namespace Game.Managers
 {
 
-public class CursorController : MonoBehaviour
+public class CursorManager : MonoBehaviour
 {
     public enum CursorType { Default, Ally, Heal, Enemy, EnemyBow, Hammer, Wood, Door, DoorBlocked }
 

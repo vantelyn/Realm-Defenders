@@ -6,7 +6,7 @@ using Game.Config;
 using Game.Core;
 using Game.Units;
 
-namespace Game.PlayerInput
+namespace Game.Managers
 {
 
 public class SelectionManager : MonoBehaviour

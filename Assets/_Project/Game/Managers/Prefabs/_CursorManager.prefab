@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5644569783379462704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1010555599854381249}
+  - component: {fileID: 2449893459610740250}
+  m_Layer: 0
+  m_Name: _CursorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1010555599854381249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5644569783379462704}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2449893459610740250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5644569783379462704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395c83348923df4498d53082888bc66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styles:
+  - type: 3
+    texture: {fileID: 2800000, guid: 8ccae98fac08da54d80add5a22418e69, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 4
+    texture: {fileID: 2800000, guid: da17c1e39f13c4641bc04220e07fa1b6, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 8
+    texture: {fileID: 2800000, guid: 140fe61e38a21e34ebc844d986c272fb, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 0
+    texture: {fileID: 2800000, guid: b771bcea230c46b4c90dbb5b994caf6d, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 7
+    texture: {fileID: 2800000, guid: 1d78ee2aa029aa44dad814fb283532bb, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 5
+    texture: {fileID: 2800000, guid: 2cf56f765af6afb48ac03b1222696b77, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 2
+    texture: {fileID: 2800000, guid: 7ff8eb9479cf6154fa32e0612f636991, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 1
+    texture: {fileID: 2800000, guid: 4b9296ad8cf38394880529970b59046c, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 6
+    texture: {fileID: 2800000, guid: c26d9e7ecef9ef94ebdf204a36f63b3d, type: 3}
+    hotspot: {x: 0, y: 0}
+  worldCamera: {fileID: 0}
+  selectionManager: {fileID: 0}
+  targeting: {fileID: 11400000, guid: 9defdb557f67dac49acaaa6efb2ac96a, type: 2}

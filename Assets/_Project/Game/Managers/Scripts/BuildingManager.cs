@@ -3,9 +3,9 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using NavMeshPlus.Components;
 using Game.Core;
-using Game.PlayerInput;
+using Game.Buildings;
 
-namespace Game.Buildings
+namespace Game.Managers
 {
 
 public class BuildingManager : MonoBehaviour

@@ -1,6 +1,5 @@
 using UnityEngine;
 using Game.Buildings;
-using Game.PlayerInput;
 using Game.Units;
 
 namespace Game.Core
@@ -8,7 +7,7 @@ namespace Game.Core
 
 /// <summary>
 /// B�squedas de Physics2D centralizadas. Cachea buffer y filtros para evitar allocs por frame.
-/// Todos los consumidores del juego (SelectionManager, CursorController, AIs) pasan por aqu�.
+/// Todos los consumidores del juego (SelectionManager, CursorManager, AIs) pasan por aqu�.
 /// </summary>
 public static class QueryService
 {
