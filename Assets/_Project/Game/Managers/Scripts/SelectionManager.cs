@@ -15,7 +15,7 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] private Camera worldCamera;
     [SerializeField] private TargetingConfig targeting;
     [SerializeField] private KeyCode selectionKey = KeyCode.F;
-    [SerializeField] private BuildPlacer buildPlacer;
+    [SerializeField] private BuildingManager buildPlacer;
 
     private PlayerUnit selectedUnit;
     public PlayerUnit SelectedUnit => selectedUnit;

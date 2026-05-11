@@ -7,14 +7,14 @@ namespace Game.Buildings
 
 /// <summary>
 /// Bot�n espec�fico para el castillo. Tiene dos modos:
-/// - Sin castillo construido: entra en modo colocaci�n (BuildPlacer + CastleRecipe).
+/// - Sin castillo construido: entra en modo colocaci�n (BuildingManager + CastleRecipe).
 /// - Con castillo existente: intenta hacer upgrade in-place.
 /// Se actualiza reactivamente cuando cambian los recursos o el nivel del castillo.
 /// </summary>
 [RequireComponent(typeof(Button))]
 public class CastleBuildButton : MonoBehaviour
 {
-    [SerializeField] private BuildPlacer placer;
+    [SerializeField] private BuildingManager placer;
     [SerializeField] private BuildingRecipe initialRecipe;  // la misma receta de construcci�n original.
     [SerializeField] private PlayerInventory inventory;
 

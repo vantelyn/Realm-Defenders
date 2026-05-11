@@ -12,7 +12,7 @@ namespace Game.UI
 [RequireComponent(typeof(Button))]
 public class BuildButton : MonoBehaviour
 {
-    [SerializeField] private BuildPlacer placer;
+    [SerializeField] private BuildingManager placer;
     [SerializeField] private BuildingRecipe recipe;
 
     private Button button;

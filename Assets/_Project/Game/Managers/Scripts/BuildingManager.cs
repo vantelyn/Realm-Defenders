@@ -8,7 +8,7 @@ using Game.PlayerInput;
 namespace Game.Buildings
 {
 
-public class BuildPlacer : MonoBehaviour
+public class BuildingManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private PlayerInventory inventory;
