@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Game.Targeting;
 
+using Game.Managers;
 namespace Game.UI
 {
 
 /// <summary>
-/// Ajusta el fillAmount de una Image seg�n la amenaza total del ThreatRegistry.
+/// Ajusta el fillAmount de una Image seg�n la amenaza total del ThreatManager.
 /// Reactivo: se actualiza cuando el registro cambia.
 /// </summary>
 public class ThreatBar : MonoBehaviour
@@ -18,19 +19,19 @@ public class ThreatBar : MonoBehaviour
 
     private void OnEnable()
     {
-        ThreatRegistry.OnRegistryChanged += Refresh;
+        ThreatManager.OnRegistryChanged += Refresh;
         Refresh();
     }
 
     private void OnDisable()
     {
-        ThreatRegistry.OnRegistryChanged -= Refresh;
+        ThreatManager.OnRegistryChanged -= Refresh;
     }
 
     private void Refresh()
     {
         if (fillImage == null) return;
-        float ratio = Mathf.Clamp01(ThreatRegistry.GetTotalThreat() / maxThreat);
+        float ratio = Mathf.Clamp01(ThreatManager.GetTotalThreat() / maxThreat);
         fillImage.fillAmount = ratio;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Game.Targeting;
 
+using Game.Managers;
 namespace Game.Enemies
 {
 
@@ -42,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
 
     private float GetCurrentDelay()
     {
-        float t = Mathf.Clamp01(ThreatRegistry.GetTotalThreat() / maxThreat);
+        float t = Mathf.Clamp01(ThreatManager.GetTotalThreat() / maxThreat);
         return Mathf.Lerp(baseDelay, minDelay, t);
     }
 }

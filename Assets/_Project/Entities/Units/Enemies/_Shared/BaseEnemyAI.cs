@@ -4,6 +4,7 @@ using UnityEngine.AI;
 using Game.Combat;
 using Game.Targeting;
 
+using Game.Managers;
 namespace Game.AI
 {
 
@@ -140,7 +141,7 @@ public abstract class BaseEnemyAI : MonoBehaviour
     private void TickStrategic()
     {
         // Refrescamos el top threat cada tick porque puede cambiar dinamicamente.
-        currentStrategicTarget = ThreatRegistry.GetTopThreat();
+        currentStrategicTarget = ThreatManager.GetTopThreat();
 
         if (currentStrategicTarget == null)
         {

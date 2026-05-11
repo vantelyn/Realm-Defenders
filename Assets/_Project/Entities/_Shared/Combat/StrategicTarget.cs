@@ -1,11 +1,12 @@
 using UnityEngine;
 
+using Game.Managers;
 namespace Game.Targeting
 {
 
 /// <summary>
 /// Marca una entidad del jugador como objetivo estrat�gico que aparece en el
-/// ThreatRegistry. Unidades y edificios lo llevan con distintos threatLevel.
+/// ThreatManager. Unidades y edificios lo llevan con distintos threatLevel.
 /// </summary>
 [DisallowMultipleComponent]
 public class StrategicTarget : MonoBehaviour
@@ -20,17 +21,17 @@ public class StrategicTarget : MonoBehaviour
     {
         if (Mathf.Approximately(newLevel, threatLevel)) return;
         threatLevel = newLevel;
-        ThreatRegistry.NotifyThreatLevelChanged(this);
+        ThreatManager.NotifyThreatLevelChanged(this);
     }
 
     private void OnEnable()
     {
-        ThreatRegistry.Register(this);
+        ThreatManager.Register(this);
     }
 
     private void OnDisable()
     {
-        ThreatRegistry.Unregister(this);
+        ThreatManager.Unregister(this);
     }
 }
 }
