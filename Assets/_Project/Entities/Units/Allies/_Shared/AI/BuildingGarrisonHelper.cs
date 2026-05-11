@@ -1,6 +1,6 @@
 using UnityEngine;
 using Game.Buildings;
-using Game.Core;
+using Game.Combat;
 using Game.Units;
 
 namespace Game.AI

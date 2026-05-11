@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.AI;
 using Game.Buildings;
-using Game.CameraSystem;
+using Game.Managers;
 using Game.Combat;
 
 namespace Game.Units
@@ -63,7 +63,7 @@ public abstract class PlayerUnit : MonoBehaviour
     {
         if (Mode == ControlMode.Player && IsSelected && !isAttacking && !IsGarrisoned)
         {
-            movementInput = CameraFollowController.ReadWasd();
+            movementInput = CameraManager.ReadWasd();
         }
         else if (Mode == ControlMode.Player)
         {

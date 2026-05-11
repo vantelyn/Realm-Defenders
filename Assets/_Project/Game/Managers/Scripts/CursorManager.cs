@@ -2,7 +2,6 @@ using UnityEngine;
 using Game.Buildings;
 using Game.Combat;
 using Game.Config;
-using Game.Core;
 using Game.Units;
 
 namespace Game.Managers

@@ -2,7 +2,7 @@ using UnityEngine;
 using Game.Buildings;
 using Game.Units;
 
-namespace Game.Core
+namespace Game.Combat
 {
 
 /// <summary>

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game.Core
+namespace Game.UI
 {
 
 public class SplashController : MonoBehaviour

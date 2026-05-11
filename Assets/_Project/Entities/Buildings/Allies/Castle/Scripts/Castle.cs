@@ -1,6 +1,5 @@
 using UnityEngine;
 using Game.Combat;
-using Game.Core;
 using Game.Targeting;
 using Game.Managers;
 

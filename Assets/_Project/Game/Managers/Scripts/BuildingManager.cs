@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using NavMeshPlus.Components;
-using Game.Core;
 using Game.Buildings;
 
 namespace Game.Managers

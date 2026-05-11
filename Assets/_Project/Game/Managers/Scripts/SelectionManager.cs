@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Game.Buildings;
-using Game.CameraSystem;
 using Game.Config;
-using Game.Core;
+using Game.Combat;
 using Game.Units;
 
 namespace Game.Managers
@@ -11,7 +10,6 @@ namespace Game.Managers
 
 public class SelectionManager : MonoBehaviour
 {
-    [SerializeField] private CameraFollowController cameraFollow;
     [SerializeField] private Camera worldCamera;
     [SerializeField] private TargetingConfig targeting;
     [SerializeField] private KeyCode selectionKey = KeyCode.F;
@@ -125,7 +123,7 @@ public class SelectionManager : MonoBehaviour
         if (selectedUnit != null) selectedUnit.SetSelected(false);
         selectedUnit = unit;
         selectedUnit.SetSelected(true);
-        if (cameraFollow != null) cameraFollow.SetFollowTarget(unit.transform);
+        CameraManager.SetFollowTarget(unit.transform);
     }
 
     public void Deselect()
@@ -133,7 +131,7 @@ public class SelectionManager : MonoBehaviour
         if (selectedUnit == null) return;
         selectedUnit.SetSelected(false);
         selectedUnit = null;
-        if (cameraFollow != null) cameraFollow.SetFollowTarget(null);
+        CameraManager.SetFollowTarget(null);
     }
 
     private static bool IsPointerOverUI()
