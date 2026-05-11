@@ -10,8 +10,7 @@ namespace Game.UI
 /// Muestra un recurso del InventoryManager en un TextMeshPro.
 /// Reactivo: se actualiza autom�ticamente cuando el inventario cambia.
 /// </summary>
-[RequireComponent(typeof(TMP_Text))]
-public class ResourceDisplay : MonoBehaviour
+public class ResourceCounter : MonoBehaviour
 {
     public enum ResourceKind { Money, Meat, Wood }
 
@@ -19,12 +18,7 @@ public class ResourceDisplay : MonoBehaviour
     [Tooltip("Si true, muestra 'actual/max' en vez de solo 'actual'.")]
     [SerializeField] private bool showMax = false;
 
-    private TMP_Text label;
-
-    private void Awake()
-    {
-        label = GetComponent<TMP_Text>();
-    }
+    [SerializeField] private TMP_Text label;
 
     private void OnEnable()
     {

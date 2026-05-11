@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4755832255804217800}
   - component: {fileID: 7721952813170983062}
   - component: {fileID: 234624181890421898}
+  - component: {fileID: 9149043003647789754}
   m_Layer: 0
   m_Name: ThreatBar
   m_TagString: Untagged
@@ -80,6 +81,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &9149043003647789754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147225731367647063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3756fed0fefc7b640840f02628848066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxThreat: 100
+  fillImage: {fileID: 4247628419785443888}
 --- !u!1 &3326926461661537307
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +106,6 @@ GameObject:
   - component: {fileID: 3614041994501855019}
   - component: {fileID: 4005457187997092546}
   - component: {fileID: 4247628419785443888}
-  - component: {fileID: 9064257056019803301}
   m_Layer: 0
   m_Name: HealthFill
   m_TagString: Untagged
@@ -156,19 +170,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9064257056019803301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3326926461661537307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3756fed0fefc7b640840f02628848066, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxThreat: 100
 --- !u!1 &3919146493364219342
 GameObject:
   m_ObjectHideFlags: 0

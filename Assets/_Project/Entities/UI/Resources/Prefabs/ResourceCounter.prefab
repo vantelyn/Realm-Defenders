@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 6990892843069494306}
   - component: {fileID: 7482888101871759261}
   - component: {fileID: 7129387306483755203}
+  - component: {fileID: 2172657970570029516}
   m_Layer: 0
   m_Name: ResourceCounter
   m_TagString: Untagged
@@ -317,7 +318,6 @@ GameObject:
   - component: {fileID: 4776401314680549384}
   - component: {fileID: 2685526979035661170}
   - component: {fileID: 2240992617731217266}
-  - component: {fileID: 2172657970570029516}
   m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8517471534107129065}
+  m_GameObject: {fileID: 5250714209278723526}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bbeaddd83ef7f04dbfe644464403c1a, type: 3}
@@ -457,3 +457,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: 2
   showMax: 0
+  label: {fileID: 2240992617731217266}

@@ -9,18 +9,12 @@ namespace Game.UI
 /// Ajusta el fillAmount de una Image seg�n la amenaza total del ThreatRegistry.
 /// Reactivo: se actualiza cuando el registro cambia.
 /// </summary>
-[RequireComponent(typeof(Image))]
 public class ThreatBar : MonoBehaviour
 {
     [Tooltip("Valor de amenaza al que la barra llega al 100%.")]
     [SerializeField] private float maxThreat = 100f;
 
-    private Image fillImage;
-
-    private void Awake()
-    {
-        fillImage = GetComponent<Image>();
-    }
+    [SerializeField] private Image fillImage;
 
     private void OnEnable()
     {
