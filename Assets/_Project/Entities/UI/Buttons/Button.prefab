@@ -242,7 +242,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placer: {fileID: 412306864269491881, guid: 373287d05f604284ab6156c3fa7552b6, type: 3}
   initialRecipe: {fileID: 11400000, guid: f554e8f9cf7d1474f9a1c1c704a0310d, type: 2}
-  inventory: {fileID: 11400000, guid: 9a957e5ae38d176468e13391cf5e9db8, type: 2}
 --- !u!114 &5598024375969911937
 MonoBehaviour:
   m_ObjectHideFlags: 0

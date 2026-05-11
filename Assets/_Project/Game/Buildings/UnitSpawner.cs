@@ -8,7 +8,6 @@ namespace Game.Buildings
 public class UnitSpawner : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private PlayerInventory inventory;
 
     [Header("Spawn Point")]
     [Tooltip("Punto central donde aparecen las unidades. Si es null, se usa el transform del propio spawner.")]
@@ -23,9 +22,9 @@ public class UnitSpawner : MonoBehaviour
     public bool TrySpawn(UnitRecipe recipe)
     {
         if (recipe == null || recipe.unitPrefab == null) return false;
-        if (inventory == null) return false;
+        if (InventoryManager.Instance == null) return false;
 
-        if (!recipe.TryPay(inventory)) return false;
+        if (!recipe.TryPay(InventoryManager.Instance)) return false;
 
         Vector3 pos = GetRandomSpawnPosition();
         Instantiate(recipe.unitPrefab, pos, Quaternion.identity);

@@ -6,7 +6,7 @@ namespace Game.UI
 {
 
 /// <summary>
-/// Muestra un recurso del PlayerInventory en un TextMeshPro.
+/// Muestra un recurso del InventoryManager en un TextMeshPro.
 /// Reactivo: se actualiza autom�ticamente cuando el inventario cambia.
 /// </summary>
 [RequireComponent(typeof(TMP_Text))]
@@ -14,7 +14,6 @@ public class ResourceDisplay : MonoBehaviour
 {
     public enum ResourceKind { Money, Meat, Wood }
 
-    [SerializeField] private PlayerInventory inventory;
     [SerializeField] private ResourceKind resource;
     [Tooltip("Si true, muestra 'actual/max' en vez de solo 'actual'.")]
     [SerializeField] private bool showMax = false;
@@ -28,32 +27,32 @@ public class ResourceDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        if (inventory != null)
+        if (InventoryManager.Instance != null)
         {
-            inventory.OnChanged += Refresh;
+            InventoryManager.Instance.OnChanged += Refresh;
             Refresh();
         }
     }
 
     private void OnDisable()
     {
-        if (inventory != null)
+        if (InventoryManager.Instance != null)
         {
-            inventory.OnChanged -= Refresh;
+            InventoryManager.Instance.OnChanged -= Refresh;
         }
     }
 
     private void Refresh()
     {
-        if (label == null || inventory == null) return;
+        if (label == null || InventoryManager.Instance == null) return;
 
         int current;
         int max;
         switch (resource)
         {
-            case ResourceKind.Money: current = inventory.Money; max = inventory.MaxMoney; break;
-            case ResourceKind.Meat: current = inventory.Meat; max = inventory.MaxMeat; break;
-            case ResourceKind.Wood: current = inventory.Wood; max = inventory.MaxWood; break;
+            case ResourceKind.Money: current = InventoryManager.Instance.Money; max = InventoryManager.Instance.MaxMoney; break;
+            case ResourceKind.Meat: current = InventoryManager.Instance.Meat; max = InventoryManager.Instance.MaxMeat; break;
+            case ResourceKind.Wood: current = InventoryManager.Instance.Wood; max = InventoryManager.Instance.MaxWood; break;
             default: current = 0; max = 0; break;
         }
 

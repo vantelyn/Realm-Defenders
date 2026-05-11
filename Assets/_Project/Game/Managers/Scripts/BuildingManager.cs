@@ -11,7 +11,6 @@ namespace Game.Buildings
 public class BuildingManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private PlayerInventory inventory;
     [SerializeField] private Camera worldCamera;
     [SerializeField] private SelectionManager selectionManager;
 
@@ -43,9 +42,9 @@ public class BuildingManager : MonoBehaviour
     public void BeginPlacement(BuildingRecipe recipe)
     {
         if (recipe == null || recipe.buildingPrefab == null) return;
-        if (inventory == null) return;
+        if (InventoryManager.Instance == null) return;
 
-        if (!recipe.CanAfford(inventory))
+        if (!recipe.CanAfford(InventoryManager.Instance))
         {
             // TODO: feedback de "no tienes recursos".
             return;
@@ -140,7 +139,7 @@ public class BuildingManager : MonoBehaviour
     {
         if (activeRecipe == null) return;
 
-        if (!activeRecipe.TryPay(inventory))
+        if (!activeRecipe.TryPay(InventoryManager.Instance))
         {
             CancelPlacement();
             return;

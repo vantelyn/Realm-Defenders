@@ -16,7 +16,6 @@ public class CastleBuildButton : MonoBehaviour
 {
     [SerializeField] private BuildingManager placer;
     [SerializeField] private BuildingRecipe initialRecipe;  // la misma receta de construcci�n original.
-    [SerializeField] private PlayerInventory inventory;
 
     private Button button;
 
@@ -33,13 +32,13 @@ public class CastleBuildButton : MonoBehaviour
 
     private void OnEnable()
     {
-        if (inventory != null) inventory.OnChanged += RefreshInteractable;
+        if (InventoryManager.Instance != null) InventoryManager.Instance.OnChanged += RefreshInteractable;
         RefreshInteractable();
     }
 
     private void OnDisable()
     {
-        if (inventory != null) inventory.OnChanged -= RefreshInteractable;
+        if (InventoryManager.Instance != null) InventoryManager.Instance.OnChanged -= RefreshInteractable;
     }
 
     private void Update()
@@ -56,7 +55,7 @@ public class CastleBuildButton : MonoBehaviour
             return;
         }
 
-        Castle.Instance.TryUpgrade(inventory);
+        Castle.Instance.TryUpgrade(InventoryManager.Instance);
     }
 
     private void RefreshInteractable()
@@ -65,7 +64,7 @@ public class CastleBuildButton : MonoBehaviour
 
         if (Castle.Instance == null)
         {
-            button.interactable = initialRecipe != null && inventory != null && initialRecipe.CanAfford(inventory);
+            button.interactable = initialRecipe != null && InventoryManager.Instance != null && initialRecipe.CanAfford(InventoryManager.Instance);
             return;
         }
 
@@ -76,7 +75,7 @@ public class CastleBuildButton : MonoBehaviour
             return;
         }
 
-        button.interactable = castle.CanAffordNextUpgrade(inventory);
+        button.interactable = castle.CanAffordNextUpgrade(InventoryManager.Instance);
     }
 }
 }

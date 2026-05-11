@@ -83,7 +83,7 @@ public class Castle : MonoBehaviour
     /// - Hay un nivel superior disponible que requiere recursos (Lv1→Lv2).
     /// - El jugador puede pagar.
     /// </summary>
-    public bool TryUpgrade(PlayerInventory inventory)
+    public bool TryUpgrade(InventoryManager inventory)
     {
         if (data == null || inventory == null) return false;
         if (IsMaxLevel || evolving) return false;
@@ -142,7 +142,7 @@ public class Castle : MonoBehaviour
         OnLevelChanged?.Invoke(currentLevel);
     }
 
-    public bool CanAffordNextUpgrade(PlayerInventory inventory)
+    public bool CanAffordNextUpgrade(InventoryManager inventory)
     {
         if (data == null || inventory == null || IsMaxLevel || evolving) return false;
         int nextLevel = currentLevel + 1;
@@ -163,14 +163,14 @@ public class Castle : MonoBehaviour
         return data.GetLevel(nextLevel);
     }
 
-    private static bool CanAfford(PlayerInventory inv, CastleUpgradeData.Level lvl)
+    private static bool CanAfford(InventoryManager inv, CastleUpgradeData.Level lvl)
     {
         return inv.Wood >= lvl.woodCost
             && inv.Meat >= lvl.meatCost
             && inv.Money >= lvl.moneyCost;
     }
 
-    private static void Pay(PlayerInventory inv, CastleUpgradeData.Level lvl)
+    private static void Pay(InventoryManager inv, CastleUpgradeData.Level lvl)
     {
         if (lvl.woodCost > 0) inv.TrySpendWood(lvl.woodCost);
         if (lvl.meatCost > 0) inv.TrySpendMeat(lvl.meatCost);

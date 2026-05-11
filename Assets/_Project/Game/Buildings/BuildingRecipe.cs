@@ -38,14 +38,14 @@ public class BuildingRecipe : ScriptableObject, IRecipe
     public int MeatCost => meatCost;
     public int MoneyCost => moneyCost;
 
-    public bool CanAfford(PlayerInventory inv)
+    public bool CanAfford(InventoryManager inv)
     {
         return inv.Wood >= woodCost
             && inv.Meat >= meatCost
             && inv.Money >= moneyCost;
     }
 
-    public bool TryPay(PlayerInventory inv)
+    public bool TryPay(InventoryManager inv)
     {
         if (!CanAfford(inv)) return false;
 

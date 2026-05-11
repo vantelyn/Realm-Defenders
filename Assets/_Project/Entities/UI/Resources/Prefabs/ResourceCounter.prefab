@@ -455,6 +455,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbeaddd83ef7f04dbfe644464403c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: 9a957e5ae38d176468e13391cf5e9db8, type: 2}
   resource: 2
   showMax: 0
