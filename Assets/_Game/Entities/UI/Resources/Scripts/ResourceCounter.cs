@@ -7,7 +7,9 @@ namespace Game.UI
 
 /// <summary>
 /// Muestra un recurso del InventoryManager en un TextMeshPro.
-/// Reactivo: se actualiza autom�ticamente cuando el inventario cambia.
+/// Reactivo: se actualiza al cambiar el inventario. Robusto al orden de
+/// inicializacion: si el InventoryManager aun no existe en OnEnable,
+/// reintenta la suscripcion cada frame en Update hasta conseguirla.
 /// </summary>
 public class ResourceCounter : MonoBehaviour
 {
@@ -19,21 +21,34 @@ public class ResourceCounter : MonoBehaviour
 
     [SerializeField] private TMP_Text label;
 
+    private bool subscribed = false;
+
     private void OnEnable()
     {
-        if (InventoryManager.Instance != null)
-        {
-            InventoryManager.Instance.OnChanged += Refresh;
-            Refresh();
-        }
+        TrySubscribe();
+    }
+
+    private void Update()
+    {
+        if (!subscribed) TrySubscribe();
+    }
+
+    private void TrySubscribe()
+    {
+        if (subscribed) return;
+        if (InventoryManager.Instance == null) return;
+        InventoryManager.Instance.OnChanged += Refresh;
+        subscribed = true;
+        Refresh();
     }
 
     private void OnDisable()
     {
-        if (InventoryManager.Instance != null)
+        if (subscribed && InventoryManager.Instance != null)
         {
             InventoryManager.Instance.OnChanged -= Refresh;
         }
+        subscribed = false;
     }
 
     private void Refresh()

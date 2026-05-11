@@ -54,7 +54,7 @@ MonoBehaviour:
   damageToBuildings: 10
   damageableLayers:
     serializedVersion: 2
-    m_Bits: 98304
+    m_Bits: 98560
   spriteChild: {fileID: 1528269405067801225}
 --- !u!1 &5378703922194344570
 GameObject:

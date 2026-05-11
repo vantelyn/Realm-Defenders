@@ -43,19 +43,22 @@ public class SheepUnit : NPC
             navMeshAgent.isStopped = false;
             navMeshAgent.SetDestination(dest);
 
-            // Esperar al pathfinding
-            while (navMeshAgent.pathPending) yield return null;
+            // Esperar al pathfinding (proteger por si knockback desactiva agent)
+            while (navMeshAgent != null && navMeshAgent.enabled && navMeshAgent.isOnNavMesh && navMeshAgent.pathPending) yield return null;
 
             // Caminar hasta llegar
-            while (navMeshAgent.remainingDistance > arriveDistance)
+            while (navMeshAgent != null && navMeshAgent.enabled && navMeshAgent.isOnNavMesh && navMeshAgent.remainingDistance > arriveDistance)
             {
-                if (!navMeshAgent.hasPath) break; // path se perdi�, salir
+                if (!navMeshAgent.hasPath) break; // path se perdio, salir
                 yield return null;
             }
 
-            // Parar suavemente
-            navMeshAgent.isStopped = true;
-            navMeshAgent.ResetPath();
+            // Parar suavemente (solo si el agent esta activo)
+            if (navMeshAgent != null && navMeshAgent.enabled && navMeshAgent.isOnNavMesh)
+            {
+                navMeshAgent.isStopped = true;
+                navMeshAgent.ResetPath();
+            }
 
             // Forzar animaci�n a Idle antes del trigger
             if (animator != null)

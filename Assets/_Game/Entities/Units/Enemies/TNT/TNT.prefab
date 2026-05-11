@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 3649938375850412411}
   - component: {fileID: 2531749941461803743}
   - component: {fileID: 9073991624785012445}
+  - component: {fileID: 1367151426608868505}
   m_Layer: 6
   m_Name: TNT
   m_TagString: Untagged
@@ -249,6 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   currentHealth: 0
+  autoDestroyOnDeath: 1
   itemsToDrop:
   - prefab: {fileID: 436611437657991125, guid: 721ae6af1d73b12488168a31012598dc, type: 3}
     dropChance: 0.75
@@ -286,6 +288,21 @@ MonoBehaviour:
   throwFlightDuration: 0.8
   throwArcHeight: 1.5
   facingVelocityThreshold: 0.05
+--- !u!114 &1367151426608868505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191447041407112255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad3ca52009c912409ff26678273f860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  duration: 0.18
+  targetRenderer: {fileID: 0}
 --- !u!1 &3101369271794523426
 GameObject:
   m_ObjectHideFlags: 0

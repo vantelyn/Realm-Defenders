@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using Game.Units;
 
 namespace Game.Combat
@@ -26,8 +27,19 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
     private PlayerUnit playerUnit;
     private IDamageBlocker blocker;
     private bool knockbackActive;
+    private HitFlashEffect hitFlash;
+    private NavMeshAgent navAgent;
+    private bool knockbackDisabledAgent;
 
     public float forceImpulse = 5;
+    [Tooltip("Tiempo de paron tras recibir knockback (segundos)")]
+    public float knockbackDuration = 0.3f;
+    [Tooltip("Multiplicador del knockback recibido. 1=normal, 0=inmune, 0.3=resiste mucho.")]
+    [Range(0f, 1f)]
+    public float knockbackReceivedMultiplier = 1f;
+
+    /// <summary>Disparado tras aplicar dano efectivo (post-block).</summary>
+    public event System.Action<int, Vector2> OnDamaged;
 
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
@@ -42,39 +54,48 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
         rb2D = GetComponent<Rigidbody2D>();
         playerUnit = GetComponent<PlayerUnit>();
         blocker = GetComponent<IDamageBlocker>();
+        hitFlash = GetComponent<HitFlashEffect>();
+        navAgent = GetComponent<NavMeshAgent>();
     }
 
-    public void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, Vector2 hitDirection)
+    public void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, Vector2 hitDirection, float forceMultiplier = 1f)
     {
 
-        if (playerUnit != null && playerUnit.IsGarrisoned) return;
+        bool blocked = (blocker != null && blocker.TryBlock(hitDirection));
 
-        if (blocker != null && blocker.TryBlock(hitDirection))
+        if (!blocked)
         {
-            return;
+            currentHealth -= amount;
+            if (hitFlash != null) hitFlash.Flash();
+            if (OnDamaged != null) OnDamaged(amount, hitDirection);
         }
-
-        currentHealth -= amount;
-        if (applyForce)
+        float effectiveKnockback = forceImpulse * forceMultiplier * knockbackReceivedMultiplier;
+        bool canKnockback = playerUnit == null || !playerUnit.IsGarrisoned;
+        if (applyForce && effectiveKnockback > 0.001f && canKnockback)
         {
             if (playerUnit != null) playerUnit.canMove = false;
 
-            // Si el rb estaba en Kinematic (modo IA), hay que pasarlo temporalmente a Dynamic
-            // para que AddForce tenga efecto.
+            if (navAgent != null && navAgent.enabled)
+            {
+                navAgent.enabled = false;
+                knockbackDisabledAgent = true;
+            }
+
             if (rb2D.bodyType == RigidbodyType2D.Kinematic)
             {
                 rb2D.bodyType = RigidbodyType2D.Dynamic;
                 knockbackActive = true;
             }
 
-            rb2D.AddForce(hitDirection.normalized * forceImpulse, ForceMode2D.Impulse);
-            Invoke(nameof(ResetMovement), 0.1f);
+            rb2D.AddForce(hitDirection.normalized * effectiveKnockback, ForceMode2D.Impulse);
+            CancelInvoke(nameof(ResetMovement));
+            Invoke(nameof(ResetMovement), knockbackDuration);
         }
-        if (applyHitAnimation)
+        if (applyHitAnimation && !blocked && animator != null)
         {
             animator.SetTrigger("getHit");
         }
-        if (currentHealth <= 0)
+        if (!blocked && currentHealth <= 0)
         {
             DropItem();
             GoToHell();
@@ -110,14 +131,24 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
 
     void ResetMovement()
     {
-        if (playerUnit != null) playerUnit.canMove = true;
-
         if (knockbackActive)
         {
             rb2D.linearVelocity = Vector2.zero;
             rb2D.bodyType = RigidbodyType2D.Kinematic;
             knockbackActive = false;
         }
+
+        if (knockbackDisabledAgent && navAgent != null)
+        {
+            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            {
+                transform.position = hit.position;
+            }
+            navAgent.enabled = true;
+            knockbackDisabledAgent = false;
+        }
+
+        if (playerUnit != null && !playerUnit.IsBusy) playerUnit.canMove = true;
     }
 
     void GoToHell()

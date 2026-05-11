@@ -14,11 +14,14 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
     private bool isBlocking;
     private Vector2 blockDir = Vector2.right;
 
+    public bool IsBlocking => isBlocking;
+    public override bool IsBusy => base.IsBusy || isBlocking;
     public override bool HasSecondary => true;
 
     public override void PrimaryAttack(Vector2 worldAimDirection)
     {
         if (isAttacking) return;
+        if (isBlocking) EndBlock(); // si estaba bloqueando y ataca, cortar bloqueo
         attackDir = LastMovementDir.normalized;
 
         int dirIndex = GetDirectionIndex(attackDir);
@@ -31,7 +34,18 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
 
     public override void SecondaryAction(Vector2 worldAimDirection, PlayerUnit hoveredUnit)
     {
+        BeginBlock();
+    }
+
+    public override void EndSecondaryAction()
+    {
+        EndBlock();
+    }
+
+    private void BeginBlock()
+    {
         if (isAttacking) return;
+        if (isBlocking) return;
 
         blockDir = LastMovementDir.sqrMagnitude > 0.01f
             ? LastMovementDir.normalized
@@ -40,7 +54,28 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
         int dirIndex = GetDirectionIndex(blockDir);
         animator.SetInteger("attackDirection", dirIndex);
         animator.SetInteger("attackIndex", BlockIndex);
+        animator.SetBool("isBlocking", true);
         animator.SetTrigger("doAttack");
+
+        isBlocking = true;
+        canMove = false;
+        movementInput = Vector2.zero;
+        if (rb2D != null) rb2D.linearVelocity = Vector2.zero;
+    }
+
+    private void EndBlock()
+    {
+        if (!isBlocking) return;
+        isBlocking = false;
+        animator.SetBool("isBlocking", false);
+        canMove = true;
+    }
+
+    protected override void OnBecameUnselected()
+    {
+        // Si pierde la seleccion mientras bloquea, terminar bloqueo limpiamente
+        if (isBlocking) EndBlock();
+        base.OnBecameUnselected();
     }
 
     public bool TryBlock(Vector2 incomingHitDirection)
@@ -51,8 +86,9 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
         return angle <= blockAngle * 0.5f;
     }
 
-    // Animation Events del clip de bloqueo
-    public void StartBlock() { isBlocking = true; }
-    public void EndBlock() { isBlocking = false; }
+    // Animation Events legacy del clip de bloqueo. Mantener vacios como defensa
+    // por si Unity llama un evento residual desde algun re-import.
+    public void StartBlock() { }
+    public void EndBlockEvent() { }
 }
 }

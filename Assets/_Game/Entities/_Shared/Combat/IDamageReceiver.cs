@@ -20,7 +20,7 @@ public interface IDamageReceiver
     /// </summary>
     bool IsStructure { get; }
 
-    void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, UnityEngine.Vector2 hitDirection);
+    void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, UnityEngine.Vector2 hitDirection, float forceMultiplier = 1f);
 }
 
 }

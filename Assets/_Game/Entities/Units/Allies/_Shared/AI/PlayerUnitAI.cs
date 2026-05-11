@@ -8,7 +8,7 @@ namespace Game.AI
 [RequireComponent(typeof(PlayerUnit))]
 public class PlayerUnitAI : BaseUnitAI
 {
-    public enum AIState { Idle, Chase, Attack, ReturnHome, MoveToBuilding }
+    public enum AIState { Idle, Chase, Attack, ReturnHome, MoveToBuilding, MoveToResource }
 
     [Header("Combat")]
     [SerializeField] private float attackRange = 1.0f;
@@ -20,6 +20,8 @@ public class PlayerUnitAI : BaseUnitAI
 
     private AIState state = AIState.Idle;
     private Transform currentTarget;
+    private Transform currentResource;
+    private float currentTargetRadius;
     private float lastAttackTime = -999f;
 
     public AIState State => state;
@@ -31,6 +33,7 @@ public class PlayerUnitAI : BaseUnitAI
     protected override void ClearTargetsOnDisable()
     {
         currentTarget = null;
+        currentResource = null;
         garrison.ClearTarget();
     }
 
@@ -49,6 +52,7 @@ public class PlayerUnitAI : BaseUnitAI
             case AIState.Attack: TickAttack(); break;
             case AIState.ReturnHome: TickReturnHome(); break;
             case AIState.MoveToBuilding: TickMoveToBuilding(); break;
+            case AIState.MoveToResource: TickMoveToResource(); break;
         }
     }
 
@@ -61,6 +65,7 @@ public class PlayerUnitAI : BaseUnitAI
         if (enemy != null)
         {
             currentTarget = enemy;
+            currentTargetRadius = GetTargetRadius(enemy);
             hasPatrolDestination = false;
             TransitionTo(AIState.Chase);
             return;
@@ -76,6 +81,15 @@ public class PlayerUnitAI : BaseUnitAI
                 TransitionTo(AIState.MoveToBuilding);
                 return;
             }
+        }
+
+        Transform resource = FindClosestResource();
+        if (resource != null)
+        {
+            currentResource = resource;
+            hasPatrolDestination = false;
+            TransitionTo(AIState.MoveToResource);
+            return;
         }
 
         if (DistanceToHome() > homeRadius)
@@ -105,13 +119,20 @@ public class PlayerUnitAI : BaseUnitAI
             return;
         }
 
-        float distToTarget = Vector2.Distance(transform.position, currentTarget.position);
-        if (distToTarget <= EffectiveAttackRange)
+        // Distancia entre bordes (resta los radius del agente y del target)
+        float selfRadius = agent != null ? agent.radius : 0f;
+        float edgeDist = Vector2.Distance(transform.position, currentTarget.position) - selfRadius - currentTargetRadius;
+        if (edgeDist <= EffectiveAttackRange)
         {
             TransitionTo(AIState.Attack);
             return;
         }
 
+        // Setear stoppingDistance para que el agent pare dentro del attackRange, no en el centro del target
+        if (agent != null)
+        {
+            agent.stoppingDistance = selfRadius + currentTargetRadius + EffectiveAttackRange * 0.7f;
+        }
         RepathTo(currentTarget.position);
     }
 
@@ -125,8 +146,9 @@ public class PlayerUnitAI : BaseUnitAI
 
         StopAgent();
 
-        float distToTarget = Vector2.Distance(transform.position, currentTarget.position);
-        if (distToTarget > EffectiveAttackRange + chaseHysteresis)
+        float selfRadius = agent != null ? agent.radius : 0f;
+        float edgeDist = Vector2.Distance(transform.position, currentTarget.position) - selfRadius - currentTargetRadius;
+        if (edgeDist > EffectiveAttackRange + chaseHysteresis)
         {
             ResumeAgent();
             TransitionTo(AIState.Chase);
@@ -152,6 +174,7 @@ public class PlayerUnitAI : BaseUnitAI
         if (enemy != null)
         {
             currentTarget = enemy;
+            currentTargetRadius = GetTargetRadius(enemy);
             TransitionTo(AIState.Chase);
             return;
         }
@@ -165,13 +188,54 @@ public class PlayerUnitAI : BaseUnitAI
         RepathTo(homePosition);
     }
 
-    private void TickMoveToBuilding()
+    private void TickMoveToResource()
+    {
+        // Enemy interrumpe la recogida
+        Transform enemy = FindClosestEnemy();
+        if (enemy != null)
+        {
+            currentResource = null;
+            currentTarget = enemy;
+            currentTargetRadius = GetTargetRadius(enemy);
+            TransitionTo(AIState.Chase);
+            return;
+        }
+
+        if (currentResource == null)
+        {
+            TransitionTo(AIState.Idle);
+            return;
+        }
+
+        ResumeAgent();
+
+        if (DistanceToHome() > maxTravelDistance)
+        {
+            currentResource = null;
+            TransitionTo(AIState.ReturnHome);
+            return;
+        }
+
+        float dist = Vector2.Distance(transform.position, currentResource.position);
+        if (dist <= resourceArriveDistance)
+        {
+            // La recogida la hace el ResourceCollector del PickupZone via OnTriggerEnter2D
+            currentResource = null;
+            TransitionTo(AIState.Idle);
+            return;
+        }
+
+        RepathTo(currentResource.position);
+    }
+
+        private void TickMoveToBuilding()
     {
         Transform enemy = FindClosestEnemy();
         if (enemy != null)
         {
             garrison.ClearTarget();
             currentTarget = enemy;
+            currentTargetRadius = GetTargetRadius(enemy);
             TransitionTo(AIState.Chase);
             return;
         }
@@ -230,6 +294,11 @@ public class PlayerUnitAI : BaseUnitAI
     private void TransitionTo(AIState next)
     {
         if (state == AIState.Idle && next != AIState.Idle) hasPatrolDestination = false;
+        // Resetear stoppingDistance fuera de combate para que el agent llegue exactamente al destino (recursos, casa, edificio)
+        if (next != AIState.Chase && next != AIState.Attack && agent != null && agent.enabled && agent.isOnNavMesh)
+        {
+            agent.stoppingDistance = 0f;
+        }
         state = next;
         lastRepathTime = -999f;
     }

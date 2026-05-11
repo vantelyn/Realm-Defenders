@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 3709362733402451947}
   - component: {fileID: 8207039090586929198}
   - component: {fileID: 9101759830822365567}
+  - component: {fileID: 6483364726829158739}
   m_Layer: 6
   m_Name: Torch
   m_TagString: Untagged
@@ -285,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   currentHealth: 0
+  autoDestroyOnDeath: 1
   itemsToDrop:
   - prefab: {fileID: 1550681283597860653, guid: 8f4d6827330486d40b85ceb2e60ffee0, type: 3}
     dropChance: 0.75
@@ -317,6 +319,21 @@ MonoBehaviour:
   stopDistanceStrategic: 0.5
   stopDistanceOpportunity: 1.5
   repathInterval: 0.25
+--- !u!114 &6483364726829158739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6854911528546568843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad3ca52009c912409ff26678273f860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  duration: 0.18
+  targetRenderer: {fileID: 0}
 --- !u!1 &8887214293762067054
 GameObject:
   m_ObjectHideFlags: 0

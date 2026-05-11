@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3451827852757638371}
   - component: {fileID: 8214250211477270944}
   - component: {fileID: 5010712784666993579}
+  - component: {fileID: 6107852983480887368}
   m_Layer: 10
   m_Name: Monk
   m_TagString: PlayerUnit
@@ -42,6 +43,7 @@ Transform:
   - {fileID: 4100326775712597658}
   - {fileID: 6372716642678993900}
   - {fileID: 8270173550307347345}
+  - {fileID: 5553731922030618715}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4440308862712260843
@@ -202,6 +204,8 @@ MonoBehaviour:
   itemsToDrop: []
   dropRadius: 0.5
   forceImpulse: 5
+  knockbackDuration: 0.3
+  knockbackReceivedMultiplier: 1
 --- !u!114 &306844536653417613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +243,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDetector: {fileID: 6054377270493417344}
+  resourceDetector: {fileID: 2516124628356764978}
+  resourceArriveDistance: 0.3
   homeRadius: 1.5
   maxTravelDistance: 10
   patrolStepRadius: 1
@@ -293,6 +299,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threatLevel: 1.5
+--- !u!114 &6107852983480887368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343764445346676223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad3ca52009c912409ff26678273f860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  duration: 0.18
+  targetRenderer: {fileID: 0}
 --- !u!1 &2037114791946978625
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +464,90 @@ CapsuleCollider2D:
   m_Offset: {x: 0.01587224, y: 0.36959636}
   m_Size: {x: 0.7040715, y: 1.0668654}
   m_Direction: 0
+--- !u!1 &6225957043299689812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5553731922030618715}
+  - component: {fileID: 8700770745559306274}
+  - component: {fileID: 2516124628356764978}
+  m_Layer: 12
+  m_Name: ResourceDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5553731922030618715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6225957043299689812}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 838136243841578773}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &8700770745559306274
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6225957043299689812}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 5
+--- !u!114 &2516124628356764978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6225957043299689812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d87e5636f678e4daf8ba63ff92e2fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectLayers:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &6847384092682439876
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,7 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectLayers:
     serializedVersion: 2
-    m_Bits: 65536
+    m_Bits: 327680
 --- !u!1 &8842124563133971697
 GameObject:
   m_ObjectHideFlags: 0

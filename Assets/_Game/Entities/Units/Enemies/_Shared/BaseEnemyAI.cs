@@ -81,7 +81,7 @@ public abstract class BaseEnemyAI : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (agent != null) agent.isStopped = !canMove;
+        if (agent != null && agent.enabled && agent.isOnNavMesh) agent.isStopped = !canMove;
     }
 
     // ----- Targeting -----
@@ -146,7 +146,7 @@ public abstract class BaseEnemyAI : MonoBehaviour
         if (currentStrategicTarget == null)
         {
             state = AIState.Idle;
-            if (agent != null && agent.hasPath) agent.ResetPath();
+            if (agent != null && agent.enabled && agent.isOnNavMesh && agent.hasPath) agent.ResetPath();
             return;
         }
 
@@ -154,7 +154,7 @@ public abstract class BaseEnemyAI : MonoBehaviour
         Vector3 targetPos = currentStrategicTarget.Transform.position;
         float dist = Vector2.Distance(transform.position, targetPos);
 
-        if (agent != null) agent.stoppingDistance = stopDistanceStrategic;
+        if (agent != null && agent.enabled && agent.isOnNavMesh) agent.stoppingDistance = stopDistanceStrategic;
 
         if (dist <= attackRange)
         {
@@ -176,7 +176,7 @@ public abstract class BaseEnemyAI : MonoBehaviour
         Vector3 targetPos = currentOpportunityTarget.position;
         float dist = Vector2.Distance(transform.position, targetPos);
 
-        if (agent != null) agent.stoppingDistance = stopDistanceOpportunity;
+        if (agent != null && agent.enabled && agent.isOnNavMesh) agent.stoppingDistance = stopDistanceOpportunity;
 
         if (dist <= attackRange)
         {
@@ -194,7 +194,7 @@ public abstract class BaseEnemyAI : MonoBehaviour
 
     protected void RepathTo(Vector3 destination)
     {
-        if (agent == null || !agent.enabled) return;
+        if (agent == null || !agent.enabled || !agent.isOnNavMesh) return;
         if (Time.time - lastRepathTime <= repathInterval) return;
         agent.SetDestination(destination);
         lastRepathTime = Time.time;
@@ -206,7 +206,7 @@ public abstract class BaseEnemyAI : MonoBehaviour
     {
         isAttacking = true;
         canMove = false;
-        if (agent != null && agent.hasPath) agent.ResetPath();
+        if (agent != null && agent.enabled && agent.isOnNavMesh && agent.hasPath) agent.ResetPath();
 
         int dirIndex = GetAttackDirectionIndex(attackDirectionVector);
         FaceAttackDirection(attackDirectionVector);
@@ -259,9 +259,13 @@ public abstract class BaseEnemyAI : MonoBehaviour
         IDamageReceiver receiver = target.GetComponentInParent<IDamageReceiver>();
         if (receiver == null) return;
 
-        int damage = receiver.IsStructure ? GetDamageVsBuildings() : GetDamageVsUnits();
+        GameObject targetRoot = ((Component)receiver).gameObject;
+        float ratio = receiver.IsStructure ? 1f : CombatHelper.GetMassRatio(gameObject, targetRoot);
+
+        int baseDamage = receiver.IsStructure ? GetDamageVsBuildings() : GetDamageVsUnits();
+        int scaledDamage = Mathf.Max(1, Mathf.RoundToInt(baseDamage * ratio));
         bool applyForce = !receiver.IsStructure;
-        receiver.ApplyDamage(damage, applyForce, false, hitDirection);
+        receiver.ApplyDamage(scaledDamage, applyForce, false, hitDirection, ratio);
     }
 
     protected virtual int GetDamageVsUnits() => 1;
@@ -272,6 +276,12 @@ public abstract class BaseEnemyAI : MonoBehaviour
     private void UpdateAnimationAndFacing()
     {
         if (animator == null || agent == null) return;
+
+        if (!agent.enabled || !agent.isOnNavMesh)
+        {
+            animator.SetBool("isRunning", false);
+            return;
+        }
 
         bool moving = !agent.isStopped && agent.hasPath && agent.desiredVelocity.sqrMagnitude > 0.01f;
         animator.SetBool("isRunning", moving);

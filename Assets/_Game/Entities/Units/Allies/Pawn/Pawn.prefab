@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 4760573010958501943}
   - component: {fileID: 8454324989996071366}
   - component: {fileID: 5527158393224111723}
+  - component: {fileID: 584344907278865632}
   m_Layer: 10
   m_Name: Pawn
   m_TagString: PlayerUnit
@@ -386,6 +387,8 @@ MonoBehaviour:
   itemsToDrop: []
   dropRadius: 0.5
   forceImpulse: 5
+  knockbackDuration: 0.3
+  knockbackReceivedMultiplier: 1
 --- !u!195 &4760573010958501943
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -421,6 +424,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDetector: {fileID: 5826219270887966107}
+  resourceDetector: {fileID: 1523883975426064519}
+  resourceArriveDistance: 0.3
   homeRadius: 3
   maxTravelDistance: 10
   patrolStepRadius: 3
@@ -429,14 +434,18 @@ MonoBehaviour:
   patrolArriveDistance: 0.15
   repathInterval: 0.25
   treeDetector: {fileID: 5750426982317292384}
-  resourceDetector: {fileID: 1523883975426064519}
   attackRange: 0.8
   attackCooldown: 1.2
   chaseHysteresis: 0.5
+  bearDamageScanRadius: 3
+  bearLayer:
+    serializedVersion: 2
+    m_Bits: 262144
+  fleeSafeDistance: 4.5
+  fleeMaxDuration: 5
   chopRange: 1
   chopCooldown: 1.2
   resourceOpportunityRadius: 2
-  resourceArriveDistance: 0.3
 --- !u!114 &5527158393224111723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,6 +459,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threatLevel: 0.5
+--- !u!114 &584344907278865632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048341638465990237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad3ca52009c912409ff26678273f860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  duration: 0.18
+  targetRenderer: {fileID: 0}
 --- !u!1 &3156476810101527678
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +542,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 5
 --- !u!114 &1523883975426064519
 MonoBehaviour:
   m_ObjectHideFlags: 0

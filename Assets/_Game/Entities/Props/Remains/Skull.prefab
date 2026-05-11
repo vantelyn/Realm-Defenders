@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2418772893041575384}
   - component: {fileID: 8491557058976667590}
   - component: {fileID: 203725839027894933}
+  - component: {fileID: 8111428716145887094}
   m_Layer: 0
   m_Name: Skull
   m_TagString: Untagged
@@ -110,3 +111,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8111428716145887094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436611437657991125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb5ae1da562c3b4e85b7c67cb6a8a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 15

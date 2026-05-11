@@ -1,12 +1,14 @@
 using TMPro;
 using UnityEngine;
 using Game.Buildings;
+using Game.Managers;
 
 namespace Game.UI
 {
     /// <summary>
     /// Popup que muestra informacion de una IRecipe (building o unit). Unico en la
-    /// escena, se muestra y oculta bajo demanda. Usa iconos para los costes.
+    /// escena, se muestra y oculta bajo demanda. Pinta de rojo los costes que el
+    /// jugador no puede pagar con su inventario actual.
     /// </summary>
     public class BuildTooltip : MonoBehaviour
     {
@@ -26,6 +28,12 @@ namespace Game.UI
         [SerializeField] private CostEntry meatEntry;
         [SerializeField] private CostEntry goldEntry;
 
+        [Header("Affordability colors")]
+        [Tooltip("Color del coste cuando el jugador tiene suficiente recurso.")]
+        [SerializeField] private Color affordColor = Color.white;
+        [Tooltip("Color del coste cuando el jugador NO tiene suficiente recurso.")]
+        [SerializeField] private Color missingColor = new Color(0.92f, 0.22f, 0.22f, 1f);
+
         [Header("Follow")]
         [Tooltip("Offset del popup respecto al raton (en pixeles de pantalla).")]
         [SerializeField] private Vector2 mouseOffset = new Vector2(16, -16);
@@ -34,6 +42,7 @@ namespace Game.UI
         [SerializeField] private Canvas parentCanvas;
 
         private bool visible;
+        private IRecipe currentRecipe;
 
         private void Awake()
         {
@@ -46,18 +55,20 @@ namespace Game.UI
         {
             if (!visible) return;
             FollowMouse();
+            // Refresca costes en cada frame mientras visible: si el inventario cambia
+            // (pickup, gasto, etc.) los colores reflejan el estado actual sin esperar.
+            RefreshCosts();
         }
 
         public void Show(IRecipe recipe)
         {
             if (recipe == null) { Hide(); return; }
 
+            currentRecipe = recipe;
             if (titleLabel != null) titleLabel.text = recipe.DisplayName;
             if (descriptionLabel != null) descriptionLabel.text = recipe.Description;
 
-            SetCost(woodEntry, recipe.WoodCost);
-            SetCost(meatEntry, recipe.MeatCost);
-            SetCost(goldEntry, recipe.MoneyCost);
+            RefreshCosts();
 
             root.gameObject.SetActive(true);
             visible = true;
@@ -66,17 +77,35 @@ namespace Game.UI
 
         public void Hide()
         {
-            root.gameObject.SetActive(false);
+            if (root != null) root.gameObject.SetActive(false);
             visible = false;
+            currentRecipe = null;
         }
 
-        private static void SetCost(CostEntry entry, int amount)
+        private void RefreshCosts()
+        {
+            if (currentRecipe == null) return;
+            // Si no hay InventoryManager, asumimos infinito (no pinta nada en rojo).
+            var inv = InventoryManager.Instance;
+            int currentWood = inv != null ? inv.Wood : int.MaxValue;
+            int currentMeat = inv != null ? inv.Meat : int.MaxValue;
+            int currentMoney = inv != null ? inv.Money : int.MaxValue;
+
+            SetCost(woodEntry, currentRecipe.WoodCost, currentWood);
+            SetCost(meatEntry, currentRecipe.MeatCost, currentMeat);
+            SetCost(goldEntry, currentRecipe.MoneyCost, currentMoney);
+        }
+
+        private void SetCost(CostEntry entry, int amount, int current)
         {
             if (entry == null || entry.root == null) return;
             bool show = amount > 0;
             entry.root.SetActive(show);
             if (show && entry.amountLabel != null)
+            {
                 entry.amountLabel.text = amount.ToString();
+                entry.amountLabel.color = current < amount ? missingColor : affordColor;
+            }
         }
 
         private void FollowMouse()
@@ -90,7 +119,7 @@ namespace Game.UI
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, mouseScreen, cam, out Vector2 local))
                 return;
 
-            // Clamp to canvas bounds  tooltip never clips off screen
+            // Clamp to canvas bounds - tooltip never clips off screen
             Vector2 canvasHalf = canvasRect.rect.size * 0.5f;
             Vector2 size = root.rect.size;
             Vector2 pivot = root.pivot;

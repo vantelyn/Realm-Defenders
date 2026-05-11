@@ -250,6 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   currentHealth: 0
+  autoDestroyOnDeath: 1
   itemsToDrop:
   - prefab: {fileID: 4599100054429094837, guid: a07b5ec0855a97645af887b6c48e15e2, type: 3}
     dropChance: 1

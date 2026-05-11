@@ -35,12 +35,16 @@ public abstract class PlayerUnit : MonoBehaviour
     private SpriteRenderer cachedSpriteRenderer;
     private DamageReceiverPlayer cachedHealth;
     private int originalSortingOrder;
+    private Collider2D rootCollider;
+    private bool rootColliderWasTrigger;
 
     public bool canMove = true;
     public bool IsSelected { get; private set; }
     public virtual bool HasSecondary => false;
     public virtual bool SecondaryTargetsAllies => false;
     public bool IsAttacking => isAttacking;
+    /// <summary>True si la unit esta en un estado que requiere bloquear movimiento (ataque, bloqueo, etc.). Override en subclases para anadir nuevos estados.</summary>
+    public virtual bool IsBusy => isAttacking;
     public bool IsGarrisoned => currentBuilding != null;
     public Building CurrentBuilding => currentBuilding;
     public float RangeMultiplier => currentBuilding != null ? currentBuilding.RangeMultiplier : 1f;
@@ -56,12 +60,13 @@ public abstract class PlayerUnit : MonoBehaviour
         ai = GetComponent<IUnitAI>();
         cachedSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         cachedHealth = GetComponent<DamageReceiverPlayer>();
+        rootCollider = GetComponent<Collider2D>();
         if (selectionIndicator != null) selectionIndicator.SetActive(false);
     }
 
     protected virtual void Update()
     {
-        if (Mode == ControlMode.Player && IsSelected && !isAttacking && !IsGarrisoned)
+        if (Mode == ControlMode.Player && IsSelected && !isAttacking && !IsGarrisoned && canMove)
         {
             movementInput = CameraManager.ReadWasd();
         }
@@ -149,6 +154,12 @@ public abstract class PlayerUnit : MonoBehaviour
             originalSortingOrder = cachedSpriteRenderer.sortingOrder;
             cachedSpriteRenderer.sortingOrder = 10;
         }
+
+        // Garrison: el hitbox se mantiene activo (selecion + recepcion de dano).
+        // El root collider pasa a trigger para no bloquear fisicamente a otras unidades
+        // que pasen cerca del building. La inmovilidad la dan canMove=false + Kinematic + AI disabled.
+        // Sin knockback en garrison: bloqueado dentro de DamageReceiverPlayer.ApplyDamage.
+        if (rootCollider != null) { rootColliderWasTrigger = rootCollider.isTrigger; rootCollider.isTrigger = true; }
     }
 
     public virtual void OnExitedBuilding(Vector3 doorPosition)
@@ -166,10 +177,14 @@ public abstract class PlayerUnit : MonoBehaviour
         }
 
         if (cachedSpriteRenderer != null) cachedSpriteRenderer.sortingOrder = originalSortingOrder;
+
+        // Restaurar isTrigger del root al salir
+        if (rootCollider != null) rootCollider.isTrigger = rootColliderWasTrigger;
     }
 
     public abstract void PrimaryAttack(Vector2 worldAimDirection);
     public virtual void SecondaryAction(Vector2 worldAimDirection, PlayerUnit hoveredUnit) { }
+    public virtual void EndSecondaryAction() { }
 
     public void StartAttack()
     {
@@ -206,8 +221,12 @@ public abstract class PlayerUnit : MonoBehaviour
             IDamageReceiver receiver = target.GetComponentInParent<IDamageReceiver>();
             if (receiver == null) continue;
 
+            GameObject targetRoot = ((Component)receiver).gameObject;
+            float ratio = receiver.IsStructure ? 1f : CombatHelper.GetMassRatio(gameObject, targetRoot);
+            int scaledDamage = Mathf.Max(1, Mathf.RoundToInt(rule.damage * ratio));
+
             Vector2 hitDirection = target.transform.position - transform.position;
-            receiver.ApplyDamage(rule.damage, rule.applyForce, rule.applyHitAnimation, hitDirection);
+            receiver.ApplyDamage(scaledDamage, rule.applyForce, rule.applyHitAnimation, hitDirection, ratio);
         }
     }
 

@@ -35,6 +35,16 @@ public class SelectionManager : MonoBehaviour
         if (Input.GetKeyDown(selectionKey)) HandleSelectionKey();
         else if (Input.GetMouseButtonDown(0)) HandleLeftClick();
         else if (Input.GetMouseButtonDown(1)) HandleSecondaryAction();
+
+        // Release del secundario: independiente del else-if anterior, puede
+        // disparar en el mismo frame que otros eventos (p.ej. soltar y clickar izq).
+        if (Input.GetMouseButtonUp(1)) HandleSecondaryRelease();
+    }
+
+    private void HandleSecondaryRelease()
+    {
+        if (selectedUnit == null) return;
+        selectedUnit.EndSecondaryAction();
     }
 
     private void HandleSelectionKey()
@@ -65,16 +75,27 @@ public class SelectionManager : MonoBehaviour
         Vector3 mouseWorld = GetMouseWorld();
 
         Building building = QueryService.FindBuildingAt(mouseWorld, targeting.buildingsLayer, targeting.buildingTag);
-        if (building != null && selectedUnit != null)
+        if (building != null)
         {
-            if (selectedUnit.IsGarrisoned && selectedUnit.CurrentBuilding == building)
+            if (selectedUnit != null)
             {
-                building.Exit(selectedUnit);
+                if (selectedUnit.IsGarrisoned && selectedUnit.CurrentBuilding == building)
+                {
+                    building.Exit(selectedUnit);
+                    return;
+                }
+                if (!selectedUnit.IsGarrisoned && building.HasFreeSlot)
+                {
+                    building.TryEnter(selectedUnit);
+                    return;
+                }
                 return;
             }
-            if (!selectedUnit.IsGarrisoned && building.HasFreeSlot)
+            // Sin selectedUnit: si hay una unidad garrisoned bajo el click, seleccionarla
+            PlayerUnit garrisoned = QueryService.FindUnitAt(mouseWorld, targeting.unitsLayer, targeting.unitTag);
+            if (garrisoned != null && garrisoned.IsGarrisoned && garrisoned.CurrentBuilding == building)
             {
-                building.TryEnter(selectedUnit);
+                Select(garrisoned);
                 return;
             }
             return;

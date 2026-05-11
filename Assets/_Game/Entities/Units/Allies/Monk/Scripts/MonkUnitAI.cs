@@ -10,7 +10,7 @@ namespace Game.AI
 [RequireComponent(typeof(MonkUnit))]
 public class MonkUnitAI : BaseUnitAI
 {
-    public enum AIState { Idle, MoveToAlly, Heal, Flee, ReturnHome, MoveToBuilding }
+    public enum AIState { Idle, MoveToAlly, Heal, Flee, ReturnHome, MoveToBuilding, MoveToResource }
 
     [Header("Monk References")]
     [SerializeField] private AllyDetector allyDetector;
@@ -29,6 +29,7 @@ public class MonkUnitAI : BaseUnitAI
 
     private AIState state = AIState.Idle;
     private PlayerUnit currentHealTarget;
+    private Transform currentResource;
     private float lastHealTime = -999f;
 
     public AIState State => state;
@@ -49,6 +50,7 @@ public class MonkUnitAI : BaseUnitAI
     protected override void ClearTargetsOnDisable()
     {
         currentHealTarget = null;
+        currentResource = null;
         garrison.ClearTarget();
     }
 
@@ -68,6 +70,7 @@ public class MonkUnitAI : BaseUnitAI
             case AIState.Flee: TickFlee(); break;
             case AIState.ReturnHome: TickReturnHome(); break;
             case AIState.MoveToBuilding: TickMoveToBuilding(); break;
+            case AIState.MoveToResource: TickMoveToResource(); break;
         }
     }
 
@@ -86,6 +89,14 @@ public class MonkUnitAI : BaseUnitAI
         {
             currentHealTarget = patient;
             TransitionTo(AIState.MoveToAlly);
+            return;
+        }
+
+        Transform resource = FindClosestResource();
+        if (resource != null)
+        {
+            currentResource = resource;
+            TransitionTo(AIState.MoveToResource);
             return;
         }
 
@@ -227,7 +238,52 @@ public class MonkUnitAI : BaseUnitAI
         RepathTo(homePosition);
     }
 
-    private void TickMoveToBuilding()
+    private void TickMoveToResource()
+    {
+        // Flee y healing tienen prioridad
+        if (ShouldFlee())
+        {
+            currentResource = null;
+            TransitionTo(AIState.Flee);
+            return;
+        }
+
+        PlayerUnit patient = FindHealTarget();
+        if (patient != null)
+        {
+            currentResource = null;
+            currentHealTarget = patient;
+            TransitionTo(AIState.MoveToAlly);
+            return;
+        }
+
+        if (currentResource == null)
+        {
+            TransitionTo(AIState.Idle);
+            return;
+        }
+
+        ResumeAgent();
+
+        if (DistanceToHome() > maxTravelDistance)
+        {
+            currentResource = null;
+            TransitionTo(AIState.ReturnHome);
+            return;
+        }
+
+        float dist = Vector2.Distance(transform.position, currentResource.position);
+        if (dist <= resourceArriveDistance)
+        {
+            currentResource = null;
+            TransitionTo(AIState.Idle);
+            return;
+        }
+
+        RepathTo(currentResource.position);
+    }
+
+        private void TickMoveToBuilding()
     {
         if (ShouldFlee())
         {
@@ -327,6 +383,7 @@ public class MonkUnitAI : BaseUnitAI
     private void TransitionTo(AIState next)
     {
         if (state == AIState.Idle && next != AIState.Idle) hasPatrolDestination = false;
+        if (agent != null && agent.enabled && agent.isOnNavMesh) agent.stoppingDistance = 0f;
         state = next;
         lastRepathTime = -999f;
     }

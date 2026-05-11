@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4673049111822053916}
   - component: {fileID: 8470253390246072872}
   - component: {fileID: 7948484380377881692}
+  - component: {fileID: 6844466775300360782}
   m_Layer: 8
   m_Name: Stump
   m_TagString: Stump
@@ -158,3 +159,27 @@ MonoBehaviour:
   treePrefab: {fileID: 6662095426311807421, guid: 3bcb1227699fb58459fa526de5c56195, type: 3}
   minRegrowthTime: 60
   maxRegrowthTime: 120
+--- !u!114 &6844466775300360782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5950400659418977497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584a42d2f17a15949805339930718c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+  currentHealth: 0
+  autoDestroyOnDeath: 1
+  itemsToDrop:
+  - prefab: {fileID: 4599100054429094837, guid: a07b5ec0855a97645af887b6c48e15e2, type: 3}
+    dropChance: 1
+  - prefab: {fileID: 4599100054429094837, guid: a07b5ec0855a97645af887b6c48e15e2, type: 3}
+    dropChance: 0.5
+  dropRadius: 0.3
+  forceImpulse: 5
+  knockbackDuration: 0.3
+  knockbackReceivedMultiplier: 1

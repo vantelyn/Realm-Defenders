@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 1572663278672635728}
   - component: {fileID: 834835855636459172}
   - component: {fileID: 7861619812049643636}
+  - component: {fileID: 953756966253838382}
   m_Layer: 7
   m_Name: Sheep
   m_TagString: Unit
@@ -199,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   currentHealth: 0
+  autoDestroyOnDeath: 1
   itemsToDrop:
   - prefab: {fileID: 420670266989839909, guid: 2e7794de35bf21c4f96a39e496ebe447, type: 3}
     dropChance: 1
@@ -321,3 +323,18 @@ MonoBehaviour:
   eatDurationMin: 1
   eatDurationMax: 2
   arriveDistance: 0.15
+--- !u!114 &953756966253838382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002409756092772004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad3ca52009c912409ff26678273f860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  duration: 0.18
+  targetRenderer: {fileID: 0}

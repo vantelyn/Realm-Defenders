@@ -53,6 +53,12 @@ public class NPC : MonoBehaviour
     {
         if (navMeshAgent == null || animator == null) return;
 
+        if (!navMeshAgent.enabled || !navMeshAgent.isOnNavMesh)
+        {
+            animator.SetBool("isRunning", false);
+            return;
+        }
+
         // Desired velocity es m�s estable que velocity real (no tiene jitter por deceleraci�n)
         bool isMoving = !navMeshAgent.isStopped &&
                         navMeshAgent.hasPath &&

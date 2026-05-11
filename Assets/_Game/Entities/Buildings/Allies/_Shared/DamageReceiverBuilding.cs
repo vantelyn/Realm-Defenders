@@ -32,7 +32,7 @@ public class DamageReceiverBuilding : MonoBehaviour, IDamageReceiver
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    public void ApplyDamage(int amount, bool _, bool __, Vector2 ___)
+    public void ApplyDamage(int amount, bool _, bool __, Vector2 ___, float ____ = 1f)
     {
         currentHealth = Mathf.Max(0, currentHealth - amount);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);

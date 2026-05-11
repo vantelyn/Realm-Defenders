@@ -10,6 +10,9 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
 {
     [Header("References")]
     [SerializeField] protected TargetDetector enemyDetector;
+    [SerializeField] protected TargetDetector resourceDetector;
+    [Tooltip("Distancia minima al recurso para considerar 'llegado' (recogida la hace el ResourceCollector del PickupZone).")]
+    [SerializeField] protected float resourceArriveDistance = 0.3f;
 
     [Header("Home Zone")]
     [SerializeField] protected float homeRadius = 1.5f;
@@ -104,6 +107,7 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
         if (unit.Mode != PlayerUnit.ControlMode.AI) return;
 
         if (enemyDetector != null) enemyDetector.CleanNulls();
+        if (resourceDetector != null) resourceDetector.CleanNulls();
         CleanDetectors();
 
         TickStates();
@@ -211,6 +215,28 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
     {
         if (enemyDetector == null) return null;
         return enemyDetector.FindClosest(transform.position);
+    }
+
+    protected Transform FindClosestResource()
+    {
+        if (resourceDetector == null) return null;
+        return resourceDetector.FindClosest(transform.position);
+    }
+
+    /// <summary>Radio aproximado del objetivo para calcular distancias entre bordes (no entre centros).
+    /// Prioriza NavMeshAgent.radius (los enemigos lo tienen); fallback a la dimension menor del bounds del Collider2D.</summary>
+    protected static float GetTargetRadius(Transform target)
+    {
+        if (target == null) return 0f;
+        var ag = target.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        if (ag != null) return ag.radius;
+        var col = target.GetComponent<Collider2D>();
+        if (col != null)
+        {
+            Vector2 ext = col.bounds.extents;
+            return Mathf.Min(ext.x, ext.y);
+        }
+        return 0.3f;
     }
 
     protected float DistanceToHome() => Vector2.Distance(transform.position, homePosition);
