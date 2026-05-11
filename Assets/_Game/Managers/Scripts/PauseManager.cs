@@ -51,7 +51,14 @@ public class PauseManager : MonoBehaviour
     public static void Pause()
     {
         if (instance == null) return;
-        if (instance.pauseMenu != null) instance.pauseMenu.SetActive(true);
+        if (instance.pauseMenu != null)
+        {
+            // Asegurar que el menu de pausa renderiza encima de todos los demas elementos
+            // UI del Canvas y por tanto bloquea sus raycasts (hover/click no llegan a counters,
+            // botones, tooltips, threat bar, etc. mientras esta activo).
+            instance.pauseMenu.transform.SetAsLastSibling();
+            instance.pauseMenu.SetActive(true);
+        }
         Time.timeScale = 0f;
         instance.isPaused = true;
     }

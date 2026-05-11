@@ -28,6 +28,10 @@ namespace Game.Managers
         public int MaxMeat => maxMeat;
         public int MaxWood => maxWood;
 
+        public bool IsMoneyFull => money >= maxMoney;
+        public bool IsMeatFull => meat >= maxMeat;
+        public bool IsWoodFull => wood >= maxWood;
+
         public event System.Action OnChanged;
 
         public bool TryAddMoney(int amount = 1) => TryAdd(ref money, maxMoney, amount);

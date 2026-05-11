@@ -220,7 +220,43 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
     protected Transform FindClosestResource()
     {
         if (resourceDetector == null) return null;
-        return resourceDetector.FindClosest(transform.position);
+        var inv = Game.Managers.InventoryManager.Instance;
+        if (inv == null) return resourceDetector.FindClosest(transform.position);
+
+        // Listar tipos NO llenos, con su escasez (current/max). Mas escaso = mas prioritario.
+        string[] tags = new string[3];
+        float[] scarcities = new float[3];
+        int n = 0;
+        if (!inv.IsWoodFull)  { tags[n] = "Wood";     scarcities[n] = inv.MaxWood  > 0 ? (float)inv.Wood  / inv.MaxWood  : 1f; n++; }
+        if (!inv.IsMeatFull)  { tags[n] = "Meat";     scarcities[n] = inv.MaxMeat  > 0 ? (float)inv.Meat  / inv.MaxMeat  : 1f; n++; }
+        if (!inv.IsMoneyFull) { tags[n] = "MoneyBag"; scarcities[n] = inv.MaxMoney > 0 ? (float)inv.Money / inv.MaxMoney : 1f; n++; }
+        if (n == 0) return null; // todo lleno: no recoger nada (la unit pasara a Patrol/ReturnHome)
+
+        // Ordenar tipos por escasez ascendente (sort burbuja, n <= 3)
+        for (int i = 0; i < n - 1; i++)
+            for (int j = 0; j < n - 1 - i; j++)
+                if (scarcities[j] > scarcities[j + 1])
+                {
+                    float ts = scarcities[j]; scarcities[j] = scarcities[j + 1]; scarcities[j + 1] = ts;
+                    string tt = tags[j]; tags[j] = tags[j + 1]; tags[j + 1] = tt;
+                }
+
+        // Por cada tipo en orden de prioridad: buscar el closest de ese tag entre los detectados.
+        // Solo si no hay ninguno del tipo mas escaso pasamos al siguiente.
+        for (int i = 0; i < n; i++)
+        {
+            Transform best = null;
+            float bestSqr = float.MaxValue;
+            foreach (Transform tr in resourceDetector.Detected)
+            {
+                if (tr == null) continue;
+                if (!tr.CompareTag(tags[i])) continue;
+                float sqr = ((Vector2)(tr.position - transform.position)).sqrMagnitude;
+                if (sqr < bestSqr) { bestSqr = sqr; best = tr; }
+            }
+            if (best != null) return best;
+        }
+        return null;
     }
 
     /// <summary>Radio aproximado del objetivo para calcular distancias entre bordes (no entre centros).

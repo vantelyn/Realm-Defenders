@@ -85,6 +85,7 @@ public class CameraManager : MonoBehaviour
     private void HandleZoom()
     {
         if (vcam == null) return;
+        if (PauseManager.IsPaused) return;
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll == 0f) return;
         var lens = vcam.Lens;

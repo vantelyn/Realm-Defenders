@@ -39,6 +39,11 @@ public class Castle : MonoBehaviour
     public CastleUpgradeData Data => data;
 
     public event System.Action<int> OnLevelChanged;
+    /// <summary>Disparado cuando se alcanza el nivel maximo (victoria de la ronda). Param: duracion en segundos.</summary>
+    public static event System.Action<float> OnRoundWon;
+
+    private float roundStartTime;
+    public float RoundDuration => Time.time - roundStartTime;
 
     private void Awake()
     {
@@ -56,6 +61,7 @@ public class Castle : MonoBehaviour
             return;
         }
         Instance = this;
+        roundStartTime = Time.time;
         ApplyLevel(startLevel, isInitial: true);
     }
 
@@ -140,6 +146,11 @@ public class Castle : MonoBehaviour
         if (animator != null) animator.SetInteger("stage", currentLevel);
 
         OnLevelChanged?.Invoke(currentLevel);
+
+        if (!isInitial && data != null && currentLevel >= data.MaxLevel)
+        {
+            OnRoundWon?.Invoke(RoundDuration);
+        }
     }
 
     public bool CanAffordNextUpgrade(InventoryManager inventory)

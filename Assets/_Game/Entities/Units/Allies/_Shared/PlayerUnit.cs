@@ -64,6 +64,14 @@ public abstract class PlayerUnit : MonoBehaviour
         if (selectionIndicator != null) selectionIndicator.SetActive(false);
     }
 
+    protected virtual void OnDestroy()
+    {
+        // Si moria garrisoned, liberar slot en el building (el Destroy directo no
+        // pasa por Exit, asi que sin esto la lista de occupants queda con una
+        // referencia muerta y FreeSlots cuenta el hueco como ocupado).
+        if (currentBuilding != null) currentBuilding.NotifyOccupantDied(this);
+    }
+
     protected virtual void Update()
     {
         if (Mode == ControlMode.Player && IsSelected && !isAttacking && !IsGarrisoned && canMove)

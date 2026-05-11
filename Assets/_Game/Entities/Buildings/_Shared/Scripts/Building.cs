@@ -20,7 +20,16 @@ public class Building : MonoBehaviour
     private readonly List<PlayerUnit> occupants = new List<PlayerUnit>();
 
     public int Capacity => capacity;
-    public int FreeSlots => capacity - occupants.Count;
+    public int FreeSlots
+    {
+        get
+        {
+            // Limpiar referencias muertas (unit destruida sin pasar por Exit normal,
+            // ej. murio garrisoned). Sin esto el slot queda bloqueado para siempre.
+            occupants.RemoveAll(u => u == null);
+            return capacity - occupants.Count;
+        }
+    }
     public bool HasFreeSlot => FreeSlots > 0;
     public float RangeMultiplier => rangeMultiplier;
     public Vector3 DoorPosition => doorPoint != null ? doorPoint.position : transform.position;
@@ -44,6 +53,12 @@ public class Building : MonoBehaviour
     {
         if (unit == null || !occupants.Remove(unit)) return;
         unit.OnExitedBuilding(DoorPosition);
+    }
+
+    /// <summary>Llamado por PlayerUnit.OnDestroy cuando la unit muere garrisoned. Libera su slot.</summary>
+    public void NotifyOccupantDied(PlayerUnit unit)
+    {
+        occupants.Remove(unit);
     }
 
     private Transform GetFreeSlot()
