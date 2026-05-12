@@ -201,6 +201,14 @@ public class PlayerUnitAI : BaseUnitAI
             return;
         }
 
+        // Si el tipo del recurso target se ha llenado mientras viajabamos, abortar.
+        if (IsResourceFull(currentResource))
+        {
+            currentResource = null;
+            TransitionTo(AIState.Idle);
+            return;
+        }
+
         if (currentResource == null)
         {
             TransitionTo(AIState.Idle);

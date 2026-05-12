@@ -259,6 +259,20 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
         return null;
     }
 
+    /// <summary>True si el tipo de recurso de este Transform esta al maximo en el inventario
+    /// y por tanto no puede recogerse. Usa el tag (Wood/Meat/MoneyBag).</summary>
+    protected bool IsResourceFull(Transform resource)
+    {
+        if (resource == null) return false;
+        var inv = Game.Managers.InventoryManager.Instance;
+        if (inv == null) return false;
+        if (resource.CompareTag("Wood"))     return inv.IsWoodFull;
+        if (resource.CompareTag("Meat"))     return inv.IsMeatFull;
+        if (resource.CompareTag("MoneyBag")) return inv.IsMoneyFull;
+        return false;
+    }
+
+
     /// <summary>Radio aproximado del objetivo para calcular distancias entre bordes (no entre centros).
     /// Prioriza NavMeshAgent.radius (los enemigos lo tienen); fallback a la dimension menor del bounds del Collider2D.</summary>
     protected static float GetTargetRadius(Transform target)

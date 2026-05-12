@@ -79,6 +79,34 @@ public static class QueryService
         return best;
     }
 
+    /// <summary>Busca todas las PlayerUnit dentro del rectangulo world-space [min, max].
+    /// Filtra por layer + tag; excluye unidades garrisoned (no son seleccionables por box).
+    /// Rellena 'results' (limpia previamente) y devuelve el numero de hits unicos.</summary>
+    public static int FindUnitsInBox(Vector2 worldMin, Vector2 worldMax, LayerMask layer, string tag, System.Collections.Generic.List<PlayerUnit> results)
+    {
+        if (results == null) return 0;
+        results.Clear();
+        Vector2 size = new Vector2(Mathf.Abs(worldMax.x - worldMin.x), Mathf.Abs(worldMax.y - worldMin.y));
+        if (size.x <= 0f || size.y <= 0f) return 0;
+
+        ContactFilter2D filter = BuildFilter(layer);
+        Vector2 center = (worldMin + worldMax) * 0.5f;
+        int count = Physics2D.OverlapBox(center, size, 0f, filter, buffer);
+        for (int i = 0; i < count; i++)
+        {
+            Collider2D col = buffer[i];
+            if (col == null) continue;
+            if (!col.CompareTag(tag)) continue;
+            PlayerUnit u = col.GetComponentInParent<PlayerUnit>();
+            if (u == null) continue;
+            if (u.IsGarrisoned) continue;
+            if (results.Contains(u)) continue; // dedup colliders del mismo unit
+            results.Add(u);
+        }
+        return results.Count;
+    }
+
+
     // ---- Helpers internos ----
 
     private static ContactFilter2D BuildFilter(LayerMask layer)

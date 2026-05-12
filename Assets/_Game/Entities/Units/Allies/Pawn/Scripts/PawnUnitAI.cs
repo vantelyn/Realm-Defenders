@@ -222,6 +222,15 @@ public class PawnUnitAI : BaseUnitAI
             return;
         }
 
+        // Si el recurso del target (Wood para arbol, Meat para oveja) se ha llenado a mitad de tarea,
+        // abortar: seguir cortando/cazando seria inutil.
+        if (IsHarvestableFull(currentTree))
+        {
+            currentTree = null;
+            TransitionTo(AIState.Idle);
+            return;
+        }
+
         Transform opportunisticResource = FindResourceWithinRadius(resourceOpportunityRadius);
         if (opportunisticResource != null)
         {
@@ -266,6 +275,14 @@ public class PawnUnitAI : BaseUnitAI
             return;
         }
 
+        // Si el recurso del target se ha llenado mientras cortabamos/cazabamos, abortar.
+        if (IsHarvestableFull(currentTree))
+        {
+            currentTree = null;
+            TransitionTo(AIState.Idle);
+            return;
+        }
+
         if (currentTree == null)
         {
             TransitionTo(AIState.Idle);
@@ -301,6 +318,16 @@ public class PawnUnitAI : BaseUnitAI
             currentEnemy = enemy;
             currentResource = null;
             TransitionTo(AIState.ChaseEnemy);
+            return;
+        }
+
+        // Si el tipo del recurso target se ha llenado mientras viajabamos, abortar.
+        // El ResourceCollector no podra destruirlo y caeriamos en un loop de re-deteccion.
+        if (IsResourceFull(currentResource))
+        {
+            currentResource = null;
+            if (currentTree != null) TransitionTo(AIState.MoveToTree);
+            else TransitionTo(AIState.Idle);
             return;
         }
 
@@ -384,25 +411,56 @@ public class PawnUnitAI : BaseUnitAI
 
     private Transform FindClosestTree()
     {
-        // Solo arboles (no stumps). Los stumps comparten layer Tree pero tienen tag=Stump.
-        // El jugador solo debe poder destruir stumps deliberadamente (click izq manual).
+        // El TreeDetector del Pawn detecta layer Tree y layer Sheep:
+        // arboles dropean Wood, ovejas dropean Meat al morir.
+        // Stumps comparten layer Tree pero tienen tag Stump; los ignoramos
+        // (solo se destruyen con click izq manual del jugador).
         if (treeDetector == null) return null;
+
+        var inv = Game.Managers.InventoryManager.Instance;
+        bool woodFull = inv != null && inv.IsWoodFull;
+        bool meatFull = inv != null && inv.IsMeatFull;
+        if (woodFull && meatFull) return null;
+
+        int treeLayer  = LayerMask.NameToLayer("Tree");
+        int sheepLayer = LayerMask.NameToLayer("Sheep");
+
         Transform best = null;
         float bestSqr = float.MaxValue;
         foreach (Transform tr in treeDetector.Detected)
         {
             if (tr == null) continue;
             if (tr.CompareTag("Stump")) continue;
+
+            int layer = tr.gameObject.layer;
+            if (layer == treeLayer  && woodFull) continue;
+            if (layer == sheepLayer && meatFull) continue;
+
             float sqr = ((Vector2)(tr.position - transform.position)).sqrMagnitude;
             if (sqr < bestSqr) { bestSqr = sqr; best = tr; }
         }
         return best;
     }
 
+    /// <summary>True si el target del TreeDetector (arbol u oveja) tiene su recurso al maximo
+    /// y por tanto no tiene sentido seguir cortando/cazandolo. Por layer (Tree -> Wood, Sheep -> Meat).</summary>
+    private bool IsHarvestableFull(Transform t)
+    {
+        if (t == null) return false;
+        var inv = Game.Managers.InventoryManager.Instance;
+        if (inv == null) return false;
+        int layer = t.gameObject.layer;
+        if (layer == LayerMask.NameToLayer("Tree"))  return inv.IsWoodFull;
+        if (layer == LayerMask.NameToLayer("Sheep")) return inv.IsMeatFull;
+        return false;
+    }
+
+
     private Transform FindResourceWithinRadius(float radius)
     {
-        if (resourceDetector == null) return null;
-        Transform candidate = resourceDetector.FindClosest(transform.position);
+        // Reusa FindClosestResource de BaseUnitAI: ya filtra tipos al maximo
+        // y prioriza por escasez. Aqui solo aplicamos el corte por radio.
+        Transform candidate = FindClosestResource();
         if (candidate == null) return null;
         float dist = Vector2.Distance(transform.position, candidate.position);
         return dist <= radius ? candidate : null;
