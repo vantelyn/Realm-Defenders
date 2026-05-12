@@ -87,7 +87,11 @@ public abstract class ThrownProjectileEnemy : MonoBehaviour
     /// <summary>Cada subclase decide como orientar el sprite segun la direccion de vuelo.</summary>
     protected abstract void OrientSprite(Vector2 dir);
 
-    private bool CheckHit()
+    /// <summary>Hook llamado al impactar (CheckHit con colliders) o aterrizar (Land sin colliders).
+    /// Default no-op. Las subclases pueden override para spawn de efectos como explosiones AOE.</summary>
+    protected virtual void OnImpact(Vector3 worldPos) { }
+
+    protected virtual bool CheckHit()
     {
         ContactFilter2D filter = new ContactFilter2D();
         filter.SetLayerMask(hitLayers);
@@ -105,19 +109,20 @@ public abstract class ThrownProjectileEnemy : MonoBehaviour
             Vector2 hitDirection = hit.transform.position - transform.position;
 
             IDamageReceiver receiver = hit.GetComponentInParent<IDamageReceiver>();
-            if (receiver != null)
+            if (receiver != null && damage > 0)
             {
                 // applyHitAnimation=false porque los aliados no tienen anim "getHit".
                 receiver.ApplyDamage(damage, true, false, hitDirection);
             }
 
+            OnImpact(transform.position);
             Destroy(gameObject);
             return true;
         }
         return false;
     }
 
-    private void Land()
+    protected virtual void Land()
     {
         landed = true;
         if (spriteChild != null)
@@ -126,6 +131,7 @@ public abstract class ThrownProjectileEnemy : MonoBehaviour
             lp.y = 0f;
             spriteChild.localPosition = lp;
         }
+        OnImpact(transform.position);
         Destroy(gameObject, timeToDestroyAfterLanding);
     }
 }
