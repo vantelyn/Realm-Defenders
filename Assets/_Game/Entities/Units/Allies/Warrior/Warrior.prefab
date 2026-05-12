@@ -380,7 +380,7 @@ MonoBehaviour:
   patrolPauseMax: 5
   patrolArriveDistance: 0.15
   repathInterval: 0.25
-  attackRange: 0.8
+  attackRange: 0.5
   attackCooldown: 1.2
   chaseHysteresis: 0.5
   garrison:

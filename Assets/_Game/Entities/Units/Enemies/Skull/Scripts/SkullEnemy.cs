@@ -5,10 +5,10 @@ namespace Game.Enemies
 {
 
 /// <summary>
-/// Minotaur enemigo tanque con bloqueo proactivo. Heredando de GuardingEnemyBase,
-/// solo necesita la implementacion del trigger de Attack en el Animator.
+/// Skull enemigo tanque-undead con bloqueo proactivo. Heredando de
+/// GuardingEnemyBase, solo necesita el trigger de Attack en el Animator.
 /// </summary>
-public class MinotaurEnemy : GuardingEnemyBase
+public class SkullEnemy : GuardingEnemyBase
 {
     protected override void ApplyAttackAnimatorParams(int directionIndex)
     {

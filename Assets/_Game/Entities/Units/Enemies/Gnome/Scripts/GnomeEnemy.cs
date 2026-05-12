@@ -5,10 +5,10 @@ namespace Game.Enemies
 {
 
 /// <summary>
-/// Minotaur enemigo tanque con bloqueo proactivo. Heredando de GuardingEnemyBase,
-/// solo necesita la implementacion del trigger de Attack en el Animator.
+/// Gnome enemigo melee ligero. Un solo clip de Attack; flip lateral
+/// via localScale para left/right.
 /// </summary>
-public class MinotaurEnemy : GuardingEnemyBase
+public class GnomeEnemy : BaseEnemyAI
 {
     protected override void ApplyAttackAnimatorParams(int directionIndex)
     {
