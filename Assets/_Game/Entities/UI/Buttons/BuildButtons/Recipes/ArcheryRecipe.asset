@@ -15,6 +15,8 @@ MonoBehaviour:
   displayName: Archery
   description: Military building that trains archers, providing ranged units to attack
     enemies from a distance.
+  icon: {fileID: 1765351576224072635, guid: cae8c83262028994fb742d1d27355d25, type: 3}
+  isUnique: 1
   woodCost: 1
   meatCost: 1
   moneyCost: 1

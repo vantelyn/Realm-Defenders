@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5095420148102846310}
   - component: {fileID: 667110055807439098}
   - component: {fileID: -9090499147432423282}
+  - component: {fileID: 4753191950310661819}
   m_Layer: 13
   m_Name: Archery
   m_TagString: Building
@@ -168,6 +169,23 @@ MonoBehaviour:
   spawnPoint: {fileID: 2763072561859709107}
   spawnRadius: 1.5
   snapToNavMesh: 1
+--- !u!114 &4753191950310661819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7999590458923010784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e09fe790592b1f9459558c1ca753905e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 1
+  slots: []
+  rangeMultiplier: 1.5
+  doorPoint: {fileID: 0}
+  ownerRecipe: {fileID: 0}
 --- !u!1 &8122174572929946828
 GameObject:
   m_ObjectHideFlags: 0

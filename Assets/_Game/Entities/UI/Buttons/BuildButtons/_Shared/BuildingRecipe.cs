@@ -13,6 +13,13 @@ public class BuildingRecipe : ScriptableObject, IRecipe
     [TextArea(2, 4)]
     public string description = "";
 
+    [Tooltip("Icono mostrado en el tooltip cuando esta receta aparece como requisito o como already built. Si esta vacio, se intenta usar el sprite del SpriteRenderer del buildingPrefab.")]
+    public Sprite icon;
+
+    [Header("Constraints")]
+    [Tooltip("Si es true, solo se puede tener una instancia viva. Si ya hay una, el BuildButton se semi-desactiva con tooltip 'Already built'. Tower: false (ilimitado).")]
+    public bool isUnique = true;
+
     [Header("Cost")]
     public int woodCost = 0;
     public int meatCost = 0;

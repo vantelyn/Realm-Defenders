@@ -15,6 +15,8 @@ MonoBehaviour:
   displayName: House
   description: Civilian building that creates pawns, allowing them to gather food
     and chop trees for resources.
+  icon: {fileID: -6871032511782127585, guid: b500a566e3b0e04429d3400d8db157c7, type: 3}
+  isUnique: 1
   woodCost: 1
   meatCost: 1
   moneyCost: 1

@@ -15,6 +15,8 @@ MonoBehaviour:
   displayName: Barracks
   description: Military building that trains warriors and spearmen, providing melee
     infantry for frontline combat.
+  icon: {fileID: 5002096206624228670, guid: cfa115487606d3740b2e373ea3a67979, type: 3}
+  isUnique: 1
   woodCost: 1
   meatCost: 1
   moneyCost: 1

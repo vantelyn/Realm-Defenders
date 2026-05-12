@@ -21,6 +21,10 @@ public class UnitRecipe : ScriptableObject, IRecipe
     [Header("Prefab")]
     public GameObject unitPrefab;
 
+    [Header("Requirement")]
+    [Tooltip("Edificio que el jugador debe tener construido para poder spawnear esta unidad. Si esta vacio, no hay requisito.")]
+    public BuildingRecipe requiredBuilding;
+
     public string DisplayName => displayName;
     public string Description => description;
     public int WoodCost => woodCost;

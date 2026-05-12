@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3162536683153039689}
   - component: {fileID: 5515246846640333222}
   - component: {fileID: 5682266782354332564}
+  - component: {fileID: 5059742082712582977}
   m_Layer: 13
   m_Name: Monastery
   m_TagString: Building
@@ -168,6 +169,23 @@ MonoBehaviour:
   spawnPoint: {fileID: 6758473373557971660}
   spawnRadius: 1.5
   snapToNavMesh: 1
+--- !u!114 &5059742082712582977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379866628894889122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e09fe790592b1f9459558c1ca753905e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 1
+  slots: []
+  rangeMultiplier: 1.5
+  doorPoint: {fileID: 0}
+  ownerRecipe: {fileID: 0}
 --- !u!1 &3286224729153441168
 GameObject:
   m_ObjectHideFlags: 0

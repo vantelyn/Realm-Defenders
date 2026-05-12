@@ -152,7 +152,9 @@ public class BuildingManager : MonoBehaviour
         }
 
         Vector3 pos = ghostInstance.transform.position;
-        Instantiate(activeRecipe.buildingPrefab, pos, Quaternion.identity);
+        GameObject built = Instantiate(activeRecipe.buildingPrefab, pos, Quaternion.identity);
+        Building builtBuilding = built.GetComponent<Building>();
+        if (builtBuilding != null) builtBuilding.SetOwnerRecipe(activeRecipe);
 
         if (navMeshSurface != null)
         {

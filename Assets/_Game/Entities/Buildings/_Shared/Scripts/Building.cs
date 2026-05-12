@@ -17,7 +17,46 @@ public class Building : MonoBehaviour
     [Header("Door")]
     [SerializeField] private Transform doorPoint;
 
+    [Header("Recipe")]
+    [Tooltip("Recipe que creo este edificio. Asignado por BuildingManager tras Instantiate. Usado por el BuildingRegistry para contabilizar instancias vivas.")]
+    [SerializeField] private BuildingRecipe ownerRecipe;
+
     private readonly List<PlayerUnit> occupants = new List<PlayerUnit>();
+    private bool registered;
+
+    public BuildingRecipe OwnerRecipe => ownerRecipe;
+
+    /// <summary>Asigna el recipe que creo este edificio. Llamado por BuildingManager
+    /// tras Instantiate. Si ya estaba activo, re-registra con el nuevo recipe.</summary>
+    public void SetOwnerRecipe(BuildingRecipe recipe)
+    {
+        if (ownerRecipe == recipe) return;
+        if (registered) { BuildingRegistry.Unregister(ownerRecipe, this); registered = false; }
+        ownerRecipe = recipe;
+        if (isActiveAndEnabled && ownerRecipe != null)
+        {
+            BuildingRegistry.Register(ownerRecipe, this);
+            registered = true;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (ownerRecipe != null && !registered)
+        {
+            BuildingRegistry.Register(ownerRecipe, this);
+            registered = true;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (registered)
+        {
+            BuildingRegistry.Unregister(ownerRecipe, this);
+            registered = false;
+        }
+    }
 
     public int Capacity => capacity;
     public int FreeSlots
