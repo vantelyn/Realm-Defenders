@@ -34,9 +34,9 @@ namespace Game.Managers
 
         public event System.Action OnChanged;
 
-        public bool TryAddMoney(int amount = 1) => TryAdd(ref money, maxMoney, amount);
-        public bool TryAddMeat(int amount = 1) => TryAdd(ref meat, maxMeat, amount);
-        public bool TryAddWood(int amount = 1) => TryAdd(ref wood, maxWood, amount);
+        public bool TryAddMoney(int amount = 1) { if (!TryAdd(ref money, maxMoney, amount)) return false; GameStats.NotifyMoneyCollected(amount); return true; }
+        public bool TryAddMeat(int amount = 1) { if (!TryAdd(ref meat, maxMeat, amount)) return false; GameStats.NotifyMeatCollected(amount); return true; }
+        public bool TryAddWood(int amount = 1) { if (!TryAdd(ref wood, maxWood, amount)) return false; GameStats.NotifyWoodCollected(amount); return true; }
 
         public bool TrySpendMoney(int amount) => TrySpend(ref money, amount);
         public bool TrySpendMeat(int amount) => TrySpend(ref meat, amount);

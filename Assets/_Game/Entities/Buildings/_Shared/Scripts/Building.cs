@@ -58,6 +58,12 @@ public class Building : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        // Solo contamos como perdido si la app no esta saliendo (cambio de escena u salida del editor).
+        if (UnityEngine.Application.isPlaying) Game.Managers.GameStats.NotifyBuildingLost();
+    }
+
     public int Capacity => capacity;
     public int FreeSlots
     {

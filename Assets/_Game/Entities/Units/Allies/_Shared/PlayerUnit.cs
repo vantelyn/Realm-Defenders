@@ -74,6 +74,7 @@ public abstract class PlayerUnit : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
+        Game.Managers.GameStats.NotifyAllyLost();
         // Si moria garrisoned, liberar slot en el building (el Destroy directo no
         // pasa por Exit, asi que sin esto la lista de occupants queda con una
         // referencia muerta y FreeSlots cuenta el hueco como ocupado).

@@ -265,6 +265,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 31b67c37231d86c4896da552016426bb, type: 2}
   startLevel: 1
+  audioSource2D: {fileID: 0}
+  stage2UpgradeClip: {fileID: 8300000, guid: ceb36fc1c2de8fc43a0526b566c012ed, type: 3}
+  stage3ThunderClip: {fileID: 8300000, guid: ddf43861464a8814d99561579fb1aa83, type: 3}
+  upgradeStingVolume: 1
+  thunderVolume: 1
+  audioSource3D: {fileID: 0}
+  stage2GrowingClip: {fileID: 8300000, guid: 5bd6f3bef1dc69d40ad3f7ad14116a6e, type: 3}
+  growingVolume: 1
+  growingMinDistance: 3
+  growingMaxDistance: 12
+  cameraTravelTime: 0.9
+  cameraHoldTime: 1.8
+  cinematicTimeScale: 0
+  electrocuteOnMaxLevel: 1
 --- !u!208 &8640939156710282512
 NavMeshObstacle:
   m_ObjectHideFlags: 0

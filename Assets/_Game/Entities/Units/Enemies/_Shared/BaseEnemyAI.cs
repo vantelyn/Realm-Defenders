@@ -53,6 +53,8 @@ public abstract class BaseEnemyAI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        var dr = GetComponent<Game.Combat.DamageReceiver>();
+        if (dr != null) dr.OnDying += () => Game.Managers.GameStats.NotifyEnemyKilled();
         if (agent != null)
         {
             agent.updateRotation = false;
