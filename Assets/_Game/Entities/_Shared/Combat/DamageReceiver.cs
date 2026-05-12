@@ -29,6 +29,7 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
     private Animator animator;
     private HitFlashEffect hitFlash;
     private NavMeshAgent navAgent;
+    private IDamageBlocker blocker;
     private bool knockbackActive;
     private bool knockbackDisabledAgent;
     public float forceImpulse = 5;
@@ -55,12 +56,18 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
         rb2D = GetComponent<Rigidbody2D>();
         hitFlash = GetComponent<HitFlashEffect>();
         navAgent = GetComponent<NavMeshAgent>();
+        blocker = GetComponent<IDamageBlocker>();
     }
 
     public void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, Vector2 hitDirection, float forceMultiplier = 1f)
     {
-        currentHealth -= amount;
-        if (hitFlash != null) hitFlash.Flash();
+        bool blocked = (blocker != null && blocker.TryBlock(hitDirection));
+
+        if (!blocked)
+        {
+            currentHealth -= amount;
+            if (hitFlash != null) hitFlash.Flash();
+        }
 
         float effectiveKnockback = forceImpulse * forceMultiplier * knockbackReceivedMultiplier;
         if (applyForce && effectiveKnockback > 0.001f && rb2D != null)
@@ -78,12 +85,12 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
             Invoke(nameof(ReturnToKinematic), knockbackDuration);
         }
 
-        if (applyHitAnimation && animator != null)
+        if (applyHitAnimation && !blocked && animator != null)
         {
             animator.SetTrigger("getHit");
         }
 
-        if (currentHealth <= 0 && !dyingFired)
+        if (!blocked && currentHealth <= 0 && !dyingFired)
         {
             dyingFired = true;
             if (OnDying != null) OnDying();

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4889515503347490076}
   - component: {fileID: 6236614893723103469}
   - component: {fileID: 5542515668663885138}
+  - component: {fileID: 3322837287954167123}
   m_Layer: 17
   m_Name: Bear
   m_TagString: Unit
@@ -234,6 +235,8 @@ MonoBehaviour:
     dropChance: 0.5
   dropRadius: 0.5
   forceImpulse: 5
+  knockbackDuration: 0.3
+  knockbackReceivedMultiplier: 1
 --- !u!114 &5542515668663885138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +252,44 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
   duration: 0.18
   targetRenderer: {fileID: 0}
+--- !u!114 &3322837287954167123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833520616520514572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e6ef545731ae144ae1235f1f12e0ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 0
+  pathPoints: []
+  waitTimeInPoint: 3
+  movementRadius: 5
+  waitTimeRandom: 4
+  detectionRange: 5
+  attackRange: 1.2
+  preyLayers:
+    serializedVersion: 2
+    m_Bits: 100352
+  foodLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  foodTag: Meat
+  targetSwitchHysteresis: 0.85
+  attackDamage: 1
+  attackCooldown: 1.5
+  attackAnimationDuration: 0.9
+  attackImpactTime: 0.45
+  eatHealAmount: 3
+  eatDuration: 1
+  eatCooldown: 1
+  eatReachDistance: 0.3
+  wanderRadius: 5
+  wanderIdleMin: 1.5
+  wanderIdleMax: 3.5
 --- !u!1 &6463408814876125613
 GameObject:
   m_ObjectHideFlags: 0
