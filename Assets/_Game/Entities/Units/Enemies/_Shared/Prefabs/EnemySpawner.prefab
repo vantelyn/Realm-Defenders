@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5227029421432740979}
   - component: {fileID: 3852715049530899562}
-  - component: {fileID: 818711027677313444}
   - component: {fileID: 869088524535213024}
+  - component: {fileID: 1616191118744551526}
   m_Layer: 3
   m_Name: EnemySpawner
   m_TagString: Building
@@ -89,26 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &818711027677313444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6642755782997558412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c73d1dfaa3e0b46bbad0b063c27ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 2191447041407112255, guid: c8af2ad91ceecc24181fba8803354a05, type: 3}
-  - {fileID: 6854911528546568843, guid: 33e31ab29750fbb4983f984ea70807ee, type: 3}
-  minSpawnTime: 5
-  maxSpawnTime: 20
-  threatAtFullSpeed: 50
-  minSpawnTimeAtFullSpeed: 1
-  maxSpawnTimeAtFullSpeed: 10
 --- !u!70 &869088524535213024
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -146,3 +126,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0031247106, y: -0.5300352}
   m_Size: {x: 1.5135118, y: 1.0897125}
   m_Direction: 1
+--- !u!114 &1616191118744551526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6642755782997558412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31d4ca3f67cea3a48901d81fe728f095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalPrefabs: []
+  bossPrefab: {fileID: 0}
+  minThreatToSpawn: 10
+  bossThreat: 85
+  maxThreat: 100
+  baseDelay: 20
+  minDelay: 1
+  maxBossesAlive: 4
+  bossSpawnChance: 0.5

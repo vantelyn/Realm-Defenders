@@ -20,7 +20,7 @@ MonoBehaviour:
     m_Bits: 32768
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 65536
+    m_Bits: 327680
   treeLayer:
     serializedVersion: 2
     m_Bits: 256

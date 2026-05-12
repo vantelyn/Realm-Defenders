@@ -1,50 +1,134 @@
 using System.Collections;
 using UnityEngine;
-using Game.Targeting;
 
 using Game.Managers;
+
 namespace Game.Enemies
 {
-
-public class EnemySpawner : MonoBehaviour
-{
-    [Header("Prefabs a generar")]
-    public GameObject[] prefabs;
-
-    [Header("Spawn rate")]
-    [Tooltip("Tiempo base de espera entre spawns (en segundos). Se divide por la amenaza normalizada (0..1) + 1, de forma que a threat=0 el tiempo es el base, a threat=max el tiempo es base/2... pero usamos interpolacion directa contra minDelay.")]
-    public float baseDelay = 20f;
-
-    [Tooltip("Tiempo mï¿½nimo de espera cuando la amenaza es mï¿½xima.")]
-    public float minDelay = 1f;
-
-    [Tooltip("Valor de amenaza en el que la frecuencia es maxima. Por encima de esto no acelera mï¿½s.")]
-    public float maxThreat = 100f;
-
-    void Start()
+    public class EnemySpawner : MonoBehaviour
     {
-        if (prefabs == null || prefabs.Length == 0)
+        [Header("Prefabs normales")]
+        [SerializeField] private GameObject[] normalPrefabs;
+
+        [Header("Prefab Boss")]
+        [SerializeField] private GameObject bossPrefab;
+
+        [Header("Threat")]
+        [Tooltip("Por debajo de esta amenaza no se spawnea nada.")]
+        [SerializeField] private float minThreatToSpawn = 5f;
+
+        [Tooltip("A partir de esta amenaza pueden aparecer bosses.")]
+        [SerializeField] private float bossThreat = 90f;
+
+        [Tooltip("Amenaza máxima usada para calcular la velocidad máxima.")]
+        [SerializeField] private float maxThreat = 100f;
+
+        [Header("Spawn Rate")]
+        [SerializeField] private float baseDelay = 20f;
+        [SerializeField] private float minDelay = 1f;
+
+        [Header("Bosses")]
+        [Tooltip("Máximo de bosses vivos en toda la escena.")]
+        [SerializeField] private int maxBossesAlive = 4;
+
+        [Tooltip("Probabilidad de spawnear un boss cuando la amenaza supera el umbral.")]
+        [Range(0f, 1f)]
+        [SerializeField] private float bossSpawnChance = 0.25f;
+
+        private static int aliveBosses = 0;
+
+        private void Start()
         {
-            Debug.LogWarning("No hay prefabs asignados en el spawner.");
-            return;
+            if (normalPrefabs == null || normalPrefabs.Length == 0)
+            {
+                Debug.LogWarning($"[{name}] EnemySpawner sin prefabs normales asignados.");
+                return;
+            }
+
+            StartCoroutine(SpawnRoutine());
         }
-        StartCoroutine(SpawnRoutine());
-    }
 
-    IEnumerator SpawnRoutine()
-    {
-        while (true)
+        private IEnumerator SpawnRoutine()
         {
-            yield return new WaitForSeconds(GetCurrentDelay());
-            GameObject prefab = prefabs[Random.Range(0, prefabs.Length)];
+            while (true)
+            {
+                float threat = ThreatManager.GetTotalThreat();
+
+                if (threat < minThreatToSpawn)
+                {
+                    yield return new WaitForSeconds(1f);
+                    continue;
+                }
+
+                float wait = GetCurrentDelay(threat);
+                yield return new WaitForSeconds(wait);
+
+                threat = ThreatManager.GetTotalThreat();
+
+                if (threat < minThreatToSpawn)
+                    continue;
+
+                SpawnNormalEnemy();
+
+                if (threat >= bossThreat)
+                {
+                    TrySpawnBoss();
+                }
+            }
+        }
+
+        private void SpawnNormalEnemy()
+        {
+            GameObject prefab = normalPrefabs[Random.Range(0, normalPrefabs.Length)];
             Instantiate(prefab, transform.position, Quaternion.identity);
         }
+
+        private void TrySpawnBoss()
+        {
+            if (bossPrefab == null)
+                return;
+
+            if (aliveBosses >= maxBossesAlive)
+                return;
+
+            if (Random.value > bossSpawnChance)
+                return;
+
+            GameObject boss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
+
+            aliveBosses++;
+
+            BossLifetimeTracker tracker = boss.AddComponent<BossLifetimeTracker>();
+            tracker.Init();
+        }
+
+        private float GetCurrentDelay(float threat)
+        {
+            float t = Mathf.InverseLerp(minThreatToSpawn, maxThreat, threat);
+            return Mathf.Lerp(baseDelay, minDelay, t);
+        }
+
+        public static void NotifyBossDestroyed()
+        {
+            aliveBosses = Mathf.Max(0, aliveBosses - 1);
+        }
     }
 
-    private float GetCurrentDelay()
+    public class BossLifetimeTracker : MonoBehaviour
     {
-        float t = Mathf.Clamp01(ThreatManager.GetTotalThreat() / maxThreat);
-        return Mathf.Lerp(baseDelay, minDelay, t);
+        private bool initialized = false;
+
+        public void Init()
+        {
+            initialized = true;
+        }
+
+        private void OnDestroy()
+        {
+            if (initialized)
+            {
+                EnemySpawner.NotifyBossDestroyed();
+            }
+        }
     }
-}
 }

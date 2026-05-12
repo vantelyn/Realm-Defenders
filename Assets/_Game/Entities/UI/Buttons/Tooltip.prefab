@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wood Tower
+  m_text: Archery
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dbd8a529947eaf8459b6283c893d5732, type: 2}
   m_sharedMaterial: {fileID: 8326246999802919724, guid: dbd8a529947eaf8459b6283c893d5732, type: 2}
@@ -253,7 +253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8354471680331631243
 RectTransform:
   m_ObjectHideFlags: 0
@@ -378,6 +378,8 @@ MonoBehaviour:
   goldEntry:
     root: {fileID: 6571627105188568977}
     amountLabel: {fileID: 992606628061451455}
+  affordColor: {r: 1, g: 1, b: 1, a: 1}
+  missingColor: {r: 0.92, g: 0.22, b: 0.22, a: 1}
   mouseOffset: {x: 16, y: -16}
   parentCanvas: {fileID: 0}
 --- !u!114 &3094400028292561495
@@ -623,9 +625,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ranged defense building.
-
-    Attacks nearby enemies with arrows.'
+  m_text: Military building that trains archers, providing ranged units to attack
+    enemies from a distance.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 069e0c76ed10e554a97154ce30678e42, type: 2}
   m_sharedMaterial: {fileID: 3363432615531501054, guid: 069e0c76ed10e554a97154ce30678e42, type: 2}
@@ -847,7 +848,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 40
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 994eb2df5aba992438cbe48054d0b404, type: 2}
   m_sharedMaterial: {fileID: -7759503875514497441, guid: 994eb2df5aba992438cbe48054d0b404, type: 2}
@@ -983,7 +984,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 25
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 994eb2df5aba992438cbe48054d0b404, type: 2}
   m_sharedMaterial: {fileID: -7759503875514497441, guid: 994eb2df5aba992438cbe48054d0b404, type: 2}
@@ -1294,7 +1295,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 22
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 994eb2df5aba992438cbe48054d0b404, type: 2}
   m_sharedMaterial: {fileID: -7759503875514497441, guid: 994eb2df5aba992438cbe48054d0b404, type: 2}

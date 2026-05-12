@@ -442,7 +442,7 @@ MonoBehaviour:
   attackRange: 0.8
   targetLayer:
     serializedVersion: 2
-    m_Bits: 68352
+    m_Bits: 854784
   damageRules:
   - layerName: Tree
     damage: 1
@@ -453,6 +453,10 @@ MonoBehaviour:
     applyForce: 1
     applyHitAnimation: 0
   - layerName: EnemyHitbox
+    damage: 1
+    applyForce: 1
+    applyHitAnimation: 0
+  - layerName: NeutralHitbox
     damage: 1
     applyForce: 1
     applyHitAnimation: 0

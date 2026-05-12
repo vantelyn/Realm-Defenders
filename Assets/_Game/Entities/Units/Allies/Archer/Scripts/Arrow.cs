@@ -95,7 +95,7 @@ public class Arrow : MonoBehaviour
             {
                 int layer = hit.gameObject.layer;
                 bool isEnemy = layer == LayerMask.NameToLayer("EnemyHitbox") ||
-                               layer == LayerMask.NameToLayer("BearHitbox") ||
+                               layer == LayerMask.NameToLayer("NeutralHitbox") ||
                                layer == LayerMask.NameToLayer("Sheep");
                 bool isTree = layer == LayerMask.NameToLayer("Tree");
                 receiver.ApplyDamage(damage, isEnemy, isTree, hitDirection);

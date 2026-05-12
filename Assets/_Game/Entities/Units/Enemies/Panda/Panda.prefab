@@ -247,8 +247,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0049405536, y: 0.11181639}
-  m_Size: {x: 0.983399, y: 0.3173829}
+  m_Offset: {x: -0.035096634, y: 0.14013667}
+  m_Size: {x: 1.3974655, y: 0.37402353}
   m_Direction: 1
 --- !u!195 &1750968793019884241
 NavMeshAgent:
@@ -259,7 +259,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6741959628563233828}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.45
+  m_Radius: 0.65
   m_Speed: 2.8
   m_Acceleration: 8
   avoidancePriority: 50
@@ -269,7 +269,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.3
-  m_BaseOffset: 0.05
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1064224184704409799
@@ -315,7 +315,7 @@ MonoBehaviour:
   attackAnimationDuration: 1.2
   targetLayer:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 294912
   stopDistanceStrategic: 0.5
   stopDistanceOpportunity: 1.5
   repathInterval: 0.25
@@ -400,6 +400,6 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.024902344, y: 0.66259766}
-  m_Size: {x: 0.9404297, y: 1.4755859}
+  m_Offset: {x: -0.010253906, y: 1.0263672}
+  m_Size: {x: 1.4619141, y: 2.203125}
   m_Direction: 0

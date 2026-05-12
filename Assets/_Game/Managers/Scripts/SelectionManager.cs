@@ -209,7 +209,7 @@ if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed && selected
         int enemyMask = 0;
         int li;
         li = LayerMask.NameToLayer("EnemyHitbox"); if (li >= 0) enemyMask |= (1 << li);
-        li = LayerMask.NameToLayer("BearHitbox");  if (li >= 0) enemyMask |= (1 << li);
+        li = LayerMask.NameToLayer("NeutralHitbox");  if (li >= 0) enemyMask |= (1 << li);
         if (enemyMask == 0) return null;
         Collider2D col = Physics2D.OverlapPoint(worldPoint, enemyMask);
         if (col == null) return null;

@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3913141037963841171
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1616191118744551526, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: bossPrefab
+      value: 
+      objectReference: {fileID: 3789843112386471108, guid: d6931dcd91ab3434f9a445d31cf98599, type: 3}
+    - target: {fileID: 1616191118744551526, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: normalPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616191118744551526, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: 'normalPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4042854133787446025, guid: f0c72552d8cbe77458b1138d51c552d8, type: 3}
+    - target: {fileID: 1616191118744551526, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: 'normalPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 184305304770340696, guid: 05908c5807c7b6a44ae9b77504dad297, type: 3}
+    - target: {fileID: 1616191118744551526, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: 'normalPrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 4756720928857126359, guid: 32f64c83112631a4db942bbd0e984b51, type: 3}
+    - target: {fileID: 1616191118744551526, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: 'normalPrefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2098729929866824684, guid: b2d87a78969b4ef409f2b4a964275049, type: 3}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227029421432740979, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6642755782997558412, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}
+      propertyPath: m_Name
+      value: WaterEnemySpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9d4dde8654cfd694dacf0159dfbff5a5, type: 3}

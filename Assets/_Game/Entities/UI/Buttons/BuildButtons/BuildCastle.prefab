@@ -92,9 +92,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildCastle
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7178124635978319643, guid: f15e62e9201fe3248b61b9e8f821b450, type: 3}
-    - {fileID: 6812901433692690917, guid: f15e62e9201fe3248b61b9e8f821b450, type: 3}
+    - target: {fileID: 4879785440028785612, guid: f15e62e9201fe3248b61b9e8f821b450, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

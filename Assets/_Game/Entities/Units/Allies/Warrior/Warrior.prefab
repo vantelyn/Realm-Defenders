@@ -328,7 +328,7 @@ MonoBehaviour:
     damage: 1
     applyForce: 0
     applyHitAnimation: 1
-  - layerName: BearHitbox
+  - layerName: NeutralHitbox
     damage: 1
     applyForce: 0
     applyHitAnimation: 0

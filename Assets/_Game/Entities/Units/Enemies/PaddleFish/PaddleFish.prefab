@@ -312,7 +312,7 @@ MonoBehaviour:
   attackAnimationDuration: 0.55
   targetLayer:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 294912
   stopDistanceStrategic: 0.5
   stopDistanceOpportunity: 1.4
   repathInterval: 0.25

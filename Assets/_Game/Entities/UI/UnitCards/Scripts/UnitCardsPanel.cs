@@ -62,6 +62,14 @@ public class UnitCardsPanel : MonoBehaviour
     private void OnValidate()
     {
         if (!Application.isPlaying) return;
+        if (!isActiveAndEnabled) return;
+        StartCoroutine(DeferredOnValidate());
+    }
+
+    private System.Collections.IEnumerator DeferredOnValidate()
+    {
+        yield return null;
+        if (this == null) yield break;
         BuildContainer();
         ClearPool();
         Rebuild();
@@ -195,6 +203,7 @@ public class UnitCardsPanel : MonoBehaviour
         tRT.offsetMin = Vector2.zero;
         tRT.offsetMax = Vector2.zero;
         TextMeshProUGUI tmp = hpTxtGO.AddComponent<TextMeshProUGUI>();
+        if (TMP_Settings.defaultFontAsset != null) tmp.font = TMP_Settings.defaultFontAsset;
         tmp.text = "";
         tmp.fontSize = hpTextSize;
         tmp.color = Color.white;

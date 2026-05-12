@@ -52,7 +52,7 @@ MonoBehaviour:
   spriteChild: {fileID: 8153863614597604495}
   hitLayers:
     serializedVersion: 2
-    m_Bits: 330496
+    m_Bits: 854528
   damage: 1
   hitCheckRadius: 0.15
   timeToDestroyAfterLanding: 3
