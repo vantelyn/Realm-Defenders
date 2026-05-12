@@ -9,7 +9,7 @@ namespace Game.AI
 [RequireComponent(typeof(PawnUnit))]
 public class PawnUnitAI : BaseUnitAI
 {
-    public enum AIState { Idle, ChaseEnemy, AttackEnemy, MoveToTree, Chop, MoveToResource, ReturnHome, Flee }
+    public enum AIState { Idle, ChaseEnemy, AttackEnemy, MoveToTree, Chop, MoveToResource, ReturnHome, Flee, Commanded }
 
     [Header("Pawn References")]
     [SerializeField] private TargetDetector treeDetector;
@@ -40,6 +40,8 @@ public class PawnUnitAI : BaseUnitAI
     private Transform currentEnemy;
     private Transform currentTree;
     private Transform currentResource;
+    private Vector3 commandPoint;
+    private bool isManualCommand;
     private float lastAttackTime = -999f;
 
     private DamageReceiverPlayer damageReceiver;
@@ -115,6 +117,7 @@ public class PawnUnitAI : BaseUnitAI
             case AIState.MoveToResource: TickMoveToResource(); break;
             case AIState.ReturnHome: TickReturnHome(); break;
             case AIState.Flee: TickFlee(); break;
+            case AIState.Commanded: TickCommanded(); break;
         }
     }
 
@@ -222,9 +225,9 @@ public class PawnUnitAI : BaseUnitAI
             return;
         }
 
-        // Si el recurso del target (Wood para arbol, Meat para oveja) se ha llenado a mitad de tarea,
-        // abortar: seguir cortando/cazando seria inutil.
-        if (IsHarvestableFull(currentTree))
+        // Si el recurso del target se ha llenado a mitad de tarea, abortar.
+        // Excepcion: comando manual del jugador ignora el cap (despejar terreno).
+        if (!isManualCommand && IsHarvestableFull(currentTree))
         {
             currentTree = null;
             TransitionTo(AIState.Idle);
@@ -247,7 +250,8 @@ public class PawnUnitAI : BaseUnitAI
 
         ResumeAgent();
 
-        if (DistanceToHome() > maxTravelDistance)
+        // Limite de travel solo aplica en IA libre.
+        if (!isManualCommand && DistanceToHome() > maxTravelDistance)
         {
             currentTree = null;
             TransitionTo(AIState.ReturnHome);
@@ -275,8 +279,9 @@ public class PawnUnitAI : BaseUnitAI
             return;
         }
 
-        // Si el recurso del target se ha llenado mientras cortabamos/cazabamos, abortar.
-        if (IsHarvestableFull(currentTree))
+        // Si el recurso del target se ha llenado mientras cortabamos, abortar.
+        // Excepcion: comando manual del jugador ignora el cap.
+        if (!isManualCommand && IsHarvestableFull(currentTree))
         {
             currentTree = null;
             TransitionTo(AIState.Idle);
@@ -321,9 +326,7 @@ public class PawnUnitAI : BaseUnitAI
             return;
         }
 
-        // Si el tipo del recurso target se ha llenado mientras viajabamos, abortar.
-        // El ResourceCollector no podra destruirlo y caeriamos en un loop de re-deteccion.
-        if (IsResourceFull(currentResource))
+        if (!isManualCommand && IsResourceFull(currentResource))
         {
             currentResource = null;
             if (currentTree != null) TransitionTo(AIState.MoveToTree);
@@ -340,7 +343,7 @@ public class PawnUnitAI : BaseUnitAI
 
         ResumeAgent();
 
-        if (DistanceToHome() > maxTravelDistance)
+        if (!isManualCommand && DistanceToHome() > maxTravelDistance)
         {
             currentResource = null;
             TransitionTo(AIState.ReturnHome);
@@ -350,9 +353,7 @@ public class PawnUnitAI : BaseUnitAI
         float dist = Vector2.Distance(transform.position, currentResource.position);
         if (dist <= resourceArriveDistance)
         {
-            currentResource = null;
-            if (currentTree != null) TransitionTo(AIState.MoveToTree);
-            else TransitionTo(AIState.Idle);
+            StopAgent();
             return;
         }
 
@@ -408,6 +409,87 @@ public class PawnUnitAI : BaseUnitAI
             RepathTo(hit.position);
         }
     }
+
+    private void TickCommanded()
+    {
+        ResumeAgent();
+        if (agent != null && agent.enabled && agent.isOnNavMesh && !agent.pathPending && agent.remainingDistance <= resourceArriveDistance)
+        {
+            TransitionTo(AIState.Idle);
+            return;
+        }
+        RepathTo(commandPoint);
+    }
+
+    // ---- Comandos manuales (RMB) ----
+
+    public override void CommandMoveTo(Vector3 worldPoint)
+    {
+        currentEnemy = null;
+        currentTree = null;
+        currentResource = null;
+        fleeFrom = null;
+        fleeExpireTime = -1f;
+        hasPatrolDestination = false;
+        commandPoint = worldPoint;
+        SetHome(worldPoint);
+        isManualCommand = true;
+        TransitionTo(AIState.Commanded);
+    }
+
+    public override void CommandAttackTarget(Transform target)
+    {
+        if (target == null) return;
+        currentEnemy = target;
+        currentTree = null;
+        currentResource = null;
+        fleeFrom = null;
+        fleeExpireTime = -1f;
+        hasPatrolDestination = false;
+        SetHome(target.position);
+        isManualCommand = true;
+        TransitionTo(AIState.ChaseEnemy);
+    }
+
+    public override void CommandHarvestTarget(Transform target)
+    {
+        if (target == null) return;
+        int layer = target.gameObject.layer;
+        int treeLayer = LayerMask.NameToLayer("Tree");
+        int sheepLayer = LayerMask.NameToLayer("Sheep");
+        int resourcesLayer = LayerMask.NameToLayer("Resources");
+
+        currentEnemy = null;
+        fleeFrom = null;
+        fleeExpireTime = -1f;
+        hasPatrolDestination = false;
+
+        if (layer == treeLayer || layer == sheepLayer)
+        {
+            currentTree = target;
+            currentResource = null;
+            SetHome(target.position);
+            isManualCommand = true;
+            TransitionTo(AIState.MoveToTree);
+            return;
+        }
+
+        if (layer == resourcesLayer)
+        {
+            currentResource = target;
+            currentTree = null;
+            SetHome(target.position);
+            isManualCommand = true;
+            TransitionTo(AIState.MoveToResource);
+            return;
+        }
+    }
+
+    private void garrison_resetIfAny()
+    {
+        // El Pawn no garrisonea de manera autonoma; no hace falta resetear nada.
+    }
+
 
     private Transform FindClosestTree()
     {
@@ -471,8 +553,9 @@ public class PawnUnitAI : BaseUnitAI
         if (state == AIState.Idle && next != AIState.Idle) hasPatrolDestination = false;
         if (next != AIState.ChaseEnemy && next != AIState.AttackEnemy && next != AIState.Chop && agent != null && agent.enabled && agent.isOnNavMesh)
         {
-            agent.stoppingDistance = 0f;
+            agent.stoppingDistance = defaultStoppingDistance;
         }
+        if (next == AIState.Idle) isManualCommand = false;
         state = next;
         lastRepathTime = -999f;
     }

@@ -24,6 +24,10 @@ public abstract class PlayerUnit : MonoBehaviour
     [Header("Selection")]
     [SerializeField] protected GameObject selectionIndicator;
 
+    [Header("UI")]
+    [Tooltip("Sprite que se muestra en la card de seleccion. Si esta vacio, se usa el sprite del SpriteRenderer principal.")]
+    [SerializeField] private Sprite portrait;
+
     protected Rigidbody2D rb2D;
     protected Animator animator;
     protected Vector2 movementInput;
@@ -40,6 +44,10 @@ public abstract class PlayerUnit : MonoBehaviour
 
     public bool canMove = true;
     public bool IsSelected { get; private set; }
+
+    /// <summary>Sprite del retrato. Fallback al sprite del SpriteRenderer si no se ha asignado uno explicito.</summary>
+    public Sprite Portrait => portrait != null ? portrait : (cachedSpriteRenderer != null ? cachedSpriteRenderer.sprite : null);
+
     public virtual bool HasSecondary => false;
     public virtual bool SecondaryTargetsAllies => false;
     public bool IsAttacking => isAttacking;
@@ -74,15 +82,7 @@ public abstract class PlayerUnit : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (Mode == ControlMode.Player && IsSelected && !isAttacking && !IsGarrisoned && canMove)
-        {
-            movementInput = CameraManager.ReadWasd();
-        }
-        else if (Mode == ControlMode.Player)
-        {
-            movementInput = Vector2.zero;
-        }
-
+        // Movimiento gestionado por la IA via SetMovementInput. No hay control manual.
         bool moving = movementInput.sqrMagnitude > 0.01f;
         animator.SetBool("isRunning", moving);
         if (moving) LastMovementDir = movementInput;
@@ -119,31 +119,23 @@ public abstract class PlayerUnit : MonoBehaviour
         IsSelected = selected;
         if (selectionIndicator != null) selectionIndicator.SetActive(selected);
 
-        if (!selected)
-        {
-            movementInput = Vector2.zero;
-            if (canMove && Mode == ControlMode.Player && !IsGarrisoned) rb2D.linearVelocity = Vector2.zero;
-            OnBecameUnselected();
-        }
-        else
-        {
-            OnBecameSelected();
-        }
+        if (selected) OnBecameSelected();
+        else OnBecameUnselected();
     }
 
-    protected virtual void OnBecameSelected()
-    {
-        if (ai != null) ai.Disable();
-    }
+    /// <summary>
+    /// Activa o desactiva el modo de control manual sobre esta unidad.
+    /// True: Mode=Player + IA pausada -> WASD/Q/E la controlan directamente.
+    /// False: Mode=AI + IA activa con home en la posicion actual.
+    /// Lo llama SelectionManager cuando esta unidad pasa a ser (o deja de ser) la unica seleccionada.
+    /// Independiente de SetSelected (que solo gestiona el indicador visual).
+    /// </summary>
 
-    protected virtual void OnBecameUnselected()
-    {
-        if (ai != null)
-        {
-            ai.SetHome(transform.position);
-            ai.Enable();
-        }
-    }
+
+
+    protected virtual void OnBecameSelected() { }
+
+    protected virtual void OnBecameUnselected() { }
 
     public virtual void OnEnteredBuilding(Building building, Transform slot)
     {

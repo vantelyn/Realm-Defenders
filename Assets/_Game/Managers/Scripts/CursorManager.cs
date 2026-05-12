@@ -53,11 +53,11 @@ public class CursorManager : MonoBehaviour
         mouseWorld.z = 0f;
 
         PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
+        var sel = selectionManager != null ? selectionManager.SelectedUnits : null;
 
         // Prioridad: enemigos.
         if (QueryService.HasHitAt(mouseWorld, targeting.enemyLayer))
         {
-            if (selected is PawnUnit) return CursorType.Enemy;
             if (selected is ArcherUnit) return CursorType.EnemyBow;
             return CursorType.Enemy;
         }
@@ -68,7 +68,17 @@ public class CursorManager : MonoBehaviour
         {
             if (selected == null) return CursorType.Default;
 
-            if (selected.IsGarrisoned && selected.CurrentBuilding == building) return CursorType.Door;
+            // Si hay alguna unidad garrisoned en la seleccion (en cualquier building),
+            // el RMB las sacara: cursor de puerta (salida).
+            if (sel != null)
+            {
+                for (int i = 0; i < sel.Count; i++)
+                {
+                    if (sel[i] != null && sel[i].IsGarrisoned) return CursorType.Door;
+                }
+            }
+
+            // Sin garrisoned en seleccion: RMB intentaria meter. Door si el building tiene hueco.
             if (building.HasFreeSlot) return CursorType.Door;
             return CursorType.DoorBlocked;
         }
@@ -81,18 +91,15 @@ public class CursorManager : MonoBehaviour
             return CursorType.Ally;
         }
 
-        // Prioridad: �rboles.
+        // Prioridad: arboles.
         if (QueryService.HasHitAt(mouseWorld, targeting.treeLayer))
         {
-            if (selected is PawnUnit) return CursorType.Wood;
             return CursorType.Wood;
         }
 
         // Prioridad: ovejas.
         if (QueryService.HasHitAt(mouseWorld, targeting.sheepLayer))
         {
-            if (selected is PawnUnit) return CursorType.Enemy;
-
             return CursorType.Enemy;
         }
 

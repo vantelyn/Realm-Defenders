@@ -136,7 +136,7 @@ AnimatorState:
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree0Hit
   m_Speed: 1
-  m_CycleOffset: 0
+  m_CycleOffset: 0.5
   m_Transitions:
   - {fileID: -3930744962471737857}
   m_StateMachineBehaviours: []

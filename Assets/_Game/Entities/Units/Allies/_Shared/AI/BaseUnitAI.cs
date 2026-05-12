@@ -12,7 +12,7 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
     [SerializeField] protected TargetDetector enemyDetector;
     [SerializeField] protected TargetDetector resourceDetector;
     [Tooltip("Distancia minima al recurso para considerar 'llegado' (recogida la hace el ResourceCollector del PickupZone).")]
-    [SerializeField] protected float resourceArriveDistance = 0.3f;
+    [SerializeField] protected float resourceArriveDistance = 0.6f; // >= stoppingDistance (0.5) + margen
 
     [Header("Home Zone")]
     [SerializeField] protected float homeRadius = 1.5f;
@@ -22,7 +22,7 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
     [SerializeField] protected float patrolStepRadius = 1.0f;
     [SerializeField] protected float patrolPauseMin = 2.5f;
     [SerializeField] protected float patrolPauseMax = 5.0f;
-    [SerializeField] protected float patrolArriveDistance = 0.15f;
+    [SerializeField] protected float patrolArriveDistance = 0.6f; // >= stoppingDistance (0.5)
 
     [Header("Repath")]
     [SerializeField] protected float repathInterval = 0.25f;
@@ -37,6 +37,15 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
     private float nextPatrolTime = -1f;
     protected bool hasPatrolDestination;
 
+    // Prioridad de avoidance asignada en Awake. Cada unit recibe un valor distinto (random 30-70)
+    // para romper la simetria que causa vibracion cuando dos units van al mismo punto. Cuando la
+    // unit esta parada se sube 30 mas (mas pasiva) para que las en movimiento la rodeen.
+    private int movingPriority = 50;
+
+    // Guardamos el stoppingDistance original del prefab para que las IAs puedan restaurarlo
+    // tras estados de combate (que lo modifican temporalmente).
+    protected float defaultStoppingDistance = 0.5f;
+
     protected virtual void Awake()
     {
         unit = GetComponent<PlayerUnit>();
@@ -47,6 +56,9 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
         {
             agent.updateRotation = false;
             agent.updateUpAxis = false;
+            defaultStoppingDistance = agent.stoppingDistance;
+            movingPriority = Random.Range(10, 90);
+            agent.avoidancePriority = movingPriority;
         }
 
         homePosition = transform.position;
@@ -115,7 +127,27 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
         if (agent != null && agent.enabled)
         {
             Vector2 vel = agent.velocity;
-            unit.SetMovementInput(vel.sqrMagnitude > 0.01f ? vel.normalized : Vector2.zero);
+            bool moving = vel.sqrMagnitude > 0.5f;
+
+            // Si la unit llega al destino y casi para, la convertimos en obstaculo pasivo:
+            // ResetPath para que no aplique avoidance activo, isStopped, y prioridad 99 (max pasiva).
+            bool hasArrived = !agent.pathPending && agent.hasPath
+                && agent.remainingDistance <= agent.stoppingDistance + 0.05f
+                && vel.sqrMagnitude < 0.5f;
+            if (hasArrived && !agent.isStopped)
+            {
+                agent.ResetPath();
+                agent.isStopped = true;
+            }
+
+            unit.SetMovementInput(moving ? vel.normalized : Vector2.zero);
+
+            // Prioridad de avoidance:
+            //  - en movimiento: movingPriority (asignado en Awake, random 10-90).
+            //  - parada por avoidance/idle: movingPriority + 30.
+            //  - llegada explicitamente al destino: 99 (max pasiva, otras la rodean facil).
+            int desired = agent.isStopped ? 99 : (moving ? movingPriority : Mathf.Clamp(movingPriority + 30, 0, 99));
+            if (agent.avoidancePriority != desired) agent.avoidancePriority = desired;
         }
     }
 
@@ -189,10 +221,20 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
     }
 
     /// <summary>Pedir al agent que se dirija a un destino, respetando el intervalo de repath.</summary>
+    /// <summary>Pedir al agent que se dirija a un destino, respetando el intervalo de repath.</summary>
+    /// <summary>Pedir al agent que se dirija a un destino, respetando el intervalo de repath.</summary>
     protected void RepathTo(Vector3 destination)
     {
         if (agent == null || !agent.enabled) return;
         if (Time.time - lastRepathTime <= repathInterval) return;
+        // No re-asignar el mismo destino: el agent ya tiene path activo, reasignarlo le hace
+        // re-iniciar el movimiento y causa vibracion cerca del destino.
+        if (agent.hasPath && Vector3.SqrMagnitude(agent.destination - destination) < 0.01f)
+        {
+            lastRepathTime = Time.time;
+            return;
+        }
+        if (agent.isStopped) agent.isStopped = false;
         agent.SetDestination(destination);
         lastRepathTime = Time.time;
     }
@@ -321,5 +363,25 @@ public abstract class BaseUnitAI : MonoBehaviour, IUnitAI
             agent.enabled = true;
         }
     }
+
+    // ---- API de comandos manuales (RMB del jugador) ----
+    // Las subclases hacen override para integrar el comando en su state machine.
+    // Implementacion por defecto: no-op (la IA ignora el comando si no lo soporta).
+
+    /// <summary>Ordena a esta unidad moverse a un punto concreto del mundo.</summary>
+    public virtual void CommandMoveTo(Vector3 worldPoint) { }
+
+    /// <summary>Ordena atacar a un objetivo concreto (root transform del enemigo).</summary>
+    public virtual void CommandAttackTarget(Transform target) { }
+
+    /// <summary>Ordena ir a recolectar un recurso concreto (drop suelto, arbol u oveja).</summary>
+    public virtual void CommandHarvestTarget(Transform target) { }
+
+    /// <summary>Si es true, la IA libre NO entra automaticamente en buildings
+    /// aunque garrison.SeekBuildings este activado. Lo setea SelectionManager cuando el
+    /// jugador saca la unidad manualmente; se resetea cuando la mete manualmente.</summary>
+    public bool NoAutoGarrison { get; set; }
+
+
 }
 }

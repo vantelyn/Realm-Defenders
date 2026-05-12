@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 4045879096619958618}
   - component: {fileID: 3444717490163498704}
   - component: {fileID: 1116359615018133466}
+  - component: {fileID: -1414641024918519452}
   m_Layer: 8
   m_Name: Tree0
   m_TagString: Untagged
@@ -262,3 +263,17 @@ MonoBehaviour:
     dropChance: 1
   dropRadius: 0.5
   forceImpulse: 0
+  knockbackDuration: 0.3
+  knockbackReceivedMultiplier: 1
+--- !u!114 &-1414641024918519452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6662095426311807421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e46b5348938c2e42857bc826c535b61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

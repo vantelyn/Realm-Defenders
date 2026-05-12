@@ -99,7 +99,6 @@ public static class QueryService
             if (!col.CompareTag(tag)) continue;
             PlayerUnit u = col.GetComponentInParent<PlayerUnit>();
             if (u == null) continue;
-            if (u.IsGarrisoned) continue;
             if (results.Contains(u)) continue; // dedup colliders del mismo unit
             results.Add(u);
         }

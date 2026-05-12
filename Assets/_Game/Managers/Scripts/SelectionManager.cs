@@ -34,6 +34,11 @@ public class SelectionManager : MonoBehaviour
     private RectTransform boxRT;
     private bool triedCreateBox;
 
+    // ---- Eventos ----
+    public event System.Action OnSelectionChanged;
+    private bool selectionDirty;
+
+
     // ---- API publica ----
 
     /// <summary>Primera unidad de la seleccion (alias para codigo legacy).</summary>
@@ -48,14 +53,22 @@ public class SelectionManager : MonoBehaviour
     private void Update()
     {
         // Esc deselecciona todo (modal stack via InputArbiter).
-        if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed && selectedUnits.Count > 0)
+        // Evento diferido: colapsa multiples mutaciones del mismo frame en un unico raise.
+        if (selectionDirty)
+        {
+            selectionDirty = false;
+            if (OnSelectionChanged != null) OnSelectionChanged();
+        }
+
+        
+if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed && selectedUnits.Count > 0)
         {
             InputArbiter.EscapeConsumed = true;
             DeselectAll();
             return;
         }
 
-        // F tambien deselecciona (alias rapido al alcance del WASD).
+        // F tambien deselecciona.
         if (Input.GetKeyDown(KeyCode.F) && selectedUnits.Count > 0)
         {
             DeselectAll();
@@ -63,11 +76,7 @@ public class SelectionManager : MonoBehaviour
         }
 
         HandleLeftMouse();
-
-        // RMB: secondary action (Warrior block, etc.) sobre la primera unidad de la seleccion.
-        // Sprint B reasignara esto a movimiento contextual y movera secondary a Q.
-        if (Input.GetMouseButtonDown(1)) HandleSecondaryAction();
-        if (Input.GetMouseButtonUp(1)) HandleSecondaryRelease();
+        HandleRightMouse();
     }
 
     // ---- LMB: click + box drag ----
@@ -121,6 +130,155 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
+    // ---- RMB: contextual (mover / atacar / recolectar) ----
+
+    private void HandleRightMouse()
+    {
+        if (!Input.GetMouseButtonDown(1)) return;
+        if (buildPlacer != null && buildPlacer.IsPlacing) return;
+        if (IsPointerOverUI()) return;
+        if (selectedUnits.Count == 0) return;
+        if (targeting == null) return;
+
+        Vector3 mouseWorld = worldCamera.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorld.z = 0f;
+
+        // 0. Building bajo el cursor.
+        //    - Si hay alguna garrisoned en la seleccion -> sacarlas TODAS (de cualquier building).
+        //    - Si no hay garrisoned -> meter las seleccionadas en este building hasta agotar slots.
+        Building building = QueryService.FindBuildingAt(mouseWorld, targeting.buildingsLayer, targeting.buildingTag);
+        if (building != null)
+        {
+            if (TryExitAnyGarrisoned()) return;
+            TryEnterSelectedInto(building);
+            return;
+        }
+
+        Transform enemy = FindEnemyAt(mouseWorld);
+        if (enemy != null) { CommandAll_Attack(enemy); return; }
+        Transform resource = FindResourceAt(mouseWorld);
+        if (resource != null) { CommandAll_Harvest(resource); return; }
+        CommandAll_MoveTo(mouseWorld);
+    }
+
+    private bool TryExitAnyGarrisoned()
+    {
+        bool any = false;
+        for (int i = 0; i < selectedUnits.Count; i++)
+        {
+            PlayerUnit u = selectedUnits[i];
+            if (u == null) continue;
+            if (!u.IsGarrisoned) continue;
+            Building b = u.CurrentBuilding;
+            if (b == null) continue;
+            b.Exit(u);
+            MarkAutoGarrison(u, false);
+            any = true;
+        }
+        return any;
+    }
+
+    private bool TryEnterSelectedInto(Building building)
+    {
+        if (building == null) return false;
+        bool any = false;
+        for (int i = 0; i < selectedUnits.Count; i++)
+        {
+            PlayerUnit u = selectedUnits[i];
+            if (u == null) continue;
+            if (u.IsGarrisoned) continue;          // ya esta dentro de algun building
+            if (!building.HasFreeSlot) break;       // sin slots, no seguimos intentando
+            if (building.TryEnter(u))
+            {
+                MarkAutoGarrison(u, true);
+                any = true;
+            }
+        }
+        return any;
+    }
+
+    private void MarkAutoGarrison(PlayerUnit u, bool allowAutoGarrison)
+    {
+        if (u == null) return;
+        Game.AI.BaseUnitAI ai = u.GetComponent<Game.AI.BaseUnitAI>();
+        if (ai != null) ai.NoAutoGarrison = !allowAutoGarrison;
+    }
+
+    private Transform FindEnemyAt(Vector3 worldPoint)
+    {
+        int enemyMask = 0;
+        int li;
+        li = LayerMask.NameToLayer("EnemyHitbox"); if (li >= 0) enemyMask |= (1 << li);
+        li = LayerMask.NameToLayer("BearHitbox");  if (li >= 0) enemyMask |= (1 << li);
+        if (enemyMask == 0) return null;
+        Collider2D col = Physics2D.OverlapPoint(worldPoint, enemyMask);
+        if (col == null) return null;
+        // Devolvemos el Transform del hitbox: es el que usa la IA libre via enemyDetector,
+        // para que CommandAttackTarget sea consistente con el flujo automatico.
+        return col.transform;
+    }
+
+    private Transform FindResourceAt(Vector3 worldPoint)
+    {
+        int resourceMask = 0;
+        int li;
+        li = LayerMask.NameToLayer("Resources"); if (li >= 0) resourceMask |= (1 << li);
+        li = LayerMask.NameToLayer("Tree");      if (li >= 0) resourceMask |= (1 << li);
+        li = LayerMask.NameToLayer("Sheep");     if (li >= 0) resourceMask |= (1 << li);
+        if (resourceMask == 0) return null;
+        Collider2D col = Physics2D.OverlapPoint(worldPoint, resourceMask);
+        if (col == null) return null;
+        // Devolvemos col.transform directamente. Para arboles/ovejas/drops sueltos el
+        // collider esta en el root, asi que el Transform coincide con el del prefab raiz.
+        return col.transform;
+    }
+
+    private void CommandAll_Attack(Transform enemy)
+    {
+        for (int i = 0; i < selectedUnits.Count; i++)
+        {
+            PlayerUnit u = selectedUnits[i];
+            if (u == null) continue;
+            Game.AI.BaseUnitAI ai = u.GetComponent<Game.AI.BaseUnitAI>();
+            if (ai != null) ai.CommandAttackTarget(enemy);
+        }
+    }
+
+    private void CommandAll_Harvest(Transform resource)
+    {
+        for (int i = 0; i < selectedUnits.Count; i++)
+        {
+            PlayerUnit u = selectedUnits[i];
+            if (u == null) continue;
+            Game.AI.BaseUnitAI ai = u.GetComponent<Game.AI.BaseUnitAI>();
+            if (ai != null) ai.CommandHarvestTarget(resource);
+        }
+    }
+
+    private void CommandAll_MoveTo(Vector3 worldPoint)
+    {
+        // Formacion: rejilla cuadrada alrededor del punto. Side ~ sqrt(N).
+        int n = selectedUnits.Count;
+        int side = Mathf.CeilToInt(Mathf.Sqrt(n));
+        const float spacing = 1.3f;
+        float halfSpan = (side - 1) * spacing * 0.5f;
+
+        int idx = 0;
+        for (int i = 0; i < selectedUnits.Count; i++)
+        {
+            PlayerUnit u = selectedUnits[i];
+            if (u == null) continue;
+            int row = idx / side;
+            int col = idx % side;
+            Vector3 offset = new Vector3(col * spacing - halfSpan, row * spacing - halfSpan, 0f);
+            Vector3 dest = worldPoint + offset;
+            Game.AI.BaseUnitAI ai = u.GetComponent<Game.AI.BaseUnitAI>();
+            if (ai != null) ai.CommandMoveTo(dest);
+            idx++;
+        }
+    }
+
+
     private void ProcessSingleClick(Vector2 screenPoint, bool additive)
     {
         if (targeting == null) return;
@@ -131,7 +289,7 @@ public class SelectionManager : MonoBehaviour
         Building building = QueryService.FindBuildingAt(mouseWorld, targeting.buildingsLayer, targeting.buildingTag);
         if (building != null)
         {
-            HandleBuildingClick(building, mouseWorld);
+            HandleBuildingClick(building, mouseWorld, additive);
             return;
         }
 
@@ -144,47 +302,28 @@ public class SelectionManager : MonoBehaviour
             return;
         }
 
-        // 3. Click corto en vacio: si hay seleccion, cada unidad ataca hacia el cursor.
-        // (Si fue drag, el flujo va por DoBoxSelect, no por aqui.)
-        if (selectedUnits.Count == 0) return;
-        for (int i = 0; i < selectedUnits.Count; i++)
-        {
-            PlayerUnit u = selectedUnits[i];
-            if (u == null) continue;
-            Vector2 aim = (Vector2)(mouseWorld - u.transform.position);
-            u.PrimaryAttack(aim);
-        }
+        // 3. Click en vacio: nada. Los comandos van por RMB.
     }
 
-    private void HandleBuildingClick(Building building, Vector3 mouseWorld)
+    private void HandleBuildingClick(Building building, Vector3 mouseWorld, bool additive)
     {
-        // Garrison masivo todavia no soportado. Solo actuamos con 1 unidad seleccionada.
-        if (selectedUnits.Count == 1)
+        // LMB sobre building NO entra ni sale. Eso es exclusivo del RMB.
+        // Aqui solo permitimos seleccionar a la unidad garrisoned dentro (esta tapada visualmente).
+        PlayerUnit garrisoned = QueryService.FindUnitAt(mouseWorld, targeting.unitsLayer, targeting.unitTag);
+        if (garrisoned == null || !garrisoned.IsGarrisoned || garrisoned.CurrentBuilding != building) return;
+
+        if (additive)
         {
-            PlayerUnit u = selectedUnits[0];
-            if (u.IsGarrisoned && u.CurrentBuilding == building)
-            {
-                building.Exit(u);
-                return;
-            }
-            if (!u.IsGarrisoned && building.HasFreeSlot)
-            {
-                building.TryEnter(u);
-                return;
-            }
+            // Shift-LMB sobre building: toggle la garrisoned. Permite formar grupos mixtos
+            // (dentro + fuera) que el RMB sobre puerta usara para liberar.
+            ToggleInSelection(garrisoned);
             return;
         }
 
-        // Sin seleccion: si hay una unidad garrisoned dentro, seleccionarla.
         if (selectedUnits.Count == 0)
         {
-            PlayerUnit garrisoned = QueryService.FindUnitAt(mouseWorld, targeting.unitsLayer, targeting.unitTag);
-            if (garrisoned != null && garrisoned.IsGarrisoned && garrisoned.CurrentBuilding == building)
-            {
-                SelectSingle(garrisoned);
-            }
+            SelectSingle(garrisoned);
         }
-        // >1 seleccionadas: ignoramos el click sobre edificio (limitacion temporal).
     }
 
     private void DoBoxSelect(Vector2 screenStart, Vector2 screenEnd, bool additive)
@@ -216,6 +355,7 @@ public class SelectionManager : MonoBehaviour
         if (selectedUnits.Contains(u)) return;
         selectedUnits.Add(u);
         u.SetSelected(true);
+        selectionDirty = true;
     }
 
     private void RemoveFromSelection(PlayerUnit u)
@@ -223,13 +363,24 @@ public class SelectionManager : MonoBehaviour
         if (u == null) return;
         if (!selectedUnits.Remove(u)) return;
         u.SetSelected(false);
+        selectionDirty = true;
+        // Al deseleccionar manualmente, la IA libre recupera el control. Si tiene seekBuildings
+        // y hay una torre cercana, la usara automaticamente.
+        MarkAutoGarrison(u, true);
     }
 
     public void DeselectAll()
     {
         for (int i = 0; i < selectedUnits.Count; i++)
-            if (selectedUnits[i] != null) selectedUnits[i].SetSelected(false);
+        {
+            PlayerUnit u = selectedUnits[i];
+            if (u == null) continue;
+            u.SetSelected(false);
+            // Mismo reseteo que en RemoveFromSelection: dejar a la IA libre actuar.
+            MarkAutoGarrison(u, true);
+        }
         selectedUnits.Clear();
+        selectionDirty = true;
         UpdateCameraFollow();
     }
 
@@ -243,6 +394,9 @@ public class SelectionManager : MonoBehaviour
         UpdateCameraFollow();
     }
 
+    /// <summary>API publica para que UI externa (cards) seleccione una unica unidad.</summary>
+    public void SelectOnly(PlayerUnit u) => SelectSingle(u);
+
     private void ToggleInSelection(PlayerUnit u)
     {
         if (selectedUnits.Contains(u)) RemoveFromSelection(u);
@@ -252,38 +406,22 @@ public class SelectionManager : MonoBehaviour
 
     private void UpdateCameraFollow()
     {
-        Transform follow = (selectedUnits.Count > 0 && selectedUnits[0] != null) ? selectedUnits[0].transform : null;
-        CameraManager.SetFollowTarget(follow);
+        // AoE-style: la camara nunca sigue. WASD siempre mueve camara libre.
+        CameraManager.SetFollowTarget(null);
     }
+
+    /// <summary>
+    /// Sincroniza el solo-mode: cuando hay exactamente 1 unidad seleccionada,
+    /// esa unidad pasa a Mode=Player (WASD/Q/E). Otra configuracion devuelve todas a Mode=AI.
+    /// </summary>
+
+
 
     // ---- RMB: secondary action (sin cambios respecto al flujo previo) ----
 
-    private void HandleSecondaryAction()
-    {
-        if (buildPlacer != null && buildPlacer.IsPlacing) return;
-        if (IsPointerOverUI()) return;
-        if (selectedUnits.Count == 0) return;
-        if (targeting == null) return;
 
-        PlayerUnit primary = selectedUnits[0];
-        if (primary == null || !primary.HasSecondary) return;
 
-        Vector3 mouseWorld = worldCamera.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorld.z = 0f;
-        PlayerUnit hovered = QueryService.FindUnitAt(mouseWorld, targeting.unitsLayer, targeting.unitTag);
 
-        if (hovered != null && hovered != primary && !primary.SecondaryTargetsAllies) return;
-
-        Vector2 aim = (Vector2)(mouseWorld - primary.transform.position);
-        primary.SecondaryAction(aim, hovered);
-    }
-
-    private void HandleSecondaryRelease()
-    {
-        if (selectedUnits.Count == 0) return;
-        PlayerUnit primary = selectedUnits[0];
-        if (primary != null) primary.EndSecondaryAction();
-    }
 
     // ---- Box visual ----
 

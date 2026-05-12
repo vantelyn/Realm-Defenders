@@ -10,7 +10,7 @@ namespace Game.AI
 [RequireComponent(typeof(MonkUnit))]
 public class MonkUnitAI : BaseUnitAI
 {
-    public enum AIState { Idle, MoveToAlly, Heal, Flee, ReturnHome, MoveToBuilding, MoveToResource }
+    public enum AIState { Idle, MoveToAlly, Heal, Flee, ReturnHome, MoveToBuilding, MoveToResource, Commanded }
 
     [Header("Monk References")]
     [SerializeField] private AllyDetector allyDetector;
@@ -30,6 +30,8 @@ public class MonkUnitAI : BaseUnitAI
     private AIState state = AIState.Idle;
     private PlayerUnit currentHealTarget;
     private Transform currentResource;
+    private Vector3 commandPoint;
+    private bool isManualCommand;
     private float lastHealTime = -999f;
 
     public AIState State => state;
@@ -71,6 +73,7 @@ public class MonkUnitAI : BaseUnitAI
             case AIState.ReturnHome: TickReturnHome(); break;
             case AIState.MoveToBuilding: TickMoveToBuilding(); break;
             case AIState.MoveToResource: TickMoveToResource(); break;
+            case AIState.Commanded: TickCommanded(); break;
         }
     }
 
@@ -100,7 +103,7 @@ public class MonkUnitAI : BaseUnitAI
             return;
         }
 
-        if (garrison.SeekBuildings)
+        if (garrison.SeekBuildings && !NoAutoGarrison && !unit.IsSelected)
         {
             Building freeBuilding = garrison.FindFreeBuilding(transform.position);
             if (freeBuilding != null)
@@ -240,7 +243,6 @@ public class MonkUnitAI : BaseUnitAI
 
     private void TickMoveToResource()
     {
-        // Flee y healing tienen prioridad
         if (ShouldFlee())
         {
             currentResource = null;
@@ -257,8 +259,7 @@ public class MonkUnitAI : BaseUnitAI
             return;
         }
 
-        // Si el tipo del recurso target se ha llenado mientras viajabamos, abortar.
-        if (IsResourceFull(currentResource))
+        if (!isManualCommand && IsResourceFull(currentResource))
         {
             currentResource = null;
             TransitionTo(AIState.Idle);
@@ -273,7 +274,7 @@ public class MonkUnitAI : BaseUnitAI
 
         ResumeAgent();
 
-        if (DistanceToHome() > maxTravelDistance)
+        if (!isManualCommand && DistanceToHome() > maxTravelDistance)
         {
             currentResource = null;
             TransitionTo(AIState.ReturnHome);
@@ -283,8 +284,7 @@ public class MonkUnitAI : BaseUnitAI
         float dist = Vector2.Distance(transform.position, currentResource.position);
         if (dist <= resourceArriveDistance)
         {
-            currentResource = null;
-            TransitionTo(AIState.Idle);
+            StopAgent();
             return;
         }
 
@@ -348,6 +348,56 @@ public class MonkUnitAI : BaseUnitAI
         }
     }
 
+    private void TickCommanded()
+    {
+        ResumeAgent();
+        if (agent != null && agent.enabled && agent.isOnNavMesh && !agent.pathPending && agent.remainingDistance <= resourceArriveDistance)
+        {
+            TransitionTo(AIState.Idle);
+            return;
+        }
+        RepathTo(commandPoint);
+    }
+
+    // ---- Comandos manuales (RMB) ----
+
+    public override void CommandMoveTo(Vector3 worldPoint)
+    {
+        currentHealTarget = null;
+        currentResource = null;
+        garrison.ClearTarget();
+        hasPatrolDestination = false;
+        commandPoint = worldPoint;
+        SetHome(worldPoint);
+        isManualCommand = true;
+        TransitionTo(AIState.Commanded);
+    }
+
+    public override void CommandAttackTarget(Transform target)
+    {
+        // El monje no ataca. Se le ordena ir al punto del target (acompaniar al batallon).
+        if (target == null) return;
+        CommandMoveTo(target.position);
+    }
+
+    public override void CommandHarvestTarget(Transform target)
+    {
+        if (target == null) return;
+        if (target.gameObject.layer != LayerMask.NameToLayer("Resources"))
+        {
+            CommandMoveTo(target.position);
+            return;
+        }
+        currentResource = target;
+        currentHealTarget = null;
+        garrison.ClearTarget();
+        hasPatrolDestination = false;
+        SetHome(target.position);
+        isManualCommand = true;
+        TransitionTo(AIState.MoveToResource);
+    }
+
+
     private bool ShouldFlee()
     {
         Transform enemy = FindClosestEnemy();
@@ -391,7 +441,8 @@ public class MonkUnitAI : BaseUnitAI
     private void TransitionTo(AIState next)
     {
         if (state == AIState.Idle && next != AIState.Idle) hasPatrolDestination = false;
-        if (agent != null && agent.enabled && agent.isOnNavMesh) agent.stoppingDistance = 0f;
+        if (agent != null && agent.enabled && agent.isOnNavMesh) agent.stoppingDistance = defaultStoppingDistance;
+        if (next == AIState.Idle) isManualCommand = false;
         state = next;
         lastRepathTime = -999f;
     }

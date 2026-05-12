@@ -8,7 +8,7 @@ namespace Game.AI
 [RequireComponent(typeof(PlayerUnit))]
 public class PlayerUnitAI : BaseUnitAI
 {
-    public enum AIState { Idle, Chase, Attack, ReturnHome, MoveToBuilding, MoveToResource }
+    public enum AIState { Idle, Chase, Attack, ReturnHome, MoveToBuilding, MoveToResource, Commanded }
 
     [Header("Combat")]
     [SerializeField] private float attackRange = 1.0f;
@@ -21,6 +21,8 @@ public class PlayerUnitAI : BaseUnitAI
     private AIState state = AIState.Idle;
     private Transform currentTarget;
     private Transform currentResource;
+    private Vector3 commandPoint;
+    private bool isManualCommand;
     private float currentTargetRadius;
     private float lastAttackTime = -999f;
 
@@ -53,6 +55,7 @@ public class PlayerUnitAI : BaseUnitAI
             case AIState.ReturnHome: TickReturnHome(); break;
             case AIState.MoveToBuilding: TickMoveToBuilding(); break;
             case AIState.MoveToResource: TickMoveToResource(); break;
+            case AIState.Commanded: TickCommanded(); break;
         }
     }
 
@@ -71,7 +74,7 @@ public class PlayerUnitAI : BaseUnitAI
             return;
         }
 
-        if (garrison.SeekBuildings)
+        if (garrison.SeekBuildings && !NoAutoGarrison && !unit.IsSelected)
         {
             Building freeBuilding = garrison.FindFreeBuilding(transform.position);
             if (freeBuilding != null)
@@ -190,7 +193,6 @@ public class PlayerUnitAI : BaseUnitAI
 
     private void TickMoveToResource()
     {
-        // Enemy interrumpe la recogida
         Transform enemy = FindClosestEnemy();
         if (enemy != null)
         {
@@ -201,8 +203,7 @@ public class PlayerUnitAI : BaseUnitAI
             return;
         }
 
-        // Si el tipo del recurso target se ha llenado mientras viajabamos, abortar.
-        if (IsResourceFull(currentResource))
+        if (!isManualCommand && IsResourceFull(currentResource))
         {
             currentResource = null;
             TransitionTo(AIState.Idle);
@@ -217,7 +218,7 @@ public class PlayerUnitAI : BaseUnitAI
 
         ResumeAgent();
 
-        if (DistanceToHome() > maxTravelDistance)
+        if (!isManualCommand && DistanceToHome() > maxTravelDistance)
         {
             currentResource = null;
             TransitionTo(AIState.ReturnHome);
@@ -227,14 +228,84 @@ public class PlayerUnitAI : BaseUnitAI
         float dist = Vector2.Distance(transform.position, currentResource.position);
         if (dist <= resourceArriveDistance)
         {
-            // La recogida la hace el ResourceCollector del PickupZone via OnTriggerEnter2D
-            currentResource = null;
-            TransitionTo(AIState.Idle);
+            StopAgent();
             return;
         }
 
         RepathTo(currentResource.position);
     }
+
+    private void TickCommanded()
+    {
+        // En el estado Commanded la unidad va al punto sin distraerse con enemigos cercanos.
+        // Cuando llega, transit a Idle y la IA libre toma el control.
+        ResumeAgent();
+        if (agent != null && agent.enabled && agent.isOnNavMesh && !agent.pathPending && agent.remainingDistance <= resourceArriveDistance)
+        {
+            TransitionTo(AIState.Idle);
+            return;
+        }
+        RepathTo(commandPoint);
+    }
+
+    // ---- Comandos manuales (RMB) ----
+
+    public override void CommandMoveTo(Vector3 worldPoint)
+    {
+        currentTarget = null;
+        currentResource = null;
+        garrison.ClearTarget();
+        hasPatrolDestination = false;
+        commandPoint = worldPoint;
+        SetHome(worldPoint);
+        isManualCommand = true;
+        TransitionTo(AIState.Commanded);
+    }
+
+    public override void CommandAttackTarget(Transform target)
+    {
+        if (target == null) return;
+        currentTarget = target;
+        currentTargetRadius = GetTargetRadius(target);
+        currentResource = null;
+        garrison.ClearTarget();
+        hasPatrolDestination = false;
+        SetHome(target.position);
+        isManualCommand = true;
+        TransitionTo(AIState.Chase);
+    }
+
+    public override void CommandHarvestTarget(Transform target)
+    {
+        if (target == null) return;
+        int layer = target.gameObject.layer;
+        int resourcesLayer = LayerMask.NameToLayer("Resources");
+        int sheepLayer = LayerMask.NameToLayer("Sheep");
+
+        // Ovejas: las atacamos como cualquier hostil cuando el jugador lo ordena.
+        if (layer == sheepLayer)
+        {
+            CommandAttackTarget(target);
+            return;
+        }
+
+        // Otros recursos no recolectables por esta unidad (arboles, etc.): acompaniar al punto.
+        if (layer != resourcesLayer)
+        {
+            CommandMoveTo(target.position);
+            return;
+        }
+
+        // Drop suelto (Wood/Meat/MoneyBag): recogerlo.
+        currentResource = target;
+        currentTarget = null;
+        garrison.ClearTarget();
+        hasPatrolDestination = false;
+        SetHome(target.position);
+        isManualCommand = true;
+        TransitionTo(AIState.MoveToResource);
+    }
+
 
         private void TickMoveToBuilding()
     {
@@ -301,12 +372,13 @@ public class PlayerUnitAI : BaseUnitAI
 
     private void TransitionTo(AIState next)
     {
+        // (debug log removed)
         if (state == AIState.Idle && next != AIState.Idle) hasPatrolDestination = false;
-        // Resetear stoppingDistance fuera de combate para que el agent llegue exactamente al destino (recursos, casa, edificio)
         if (next != AIState.Chase && next != AIState.Attack && agent != null && agent.enabled && agent.isOnNavMesh)
         {
-            agent.stoppingDistance = 0f;
+            agent.stoppingDistance = defaultStoppingDistance;
         }
+        if (next == AIState.Idle) isManualCommand = false;
         state = next;
         lastRepathTime = -999f;
     }
