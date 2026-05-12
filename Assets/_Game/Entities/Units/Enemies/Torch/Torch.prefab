@@ -298,6 +298,8 @@ MonoBehaviour:
     dropChance: 0.75
   dropRadius: 0.5
   forceImpulse: 5
+  knockbackDuration: 0.3
+  knockbackReceivedMultiplier: 1
 --- !u!114 &9101759830822365567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,7 +317,7 @@ MonoBehaviour:
   attackAnimationDuration: 0.5
   targetLayer:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 294912
   stopDistanceStrategic: 0.5
   stopDistanceOpportunity: 1.5
   repathInterval: 0.25

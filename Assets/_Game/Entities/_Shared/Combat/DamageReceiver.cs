@@ -32,6 +32,7 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
     private IDamageBlocker blocker;
     private bool knockbackActive;
     private bool knockbackDisabledAgent;
+    private bool hasGetHitParam;
     public float forceImpulse = 5;
     [Tooltip("Tiempo de paron tras recibir knockback (segundos)")]
     public float knockbackDuration = 0.3f;
@@ -41,6 +42,10 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
 
     /// <summary>Disparado una unica vez cuando HP llega a 0, antes del drop y antes del Destroy.</summary>
     public event System.Action OnDying;
+
+    /// <summary>Disparado tras aplicar dano efectivo (post-block). Util para efectos visuales
+    /// como wobble en arboles, particulas, sonido, etc.</summary>
+    public event System.Action<int, Vector2> OnDamaged;
     private bool dyingFired;
 
     public int CurrentHealth => currentHealth;
@@ -57,16 +62,20 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
         hitFlash = GetComponent<HitFlashEffect>();
         navAgent = GetComponent<NavMeshAgent>();
         blocker = GetComponent<IDamageBlocker>();
+        hasGetHitParam = AnimatorHasParam(animator, "getHit");
     }
 
     public void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, Vector2 hitDirection, float forceMultiplier = 1f)
     {
-        bool blocked = (blocker != null && blocker.TryBlock(hitDirection));
+        float damageMult = (blocker != null) ? Mathf.Clamp01(blocker.GetDamageMultiplier(hitDirection)) : 1f;
+        bool blocked = damageMult <= 0f;
+        int effectiveAmount = blocked ? 0 : Mathf.Max(1, Mathf.RoundToInt(amount * damageMult));
 
         if (!blocked)
         {
-            currentHealth -= amount;
+            currentHealth -= effectiveAmount;
             if (hitFlash != null) hitFlash.Flash();
+            if (OnDamaged != null) OnDamaged(effectiveAmount, hitDirection);
         }
 
         float effectiveKnockback = forceImpulse * forceMultiplier * knockbackReceivedMultiplier;
@@ -85,7 +94,7 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
             Invoke(nameof(ReturnToKinematic), knockbackDuration);
         }
 
-        if (applyHitAnimation && !blocked && animator != null)
+        if (applyHitAnimation && !blocked && animator != null && hasGetHitParam)
         {
             animator.SetTrigger("getHit");
         }
@@ -145,6 +154,17 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
     void GoToHell()
     {
         Destroy(gameObject);
+    }
+
+    private static bool AnimatorHasParam(Animator a, string paramName)
+    {
+        if (a == null || a.runtimeAnimatorController == null) return false;
+        var ps = a.parameters;
+        for (int i = 0; i < ps.Length; i++)
+        {
+            if (ps[i].name == paramName) return true;
+        }
+        return false;
     }
 }
 }

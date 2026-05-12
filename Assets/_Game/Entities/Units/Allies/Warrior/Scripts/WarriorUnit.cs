@@ -78,12 +78,13 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
         base.OnBecameUnselected();
     }
 
-    public bool TryBlock(Vector2 incomingHitDirection)
+    public float GetDamageMultiplier(Vector2 incomingHitDirection)
     {
-        if (!isBlocking) return false;
+        if (!isBlocking) return 1f;
         Vector2 fromAttacker = -incomingHitDirection.normalized;
         float angle = Vector2.Angle(blockDir.normalized, fromAttacker);
-        return angle <= blockAngle * 0.5f;
+        // Bloqueo frontal total. Lateral/trasero: sin reduccion.
+        return angle <= blockAngle * 0.5f ? 0f : 1f;
     }
 
     // Animation Events legacy del clip de bloqueo. Mantener vacios como defensa

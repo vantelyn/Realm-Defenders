@@ -71,12 +71,13 @@ public abstract class GuardingEnemyBase : BaseEnemyAI, IDamageBlocker
         base.PerformAttack();
     }
 
-    public bool TryBlock(Vector2 incomingHitDirection)
+    public float GetDamageMultiplier(Vector2 incomingHitDirection)
     {
-        if (!isGuarding) return false;
+        if (!isGuarding) return 1f;
         Vector2 fromAttacker = -incomingHitDirection.normalized;
         float angle = Vector2.Angle(blockDir.normalized, fromAttacker);
-        return angle <= blockAngle * 0.5f;
+        // Bloqueo frontal total. Lateral/trasero: sin reduccion.
+        return angle <= blockAngle * 0.5f ? 0f : 1f;
     }
 }
 }

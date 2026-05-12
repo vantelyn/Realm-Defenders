@@ -63,13 +63,15 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
     public void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, Vector2 hitDirection, float forceMultiplier = 1f)
     {
 
-        bool blocked = (blocker != null && blocker.TryBlock(hitDirection));
+        float damageMult = (blocker != null) ? Mathf.Clamp01(blocker.GetDamageMultiplier(hitDirection)) : 1f;
+        bool blocked = damageMult <= 0f;
+        int effectiveAmount = blocked ? 0 : Mathf.Max(1, Mathf.RoundToInt(amount * damageMult));
 
         if (!blocked)
         {
-            currentHealth -= amount;
+            currentHealth -= effectiveAmount;
             if (hitFlash != null) hitFlash.Flash();
-            if (OnDamaged != null) OnDamaged(amount, hitDirection);
+            if (OnDamaged != null) OnDamaged(effectiveAmount, hitDirection);
         }
         float effectiveKnockback = forceImpulse * forceMultiplier * knockbackReceivedMultiplier;
         bool canKnockback = playerUnit == null || !playerUnit.IsGarrisoned;

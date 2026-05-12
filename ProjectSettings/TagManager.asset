@@ -31,8 +31,8 @@ TagManager:
   - Stump
   - AllyHitbox
   - EnemyHitbox
-  - BearUnit
-  - BearHitbox
+  - NeutralUnit
+  - NeutralHitbox
   - 
   - 
   - 
