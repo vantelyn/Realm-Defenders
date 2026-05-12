@@ -201,6 +201,10 @@ public abstract class PlayerUnit : MonoBehaviour
 
     public virtual void DetectAndDamageTargets()
     {
+        // Si el ataque fue cancelado (p.ej. por knockback) entre el PrimaryAttack y este
+        // animation event, no aplicar dano aunque la animacion termine reproduciendose.
+        if (!isAttacking) return;
+
         Vector2 attackPoint = (Vector2)transform.position + attackDir.normalized * attackRange * 0.5f;
 
         ContactFilter2D filter = new ContactFilter2D();
@@ -240,6 +244,22 @@ public abstract class PlayerUnit : MonoBehaviour
             if (LayerMask.NameToLayer(r.layerName) == layer) return r;
         }
         return null;
+    }
+
+    /// <summary>Sincroniza el flip horizontal del sprite con la direccion indicada
+    /// (signo de x). Lo usa la IA al iniciar un ataque para asegurar que la unit
+    /// mira al target aunque este parada y CheckFlip (que depende de movementInput)
+    /// no se este actualizando.</summary>
+    public void FaceDirection(Vector2 worldDir)
+    {
+        if (Mathf.Abs(worldDir.x) < 0.01f) return;
+        float sign = worldDir.x > 0 ? 1f : -1f;
+        if (Mathf.Sign(transform.localScale.x) != sign)
+        {
+            Vector3 s = transform.localScale;
+            s.x = Mathf.Abs(s.x) * sign;
+            transform.localScale = s;
+        }
     }
 
     protected void CheckFlip()

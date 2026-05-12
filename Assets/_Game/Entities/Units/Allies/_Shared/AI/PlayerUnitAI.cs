@@ -164,6 +164,7 @@ public class PlayerUnitAI : BaseUnitAI
         {
             Vector2 toTarget = (Vector2)(currentTarget.position - transform.position);
             unit.LastMovementDir = toTarget.normalized;
+            unit.FaceDirection(toTarget);
             unit.PrimaryAttack(toTarget);
             lastAttackTime = Time.time;
         }
@@ -365,6 +366,7 @@ public class PlayerUnitAI : BaseUnitAI
         {
             Vector2 toTarget = (Vector2)(enemy.position - transform.position);
             unit.LastMovementDir = toTarget.sqrMagnitude > 0.01f ? toTarget.normalized : Vector2.right;
+            unit.FaceDirection(toTarget);
             unit.PrimaryAttack(toTarget);
             lastAttackTime = Time.time;
         }

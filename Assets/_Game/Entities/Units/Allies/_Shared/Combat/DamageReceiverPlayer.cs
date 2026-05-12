@@ -30,6 +30,7 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
     private HitFlashEffect hitFlash;
     private NavMeshAgent navAgent;
     private bool knockbackDisabledAgent;
+    private bool hasGetHitParam;
 
     public float forceImpulse = 5;
     [Tooltip("Tiempo de paron tras recibir knockback (segundos)")]
@@ -56,6 +57,7 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
         blocker = GetComponent<IDamageBlocker>();
         hitFlash = GetComponent<HitFlashEffect>();
         navAgent = GetComponent<NavMeshAgent>();
+        hasGetHitParam = AnimatorHasParam(animator, "getHit");
     }
 
     public void ApplyDamage(int amount, bool applyForce, bool applyHitAnimation, Vector2 hitDirection, float forceMultiplier = 1f)
@@ -73,7 +75,15 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
         bool canKnockback = playerUnit == null || !playerUnit.IsGarrisoned;
         if (applyForce && effectiveKnockback > 0.001f && canKnockback)
         {
-            if (playerUnit != null) playerUnit.canMove = false;
+            if (playerUnit != null)
+            {
+                playerUnit.canMove = false;
+                // Cancela el ataque en curso: el knockback nos saca de la pose y
+                // queremos que la IA reevalue distancia en el siguiente frame.
+                // El animation event DetectAndDamageTargets posterior chequea
+                // isAttacking y hara early-return.
+                if (playerUnit.IsAttacking) playerUnit.EndAttack();
+            }
 
             if (navAgent != null && navAgent.enabled)
             {
@@ -91,7 +101,7 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
             CancelInvoke(nameof(ResetMovement));
             Invoke(nameof(ResetMovement), knockbackDuration);
         }
-        if (applyHitAnimation && !blocked && animator != null)
+        if (applyHitAnimation && !blocked && animator != null && hasGetHitParam)
         {
             animator.SetTrigger("getHit");
         }
@@ -154,6 +164,17 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
     void GoToHell()
     {
         Destroy(gameObject);
+    }
+
+    private static bool AnimatorHasParam(Animator a, string paramName)
+    {
+        if (a == null || a.runtimeAnimatorController == null) return false;
+        var ps = a.parameters;
+        for (int i = 0; i < ps.Length; i++)
+        {
+            if (ps[i].name == paramName) return true;
+        }
+        return false;
     }
 }
 }
