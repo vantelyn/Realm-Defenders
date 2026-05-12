@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5515246846640333222}
   - component: {fileID: 5682266782354332564}
   - component: {fileID: 5059742082712582977}
+  - component: {fileID: 3087972816101819163}
+  - component: {fileID: -6312769636631798505}
   m_Layer: 13
   m_Name: Monastery
   m_TagString: Building
@@ -186,6 +188,35 @@ MonoBehaviour:
   rangeMultiplier: 1.5
   doorPoint: {fileID: 0}
   ownerRecipe: {fileID: 0}
+--- !u!208 &3087972816101819163
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379866628894889122}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.9260119, y: 0.77894247, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.020582557, y: 0.6792263, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &-6312769636631798505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379866628894889122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a46632979520c4ebdb1862ba129f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatLevel: 1
 --- !u!1 &3286224729153441168
 GameObject:
   m_ObjectHideFlags: 0

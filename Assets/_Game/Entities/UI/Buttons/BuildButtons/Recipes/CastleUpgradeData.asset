@@ -27,7 +27,7 @@ MonoBehaviour:
     meatCost: 20
     moneyCost: 65
     maxHealth: 200
-    threatLevel: 45
+    threatLevel: 100
   - displayName: Castle
     description: The fully evolved crystal. Crushes the enemy portals and ends the
       invasion.

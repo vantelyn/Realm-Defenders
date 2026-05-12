@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 3110726820869537139}
   - component: {fileID: 9020424084637897997}
   - component: {fileID: 3306224708216597126}
+  - component: {fileID: 929892074791539458}
+  - component: {fileID: 7822442716983542485}
   m_Layer: 13
   m_Name: House
   m_TagString: Building
@@ -217,3 +219,32 @@ MonoBehaviour:
   rangeMultiplier: 1.5
   doorPoint: {fileID: 0}
   ownerRecipe: {fileID: 0}
+--- !u!208 &929892074791539458
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938383812281554723}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.82333195, y: 0.4946648, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.004309058, y: -0.57677424, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &7822442716983542485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938383812281554723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a46632979520c4ebdb1862ba129f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatLevel: 1

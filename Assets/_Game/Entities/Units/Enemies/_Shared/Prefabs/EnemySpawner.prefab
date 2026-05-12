@@ -140,10 +140,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalPrefabs: []
   bossPrefab: {fileID: 0}
-  minThreatToSpawn: 10
-  bossThreat: 85
+  minThreatToSpawn: 15
+  bossThreat: 100
   maxThreat: 100
-  baseDelay: 20
-  minDelay: 1
-  maxBossesAlive: 4
-  bossSpawnChance: 0.5
+  baseDelay: 8
+  minDelay: 2.5
+  maxBossesAlive: 2
+  bossSpawnChance: 0.12
