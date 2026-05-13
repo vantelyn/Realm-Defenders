@@ -171,7 +171,9 @@ if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed && selected
             if (!u.IsGarrisoned) continue;
             Building b = u.CurrentBuilding;
             if (b == null) continue;
-            b.Exit(u);
+            // FutureKing no esta en occupants: salida directa.
+            if (u is Game.Units.FutureKing) u.OnExitedBuilding(b.DoorPosition);
+            else b.Exit(u);
             MarkAutoGarrison(u, false);
             any = true;
         }
@@ -186,8 +188,17 @@ if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed && selected
         {
             PlayerUnit u = selectedUnits[i];
             if (u == null) continue;
-            if (u.IsGarrisoned) continue;          // ya esta dentro de algun building
-            if (!building.HasFreeSlot) break;       // sin slots, no seguimos intentando
+            if (u.IsGarrisoned) continue;
+            // Solo el FutureKing puede entrar en edificios. Resto de aliados: no garrison via RMB.
+            if (!(u is Game.Units.FutureKing)) continue;
+            // FutureKing: puede entrar en cualquier edificio sin ocupar slot.
+            if (u is Game.Units.FutureKing) {
+                u.OnEnteredBuilding(building, building.transform);
+                MarkAutoGarrison(u, true);
+                any = true;
+                continue;
+            }
+            if (!building.HasFreeSlot) break;
             if (building.TryEnter(u))
             {
                 MarkAutoGarrison(u, true);

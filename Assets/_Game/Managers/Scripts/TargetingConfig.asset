@@ -17,7 +17,7 @@ MonoBehaviour:
     m_Bits: 32768
   buildingsLayer:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 40960
   enemyLayer:
     serializedVersion: 2
     m_Bits: 327680

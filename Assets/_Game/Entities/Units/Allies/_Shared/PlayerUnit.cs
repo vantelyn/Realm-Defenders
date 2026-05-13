@@ -34,8 +34,8 @@ public abstract class PlayerUnit : MonoBehaviour
     protected Vector2 attackDir;
     protected bool isAttacking;
 
-    private IUnitAI ai;
-    private Building currentBuilding;
+    protected IUnitAI ai;
+    protected Building currentBuilding;
     private SpriteRenderer cachedSpriteRenderer;
     private DamageReceiverPlayer cachedHealth;
     private int originalSortingOrder;
@@ -139,9 +139,9 @@ public abstract class PlayerUnit : MonoBehaviour
     protected virtual void OnBecameUnselected() { }
 
     [Header("Door SFX")]
-    [SerializeField] private AudioClip doorOpenClip;
-    [SerializeField] private AudioClip doorCloseClip;
-    [Range(0f,1f)] [SerializeField] private float doorVolume = 0.9f;
+    [SerializeField] protected AudioClip doorOpenClip;
+    [SerializeField] protected AudioClip doorCloseClip;
+    [Range(0f,1f)] [SerializeField] protected float doorVolume = 0.9f;
 
     public virtual void OnEnteredBuilding(Building building, Transform slot)
     {

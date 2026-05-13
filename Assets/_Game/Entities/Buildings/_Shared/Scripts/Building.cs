@@ -58,8 +58,11 @@ public class Building : MonoBehaviour
         }
     }
 
+    public event System.Action OnBuildingDestroyed;
+
     private void OnDestroy()
     {
+        if (OnBuildingDestroyed != null) OnBuildingDestroyed();
         // Solo contamos como perdido si la app no esta saliendo (cambio de escena u salida del editor).
         if (UnityEngine.Application.isPlaying) Game.Managers.GameStats.NotifyBuildingLost();
     }

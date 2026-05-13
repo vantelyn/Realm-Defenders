@@ -65,6 +65,13 @@ public class CursorManager : MonoBehaviour
         PlayerUnit selected = selectionManager != null ? selectionManager.SelectedUnit : null;
         var sel = selectionManager != null ? selectionManager.SelectedUnits : null;
 
+        // FutureKing seleccionado: hover sobre cualquier PlayerBuilding -> cursor de puerta para entrar.
+        if (selected is Game.Units.FutureKing && !selected.IsGarrisoned)
+        {
+            int pbLayer = LayerMask.NameToLayer("PlayerBuilding");
+            int mask = pbLayer >= 0 ? (1 << pbLayer) : 0;
+            if (mask != 0 && Physics2D.OverlapPoint(mouseWorld, mask) != null) return CursorType.Door;
+        }
         // Prioridad: enemigos.
         if (QueryService.HasHitAt(mouseWorld, targeting.enemyLayer))
         {
