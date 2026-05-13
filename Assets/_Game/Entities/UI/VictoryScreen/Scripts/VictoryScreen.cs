@@ -60,14 +60,14 @@ public class VictoryScreen : MonoBehaviour
         {
             int mins = Mathf.FloorToInt(roundDuration / 60f);
             int secs = Mathf.FloorToInt(roundDuration % 60f);
-            timeLabel.text = "Tiempo: " + mins.ToString("00") + ":" + secs.ToString("00");
+            timeLabel.text = mins.ToString("00") + ":" + secs.ToString("00");
         }
-        if (killsLabel != null) killsLabel.text = "Enemigos eliminados: " + GameStats.EnemiesKilled;
-        if (alliesLostLabel != null) alliesLostLabel.text = "Aliados perdidos: " + GameStats.AlliesLost;
-        if (buildingsLostLabel != null) buildingsLostLabel.text = "Edificios perdidos: " + GameStats.BuildingsLost;
-        if (woodCollectedLabel != null) woodCollectedLabel.text = "Madera recogida: " + GameStats.WoodCollected;
-        if (meatCollectedLabel != null) meatCollectedLabel.text = "Carne recogida: " + GameStats.MeatCollected;
-        if (moneyCollectedLabel != null) moneyCollectedLabel.text = "Oro recogido: " + GameStats.MoneyCollected;
+        if (killsLabel != null) killsLabel.text = GameStats.EnemiesKilled.ToString();
+        if (alliesLostLabel != null) alliesLostLabel.text = GameStats.AlliesLost.ToString();
+        if (buildingsLostLabel != null) buildingsLostLabel.text = GameStats.BuildingsLost.ToString();
+        if (woodCollectedLabel != null) woodCollectedLabel.text = GameStats.WoodCollected.ToString();
+        if (meatCollectedLabel != null) meatCollectedLabel.text = GameStats.MeatCollected.ToString();
+        if (moneyCollectedLabel != null) moneyCollectedLabel.text = GameStats.MoneyCollected.ToString();
 
         panel.SetActive(true);
         transform.SetAsLastSibling();
