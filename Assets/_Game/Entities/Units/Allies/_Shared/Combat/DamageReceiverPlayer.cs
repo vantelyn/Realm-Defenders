@@ -41,6 +41,7 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
 
     /// <summary>Disparado tras aplicar dano efectivo (post-block).</summary>
     public event System.Action<int, Vector2> OnDamaged;
+    public event System.Action OnDying;
 
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
@@ -109,6 +110,7 @@ public class DamageReceiverPlayer : MonoBehaviour, IDamageReceiver
         }
         if (!blocked && currentHealth <= 0)
         {
+            if (OnDying != null) OnDying();
             DropItem();
             GoToHell();
         }

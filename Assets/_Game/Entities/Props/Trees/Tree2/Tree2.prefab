@@ -224,6 +224,9 @@ MonoBehaviour:
   amplitude: 0.08
   duration: 0.18
   frequency: 18
+  hitClip: {fileID: 8300000, guid: f9c678e158f501d4186c50535ecc84ba, type: 3}
+  hitVolume: 1
+  sfxSource: {fileID: 0}
 --- !u!1 &8195399541442477163
 GameObject:
   m_ObjectHideFlags: 0

@@ -138,8 +138,14 @@ public abstract class PlayerUnit : MonoBehaviour
 
     protected virtual void OnBecameUnselected() { }
 
+    [Header("Door SFX")]
+    [SerializeField] private AudioClip doorOpenClip;
+    [SerializeField] private AudioClip doorCloseClip;
+    [Range(0f,1f)] [SerializeField] private float doorVolume = 0.9f;
+
     public virtual void OnEnteredBuilding(Building building, Transform slot)
     {
+        if (doorOpenClip != null) AudioSource.PlayClipAtPoint(doorOpenClip, slot.position, doorVolume);
         currentBuilding = building;
         movementInput = Vector2.zero;
         if (rb2D != null) rb2D.linearVelocity = Vector2.zero;
@@ -165,6 +171,7 @@ public abstract class PlayerUnit : MonoBehaviour
 
     public virtual void OnExitedBuilding(Vector3 doorPosition)
     {
+        if (doorCloseClip != null) AudioSource.PlayClipAtPoint(doorCloseClip, doorPosition, doorVolume);
         currentBuilding = null;
         transform.position = doorPosition;
         canMove = true;

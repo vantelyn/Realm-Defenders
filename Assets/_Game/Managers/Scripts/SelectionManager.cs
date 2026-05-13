@@ -222,14 +222,22 @@ if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed && selected
     {
         int resourceMask = 0;
         int li;
-        li = LayerMask.NameToLayer("Resources"); if (li >= 0) resourceMask |= (1 << li);
-        li = LayerMask.NameToLayer("Tree");      if (li >= 0) resourceMask |= (1 << li);
-        li = LayerMask.NameToLayer("Sheep");     if (li >= 0) resourceMask |= (1 << li);
+        li = LayerMask.NameToLayer("Resources");   if (li >= 0) resourceMask |= (1 << li);
+        li = LayerMask.NameToLayer("Tree");        if (li >= 0) resourceMask |= (1 << li);
+        li = LayerMask.NameToLayer("Sheep");       if (li >= 0) resourceMask |= (1 << li);
+        li = LayerMask.NameToLayer("SheepHitbox"); if (li >= 0) resourceMask |= (1 << li);
         if (resourceMask == 0) return null;
         Collider2D col = Physics2D.OverlapPoint(worldPoint, resourceMask);
         if (col == null) return null;
-        // Devolvemos col.transform directamente. Para arboles/ovejas/drops sueltos el
-        // collider esta en el root, asi que el Transform coincide con el del prefab raiz.
+        // Si el hit es el hitbox de oveja, devolvemos el root (layer Sheep) para que
+        // CommandHarvestTarget lo detecte como oveja y redirija a CommandAttackTarget.
+        int sheepHitboxLayer = LayerMask.NameToLayer("SheepHitbox");
+        if (sheepHitboxLayer >= 0 && col.gameObject.layer == sheepHitboxLayer)
+        {
+            Transform tr = col.transform;
+            while (tr != null && tr.gameObject.layer == sheepHitboxLayer) tr = tr.parent;
+            if (tr != null) return tr;
+        }
         return col.transform;
     }
 

@@ -9,7 +9,7 @@ namespace Game.Managers
 
 public class CursorManager : MonoBehaviour
 {
-    public enum CursorType { Default, Ally, Heal, Enemy, EnemyBow, Hammer, Wood, Door, DoorBlocked }
+    public enum CursorType { Default, Ally, Heal, Enemy, EnemyBow, Hammer, Wood, Door, DoorBlocked, Demolish }
 
     [System.Serializable]
     public class CursorStyle
@@ -48,6 +48,16 @@ public class CursorManager : MonoBehaviour
     private CursorType DetectContext()
     {
         if (targeting == null) return CursorType.Default;
+        // Modo demoler: hammer sobre edificios demolibles, default fuera.
+        var bm = BuildingManager.Instance;
+        if (bm != null && bm.IsDemolishing)
+        {
+            Vector3 mw = worldCamera.ScreenToWorldPoint(Input.mousePosition); mw.z = 0f;
+            int pbLayer = LayerMask.NameToLayer("PlayerBuilding");
+            int mask = pbLayer >= 0 ? (1 << pbLayer) : 0;
+            var hit = mask != 0 ? Physics2D.OverlapPoint(mw, mask) : null;
+            return hit != null ? CursorType.Demolish : CursorType.Default;
+        }
 
         Vector3 mouseWorld = worldCamera.ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0f;

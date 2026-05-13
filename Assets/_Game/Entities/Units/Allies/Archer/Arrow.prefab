@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123f0ad71e46d984d86c0ca094715b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impactClip: {fileID: 8300000, guid: 046b03ca22bb5474d988e2739563f859, type: 3}
+  impactVolume: 0.8
   speed: 15
   baseArcHeight: 0.1
   arcReferenceSpeed: 15

@@ -125,6 +125,7 @@ public abstract class AggressiveWildlife : NPC
         }
 
         if (animator != null) animator.SetTrigger("doAttack");
+        OnAttackBegin();
         Invoke(nameof(ApplyAttackDamage), attackImpactTime);
         Invoke(nameof(FinishAttack), attackAnimationDuration);
     }
@@ -144,6 +145,8 @@ public abstract class AggressiveWildlife : NPC
         Vector2 dir = currentPrey.position - transform.position;
         receiver.ApplyDamage(scaledDamage, true, false, dir, ratio);
     }
+
+    protected virtual void OnAttackBegin() { }
 
     private void FinishAttack()
     {

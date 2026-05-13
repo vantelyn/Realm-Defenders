@@ -85,6 +85,10 @@ GameObject:
   - component: {fileID: 8207039090586929198}
   - component: {fileID: 9101759830822365567}
   - component: {fileID: 6483364726829158739}
+  - component: {fileID: 1693888668387806616}
+  - component: {fileID: 7141277597595405073}
+  - component: {fileID: 2834622354771544385}
+  - component: {fileID: 8913590330422508133}
   m_Layer: 6
   m_Name: Torch
   m_TagString: Untagged
@@ -336,6 +340,83 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
   duration: 0.18
   targetRenderer: {fileID: 0}
+--- !u!114 &1693888668387806616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6854911528546568843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2c531a07186dc4a898d45c79e9a07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepClips:
+  - {fileID: 8300000, guid: fb88ef191168f784ab22e80dc385fbab, type: 3}
+  - {fileID: 8300000, guid: 5fd6fee322f8d8341a75ec84aa886e14, type: 3}
+  - {fileID: 8300000, guid: 2b4378de01dc25f418dd7c1e0b9e9e0e, type: 3}
+  - {fileID: 8300000, guid: e3d3359b97216b44d87eb8f7639a1553, type: 3}
+  volume: 0.5
+  stepEvery: 1.2
+  minSpeed: 0.05
+  jitter: 0.2
+  sfxSource: {fileID: 0}
+  minDistance: 4
+  maxDistance: 22
+--- !u!114 &7141277597595405073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6854911528546568843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81edda3133f6ddd47a289ec7adfa3acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathClips:
+  - {fileID: 8300000, guid: a1077dfb77b959a4cadba5713efa72eb, type: 3}
+  - {fileID: 8300000, guid: 7ed388e890627ff47a549b8bf586b061, type: 3}
+  - {fileID: 8300000, guid: 90cd5eb190160ec44af473d1a896076a, type: 3}
+  - {fileID: 8300000, guid: 3359df16b2193b0408b2dfa14397e328, type: 3}
+  volume: 0.9
+--- !u!114 &2834622354771544385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6854911528546568843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5901c9b3b770eb44388ec9385f337e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 68b6d7939eae74d43b58096c6dd40152, type: 3}
+  volume: 0.6
+  minDistance: 3
+  maxDistance: 15
+--- !u!114 &8913590330422508133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6854911528546568843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd2f4db49bce3d4095a8eda00605afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whooshClips:
+  - {fileID: 8300000, guid: 07db2db14143eba418356eecc69e612b, type: 3}
+  - {fileID: 8300000, guid: f8b052fa6f5710c4387c8ef4a49c3b6f, type: 3}
+  - {fileID: 8300000, guid: fb93360ae69a0fa4aafef65d39716b1b, type: 3}
+  - {fileID: 8300000, guid: 42f1ceeb5b9629f4aac15e75ded49838, type: 3}
+  volume: 0.8
+  sfxSource: {fileID: 0}
 --- !u!1 &8887214293762067054
 GameObject:
   m_ObjectHideFlags: 0

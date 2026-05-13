@@ -14,6 +14,11 @@ namespace Game.Units
 /// </summary>
 public class BearUnit : NPC
 {
+    [Header("SFX")]
+    [SerializeField] private AudioClip attackClip;
+    [Range(0f,1f)] [SerializeField] private float attackVolume = 1f;
+    [SerializeField] private AudioSource sfxSource;
+
     private enum BearState { Wander, SeekFood, Eating, Chase, Attack }
 
     [Header("Detection")]
@@ -288,6 +293,16 @@ public class BearUnit : NPC
         }
 
         if (animator != null) animator.SetTrigger("doAttack");
+        if (sfxSource == null) {
+            sfxSource = GetComponent<AudioSource>();
+            if (sfxSource == null) {
+                sfxSource = gameObject.AddComponent<AudioSource>();
+                sfxSource.playOnAwake = false; sfxSource.spatialBlend = 1f;
+                sfxSource.rolloffMode = AudioRolloffMode.Linear;
+                sfxSource.minDistance = 3f; sfxSource.maxDistance = 18f;
+            }
+        }
+        if (sfxSource != null && attackClip != null) sfxSource.PlayOneShot(attackClip, attackVolume);
 
         Invoke(nameof(ApplyAttackDamage), attackImpactTime);
         Invoke(nameof(FinishAttack), attackAnimationDuration);

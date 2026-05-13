@@ -351,12 +351,11 @@ public class MonkUnitAI : BaseUnitAI
     private void TickCommanded()
     {
         ResumeAgent();
-        if (agent != null && agent.enabled && agent.isOnNavMesh && !agent.pathPending && agent.remainingDistance <= resourceArriveDistance)
+        RepathTo(commandPoint);
+        if (agent != null && agent.enabled && agent.isOnNavMesh && agent.hasPath && !agent.pathPending && agent.remainingDistance <= resourceArriveDistance)
         {
             TransitionTo(AIState.Idle);
-            return;
         }
-        RepathTo(commandPoint);
     }
 
     // ---- Comandos manuales (RMB) ----

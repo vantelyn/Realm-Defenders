@@ -269,8 +269,8 @@ MonoBehaviour:
   stage2UpgradeClip: {fileID: 8300000, guid: ceb36fc1c2de8fc43a0526b566c012ed, type: 3}
   stage3ThunderClip: {fileID: 8300000, guid: ddf43861464a8814d99561579fb1aa83, type: 3}
   victoryMusicClip: {fileID: 8300000, guid: 23a7f4400dd199d40a87570be3a8573a, type: 3}
-  enemyDeathClip: {fileID: 8300000, guid: ddf43861464a8814d99561579fb1aa83, type: 3}
-  portalDestroyClip: {fileID: 8300000, guid: ddf43861464a8814d99561579fb1aa83, type: 3}
+  enemyDeathClip: {fileID: 8300000, guid: 78f5569bbfc0adf4aa367545736452a0, type: 3}
+  portalDestroyClip: {fileID: 8300000, guid: e7bfa6b02635675418da4bfbd2ff6ab4, type: 3}
   upgradeStingVolume: 1
   thunderVolume: 1
   victoryMusicVolume: 1

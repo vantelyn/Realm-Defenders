@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 3417181656823757516}
   - component: {fileID: 7343533904396247897}
   - component: {fileID: 7680497274060357527}
+  - component: {fileID: 5988908242670193071}
   m_Layer: 6
   m_Name: PaddleFish
   m_TagString: Untagged
@@ -331,6 +332,22 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
   duration: 0.18
   targetRenderer: {fileID: 0}
+--- !u!114 &5988908242670193071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4756720928857126359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292a4902d1d4e2f4c8ec0b2d0e3dc8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitClips:
+  - {fileID: 8300000, guid: 8a43996d25fe5984f8c61e4ca8f89c39, type: 3}
+  volume: 0.9
+  cooldown: 0.1
 --- !u!1 &5203648220189833608
 GameObject:
   m_ObjectHideFlags: 0

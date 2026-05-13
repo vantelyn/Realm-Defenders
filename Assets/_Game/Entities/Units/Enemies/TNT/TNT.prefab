@@ -48,6 +48,9 @@ GameObject:
   - component: {fileID: 2531749941461803743}
   - component: {fileID: 9073991624785012445}
   - component: {fileID: 1367151426608868505}
+  - component: {fileID: 6967068493534122396}
+  - component: {fileID: 5310971955064720526}
+  - component: {fileID: 4664408005032767158}
   m_Layer: 6
   m_Name: TNT
   m_TagString: Untagged
@@ -305,6 +308,65 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
   duration: 0.18
   targetRenderer: {fileID: 0}
+--- !u!114 &6967068493534122396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191447041407112255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2c531a07186dc4a898d45c79e9a07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepClips:
+  - {fileID: 8300000, guid: fb88ef191168f784ab22e80dc385fbab, type: 3}
+  - {fileID: 8300000, guid: 5fd6fee322f8d8341a75ec84aa886e14, type: 3}
+  - {fileID: 8300000, guid: 2b4378de01dc25f418dd7c1e0b9e9e0e, type: 3}
+  - {fileID: 8300000, guid: e3d3359b97216b44d87eb8f7639a1553, type: 3}
+  volume: 0.5
+  stepEvery: 1.2
+  minSpeed: 0.05
+  jitter: 0.2
+  sfxSource: {fileID: 0}
+  minDistance: 4
+  maxDistance: 22
+--- !u!114 &5310971955064720526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191447041407112255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81edda3133f6ddd47a289ec7adfa3acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathClips:
+  - {fileID: 8300000, guid: a1077dfb77b959a4cadba5713efa72eb, type: 3}
+  - {fileID: 8300000, guid: 7ed388e890627ff47a549b8bf586b061, type: 3}
+  - {fileID: 8300000, guid: 90cd5eb190160ec44af473d1a896076a, type: 3}
+  - {fileID: 8300000, guid: 3359df16b2193b0408b2dfa14397e328, type: 3}
+  volume: 0.9
+--- !u!114 &4664408005032767158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191447041407112255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd2f4db49bce3d4095a8eda00605afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whooshClips:
+  - {fileID: 8300000, guid: f7d76359d29e118468caadfd67577125, type: 3}
+  - {fileID: 8300000, guid: 0e5f4787e82f5ad48a04f1b9c98747f7, type: 3}
+  volume: 0.8
+  sfxSource: {fileID: 0}
 --- !u!1 &3101369271794523426
 GameObject:
   m_ObjectHideFlags: 0

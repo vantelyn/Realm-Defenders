@@ -168,6 +168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27cee29503cf384c97cb3278f62cfa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnClips:
+  - {fileID: 8300000, guid: 2b4ca3feeebea8d4aa76b838aa388347, type: 3}
+  - {fileID: 8300000, guid: 37304e5e67a0f83489cc1a3e09c5b1c2, type: 3}
+  - {fileID: 8300000, guid: 24572355e4d4a6a438701cf367bbd183, type: 3}
+  - {fileID: 8300000, guid: 90dc591593228fe4fbe9090ff29a57b7, type: 3}
+  spawnVolume: 0.9
   spawnPoint: {fileID: 2763072561859709107}
   spawnRadius: 1.5
   snapToNavMesh: 1

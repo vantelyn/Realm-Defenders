@@ -13,11 +13,47 @@ public class SheepUnit : NPC
     [SerializeField] private float eatDurationMax = 6f;
     [SerializeField] private float arriveDistance = 0.15f;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip[] baaClips;
+    [Range(0f,1f)] [SerializeField] private float baaVolume = 0.8f;
+    [SerializeField] private float baaMinInterval = 8f;
+    [SerializeField] private float baaMaxInterval = 20f;
+    [SerializeField] private AudioSource sfxSource;
+
     protected override void Start()
     {
         base.Start();
+        EnsureSfxSource();
         StopCurrentRoutine();
         currentMovementRoutine = StartCoroutine(WanderAndEatRoutine());
+        StartCoroutine(BaaRoutine());
+    }
+
+    private void EnsureSfxSource()
+    {
+        if (sfxSource != null) return;
+        sfxSource = GetComponent<AudioSource>();
+        if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
+        sfxSource.playOnAwake = false;
+        sfxSource.spatialBlend = 1f;
+        sfxSource.rolloffMode = AudioRolloffMode.Linear;
+        sfxSource.minDistance = 3f;
+        sfxSource.maxDistance = 15f;
+    }
+
+    private IEnumerator BaaRoutine()
+    {
+        yield return new WaitForSeconds(Random.Range(0f, baaMaxInterval));
+        for (;;)
+        {
+            float wait = Random.Range(baaMinInterval, baaMaxInterval);
+            yield return new WaitForSeconds(wait);
+            if (sfxSource != null && baaClips != null && baaClips.Length > 0)
+            {
+                var clip = baaClips[Random.Range(0, baaClips.Length)];
+                if (clip != null) sfxSource.PlayOneShot(clip, baaVolume);
+            }
+        }
     }
 
     private IEnumerator WanderAndEatRoutine()

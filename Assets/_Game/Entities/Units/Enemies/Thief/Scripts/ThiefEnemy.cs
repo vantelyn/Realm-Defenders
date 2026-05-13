@@ -13,6 +13,7 @@ public class ThiefEnemy : BaseEnemyAI
     protected override void ApplyAttackAnimatorParams(int directionIndex)
     {
         animator.SetTrigger("doAttack");
+        var w = GetComponent<Game.Audio.WhooshSfx>(); if (w != null) w.PlayWhoosh();
     }
 }
 }

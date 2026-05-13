@@ -6,6 +6,18 @@ namespace Game.Units
 
 public class ArcherUnit : PlayerUnit
 {
+    [Header("SFX")]
+    [SerializeField] private AudioClip fireArrowClip;
+    [Range(0f,1f)] [SerializeField] private float fireArrowVolume = 0.9f;
+    [SerializeField] private AudioSource sfxSource;
+    private void EnsureSfx() {
+        if (sfxSource != null) return;
+        sfxSource = GetComponent<AudioSource>();
+        if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
+        sfxSource.playOnAwake = false; sfxSource.spatialBlend = 1f;
+        sfxSource.rolloffMode = AudioRolloffMode.Linear;
+        sfxSource.minDistance = 4f; sfxSource.maxDistance = 22f; sfxSource.dopplerLevel = 0f;
+    }
     [Header("Archery")]
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform arrowSpawnPoint;
@@ -43,6 +55,8 @@ public class ArcherUnit : PlayerUnit
     public void SpawnArrow()
     {
         if (arrowPrefab == null) return;
+        EnsureSfx();
+        if (sfxSource != null && fireArrowClip != null) sfxSource.PlayOneShot(fireArrowClip, fireArrowVolume);
         Vector3 spawnPos = arrowSpawnPoint != null ? arrowSpawnPoint.position : transform.position;
         Vector3 targetPos = (Vector3)(pendingAimDir * pendingDistance) + (Vector3)(Vector2)transform.position;
         targetPos.z = spawnPos.z;

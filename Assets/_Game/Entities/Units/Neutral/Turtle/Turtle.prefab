@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7337603209346224307}
   - component: {fileID: 2222851273698766996}
   - component: {fileID: 7822101390577944487}
+  - component: {fileID: 8263211558756870005}
   m_Layer: 7
   m_Name: Turtle
   m_TagString: Unit
@@ -269,6 +270,30 @@ MonoBehaviour:
   shellDuration: 3
   blockAngle: 180
   shellDamageMult: 0.4
+--- !u!114 &8263211558756870005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154158984583501930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2c531a07186dc4a898d45c79e9a07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepClips:
+  - {fileID: 8300000, guid: fb88ef191168f784ab22e80dc385fbab, type: 3}
+  - {fileID: 8300000, guid: 5fd6fee322f8d8341a75ec84aa886e14, type: 3}
+  - {fileID: 8300000, guid: 2b4378de01dc25f418dd7c1e0b9e9e0e, type: 3}
+  - {fileID: 8300000, guid: e3d3359b97216b44d87eb8f7639a1553, type: 3}
+  volume: 0.6
+  stepEvery: 1.8
+  minSpeed: 0.05
+  jitter: 0.2
+  sfxSource: {fileID: 0}
+  minDistance: 4
+  maxDistance: 22
 --- !u!1 &3801348752513405654
 GameObject:
   m_ObjectHideFlags: 0

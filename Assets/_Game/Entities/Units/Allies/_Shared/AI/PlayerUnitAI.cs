@@ -241,18 +241,19 @@ public class PlayerUnitAI : BaseUnitAI
         // En el estado Commanded la unidad va al punto sin distraerse con enemigos cercanos.
         // Cuando llega, transit a Idle y la IA libre toma el control.
         ResumeAgent();
-        if (agent != null && agent.enabled && agent.isOnNavMesh && !agent.pathPending && agent.remainingDistance <= resourceArriveDistance)
+        RepathTo(commandPoint);
+        // Solo consideramos llegada si el agent tiene path activo hacia el commandPoint (no estado residual del ataque anterior).
+        if (agent != null && agent.enabled && agent.isOnNavMesh && agent.hasPath && !agent.pathPending && agent.remainingDistance <= resourceArriveDistance)
         {
             TransitionTo(AIState.Idle);
-            return;
         }
-        RepathTo(commandPoint);
     }
 
     // ---- Comandos manuales (RMB) ----
 
     public override void CommandMoveTo(Vector3 worldPoint)
     {
+        if (unit.IsAttacking) unit.EndAttack();
         currentTarget = null;
         currentResource = null;
         garrison.ClearTarget();
@@ -266,6 +267,7 @@ public class PlayerUnitAI : BaseUnitAI
     public override void CommandAttackTarget(Transform target)
     {
         if (target == null) return;
+        if (unit.IsAttacking) unit.EndAttack();
         currentTarget = target;
         currentTargetRadius = GetTargetRadius(target);
         currentResource = null;

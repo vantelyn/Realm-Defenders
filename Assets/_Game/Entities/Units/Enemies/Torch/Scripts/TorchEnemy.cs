@@ -13,6 +13,7 @@ public class TorchEnemy : BaseEnemyAI
     {
         animator.SetInteger("attackDirection", directionIndex);
         animator.SetTrigger("doAttack");
+        var w = GetComponent<Game.Audio.WhooshSfx>(); if (w != null) w.PlayWhoosh();
     }
 }
 }

@@ -13,6 +13,7 @@ public class SkullEnemy : GuardingEnemyBase
     protected override void ApplyAttackAnimatorParams(int directionIndex)
     {
         animator.SetTrigger("doAttack");
+        var g = GetComponent<Game.Audio.AttackGruntSfx>(); if (g != null) g.PlayGrunt();
     }
 }
 }

@@ -5,6 +5,24 @@ namespace Game.Units
 
 public class LancerUnit : PlayerUnit
 {
+    [Header("SFX")]
+    [SerializeField] private AudioClip[] swordHitClips;
+    [Range(0f,1f)] [SerializeField] private float swordHitVolume = 0.9f;
+    [SerializeField] private AudioSource sfxSource;
+    private void EnsureSfx() {
+        if (sfxSource != null) return;
+        sfxSource = GetComponent<AudioSource>();
+        if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
+        sfxSource.playOnAwake = false; sfxSource.spatialBlend = 1f;
+        sfxSource.rolloffMode = AudioRolloffMode.Linear;
+        sfxSource.minDistance = 4f; sfxSource.maxDistance = 22f; sfxSource.dopplerLevel = 0f;
+    }
+    private void PlaySwordHit() {
+        EnsureSfx();
+        if (swordHitClips == null || swordHitClips.Length == 0) return;
+        var clip = swordHitClips[Random.Range(0, swordHitClips.Length)];
+        if (clip != null) sfxSource.PlayOneShot(clip, swordHitVolume);
+    }
     private struct AttackAnim
     {
         public int index;
@@ -45,6 +63,8 @@ public class LancerUnit : PlayerUnit
 
         animator.SetInteger("attackDirection", chosen.index);
         animator.SetTrigger("doAttack");
+        var grunt = GetComponent<Game.Audio.AttackGruntSfx>(); if (grunt != null) grunt.PlayGrunt();
+        PlaySwordHit();
     }
 
     private AttackAnim PickBestAnim(Vector2 dir)

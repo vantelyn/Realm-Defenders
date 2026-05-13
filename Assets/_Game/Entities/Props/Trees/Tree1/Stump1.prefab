@@ -268,3 +268,6 @@ MonoBehaviour:
   amplitude: 0.05
   duration: 0.13
   frequency: 22
+  hitClip: {fileID: 8300000, guid: f9c678e158f501d4186c50535ecc84ba, type: 3}
+  hitVolume: 1
+  sfxSource: {fileID: 0}

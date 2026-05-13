@@ -6,6 +6,28 @@ namespace Game.Units
 
 public class WarriorUnit : PlayerUnit, IDamageBlocker
 {
+    [Header("SFX")]
+    [SerializeField] private AudioClip[] swordHitClips;
+    [Range(0f,1f)] [SerializeField] private float swordHitVolume = 0.9f;
+    [SerializeField] private AudioSource sfxSource;
+
+    private void EnsureSfx()
+    {
+        if (sfxSource != null) return;
+        sfxSource = GetComponent<AudioSource>();
+        if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
+        sfxSource.playOnAwake = false; sfxSource.spatialBlend = 1f;
+        sfxSource.rolloffMode = AudioRolloffMode.Linear;
+        sfxSource.minDistance = 4f; sfxSource.maxDistance = 22f; sfxSource.dopplerLevel = 0f;
+    }
+
+    private void PlaySwordHit()
+    {
+        EnsureSfx();
+        if (swordHitClips == null || swordHitClips.Length == 0) return;
+        var clip = swordHitClips[Random.Range(0, swordHitClips.Length)];
+        if (clip != null) sfxSource.PlayOneShot(clip, swordHitVolume);
+    }
     private const int BlockIndex = 2;
 
     [Header("Block")]
@@ -30,6 +52,8 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
         animator.SetInteger("attackDirection", dirIndex);
         animator.SetInteger("attackIndex", attackIndex);
         animator.SetTrigger("doAttack");
+        PlaySwordHit();
+        var grunt = GetComponent<Game.Audio.AttackGruntSfx>(); if (grunt != null) grunt.PlayGrunt();
     }
 
     public override void SecondaryAction(Vector2 worldAimDirection, PlayerUnit hoveredUnit)
@@ -56,6 +80,8 @@ public class WarriorUnit : PlayerUnit, IDamageBlocker
         animator.SetInteger("attackIndex", BlockIndex);
         animator.SetBool("isBlocking", true);
         animator.SetTrigger("doAttack");
+        PlaySwordHit();
+        var grunt = GetComponent<Game.Audio.AttackGruntSfx>(); if (grunt != null) grunt.PlayGrunt();
 
         isBlocking = true;
         canMove = false;

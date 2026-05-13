@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2476d12fe0c95f41a0e8a3ac9fe2055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildSfxClip: {fileID: 8300000, guid: d6f99eaf564b87e46ac9080c31b25836, type: 3}
+  buildSfxVolume: 0.9
   worldCamera: {fileID: 0}
   selectionManager: {fileID: 0}
   blockingLayers:
@@ -51,3 +53,12 @@ MonoBehaviour:
     m_Bits: 10200
   placementZ: 0
   navMeshSurface: {fileID: 0}
+  demolishableLayers:
+    serializedVersion: 2
+    m_Bits: 8192
+  demolishSfxClips:
+  - {fileID: 8300000, guid: 5b92f8a086e4d0440a22473e5cc43c6d, type: 3}
+  - {fileID: 8300000, guid: 27bc5fdc659c864418eb02b7efbd15f4, type: 3}
+  - {fileID: 8300000, guid: 7741184bf4254df48b87562e729044c9, type: 3}
+  - {fileID: 8300000, guid: 4326481c51836c94fbf58c96753fccb7, type: 3}
+  demolishSfxVolume: 0.9

@@ -9,6 +9,10 @@ public class UnitSpawner : MonoBehaviour
 {
     [Header("References")]
 
+    [Header("Spawn SFX")]
+    [SerializeField] private AudioClip[] spawnClips;
+    [Range(0f,1f)] [SerializeField] private float spawnVolume = 0.9f;
+
     [Header("Spawn Point")]
     [Tooltip("Punto central donde aparecen las unidades. Si es null, se usa el transform del propio spawner.")]
     [SerializeField] private Transform spawnPoint;
@@ -28,6 +32,11 @@ public class UnitSpawner : MonoBehaviour
 
         Vector3 pos = GetRandomSpawnPosition();
         Instantiate(recipe.unitPrefab, pos, Quaternion.identity);
+        if (spawnClips != null && spawnClips.Length > 0)
+        {
+            var clip = spawnClips[Random.Range(0, spawnClips.Length)];
+            if (clip != null) AudioSource.PlayClipAtPoint(clip, pos, spawnVolume);
+        }
         return true;
     }
 

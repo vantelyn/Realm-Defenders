@@ -185,6 +185,9 @@ GameObject:
   - component: {fileID: 573246615927818644}
   - component: {fileID: 3800931381317343024}
   - component: {fileID: 6701319511875429045}
+  - component: {fileID: 8039873295049556144}
+  - component: {fileID: 5510766469974914895}
+  - component: {fileID: 276597110029538726}
   m_Layer: 6
   m_Name: Gnoll
   m_TagString: Untagged
@@ -435,3 +438,59 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
   duration: 0.18
   targetRenderer: {fileID: 0}
+--- !u!114 &8039873295049556144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797073418295381460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2c531a07186dc4a898d45c79e9a07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepClips:
+  - {fileID: 8300000, guid: fb88ef191168f784ab22e80dc385fbab, type: 3}
+  - {fileID: 8300000, guid: 5fd6fee322f8d8341a75ec84aa886e14, type: 3}
+  - {fileID: 8300000, guid: 2b4378de01dc25f418dd7c1e0b9e9e0e, type: 3}
+  - {fileID: 8300000, guid: e3d3359b97216b44d87eb8f7639a1553, type: 3}
+  volume: 0.5
+  stepEvery: 1.2
+  minSpeed: 0.05
+  jitter: 0.2
+  sfxSource: {fileID: 0}
+  minDistance: 4
+  maxDistance: 22
+--- !u!114 &5510766469974914895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797073418295381460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f83e00873cd784ab10199f39c7c2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gruntClips:
+  - {fileID: 8300000, guid: 92b1d3e2add6a6a4c8f4c82e9846dcdf, type: 3}
+  volume: 0.8
+  sfxSource: {fileID: 0}
+--- !u!114 &276597110029538726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797073418295381460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292a4902d1d4e2f4c8ec0b2d0e3dc8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitClips:
+  - {fileID: 8300000, guid: 2bcea24db9b5d254b80e17a25848449c, type: 3}
+  volume: 0.9
+  cooldown: 0.1

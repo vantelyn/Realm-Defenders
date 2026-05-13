@@ -6,6 +6,18 @@ namespace Game.Units
 
 public class MonkUnit : PlayerUnit
 {
+    [Header("SFX")]
+    [SerializeField] private AudioClip healClip;
+    [Range(0f,1f)] [SerializeField] private float healVolume = 0.9f;
+    [SerializeField] private AudioSource sfxSource;
+    private void EnsureSfx() {
+        if (sfxSource != null) return;
+        sfxSource = GetComponent<AudioSource>();
+        if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
+        sfxSource.playOnAwake = false; sfxSource.spatialBlend = 1f;
+        sfxSource.rolloffMode = AudioRolloffMode.Linear;
+        sfxSource.minDistance = 4f; sfxSource.maxDistance = 22f; sfxSource.dopplerLevel = 0f;
+    }
     [Header("Healing")]
     [SerializeField] private float healRange = 3f;
     [SerializeField] private int healAmount = 1;
@@ -50,7 +62,7 @@ public class MonkUnit : PlayerUnit
     {
         if (pendingHealTarget == null) return;
         DamageReceiverPlayer receiver = pendingHealTarget.GetComponent<DamageReceiverPlayer>();
-        if (receiver != null && !receiver.IsAtFullHealth) receiver.Heal(healAmount);
+        if (receiver != null && !receiver.IsAtFullHealth) { receiver.Heal(healAmount); EnsureSfx(); if (sfxSource != null && healClip != null) sfxSource.PlayOneShot(healClip, healVolume); }
         if (healEffectPrefab != null)
         {
             Instantiate(healEffectPrefab, pendingHealTarget.transform.position, Quaternion.identity, pendingHealTarget.transform);

@@ -19,6 +19,9 @@ GameObject:
   - component: {fileID: 2531584566507326306}
   - component: {fileID: 1308628826002594140}
   - component: {fileID: 5191995431826021337}
+  - component: {fileID: 771527523678655567}
+  - component: {fileID: 7241526280630825336}
+  - component: {fileID: 93075415492530099}
   m_Layer: 10
   m_Name: Archer
   m_TagString: PlayerUnit
@@ -229,6 +232,12 @@ MonoBehaviour:
   selectionIndicator: {fileID: 1211495057111267655}
   portrait: {fileID: 0}
   canMove: 1
+  doorOpenClip: {fileID: 8300000, guid: 8cbdc5078d4b6c14db0321b5a550072a, type: 3}
+  doorCloseClip: {fileID: 8300000, guid: c6a10eacf24d7db4db0020108b8b60b7, type: 3}
+  doorVolume: 0.9
+  fireArrowClip: {fileID: 8300000, guid: a053eb3ff01d599438dc75d61240db12, type: 3}
+  fireArrowVolume: 0.9
+  sfxSource: {fileID: 0}
   arrowPrefab: {fileID: 4678641159102575136, guid: abca8383608fe2f40b479802b83fcb4d, type: 3}
   arrowSpawnPoint: {fileID: 8629457840454448524}
   maxRange: 8
@@ -315,6 +324,68 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
   duration: 0.18
   targetRenderer: {fileID: 0}
+--- !u!114 &771527523678655567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960303648852572394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2c531a07186dc4a898d45c79e9a07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepClips:
+  - {fileID: 8300000, guid: fb88ef191168f784ab22e80dc385fbab, type: 3}
+  - {fileID: 8300000, guid: 5fd6fee322f8d8341a75ec84aa886e14, type: 3}
+  - {fileID: 8300000, guid: 2b4378de01dc25f418dd7c1e0b9e9e0e, type: 3}
+  - {fileID: 8300000, guid: e3d3359b97216b44d87eb8f7639a1553, type: 3}
+  volume: 0.5
+  stepEvery: 1.2
+  minSpeed: 0.05
+  jitter: 0.2
+  sfxSource: {fileID: 0}
+  minDistance: 4
+  maxDistance: 22
+--- !u!114 &7241526280630825336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960303648852572394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584a42d2f17a15949805339930718c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  currentHealth: 0
+  autoDestroyOnDeath: 1
+  itemsToDrop: []
+  dropRadius: 0.5
+  forceImpulse: 5
+  knockbackDuration: 0.3
+  knockbackReceivedMultiplier: 1
+--- !u!114 &93075415492530099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960303648852572394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81edda3133f6ddd47a289ec7adfa3acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathClips:
+  - {fileID: 8300000, guid: a1077dfb77b959a4cadba5713efa72eb, type: 3}
+  - {fileID: 8300000, guid: 7ed388e890627ff47a549b8bf586b061, type: 3}
+  - {fileID: 8300000, guid: 90cd5eb190160ec44af473d1a896076a, type: 3}
+  - {fileID: 8300000, guid: 3359df16b2193b0408b2dfa14397e328, type: 3}
+  volume: 0.9
 --- !u!1 &1211495057111267655
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,6 +22,11 @@ public class TreeHitWobble : MonoBehaviour
     [Tooltip("Numero de oscilaciones completas durante 'duration'. Mas alto = mas vibracion.")]
     [SerializeField] private float frequency = 18f;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip hitClip;
+    [Range(0f,1f)] [SerializeField] private float hitVolume = 1f;
+    [SerializeField] private AudioSource sfxSource;
+
     private DamageReceiver receiver;
     private Vector3 baseLocalPos;
     private Coroutine wobbleCo;
@@ -30,6 +35,16 @@ public class TreeHitWobble : MonoBehaviour
     {
         receiver = GetComponent<DamageReceiver>();
         baseLocalPos = transform.localPosition;
+        if (sfxSource == null)
+        {
+            sfxSource = GetComponent<AudioSource>();
+            if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
+            sfxSource.playOnAwake = false;
+            sfxSource.spatialBlend = 1f;
+            sfxSource.rolloffMode = AudioRolloffMode.Linear;
+            sfxSource.minDistance = 3f;
+            sfxSource.maxDistance = 18f;
+        }
     }
 
     private void OnEnable()
@@ -44,6 +59,7 @@ public class TreeHitWobble : MonoBehaviour
 
     private void HandleDamaged(int amount, Vector2 hitDirection)
     {
+        if (hitClip != null) AudioSource.PlayClipAtPoint(hitClip, transform.position, hitVolume);
         if (wobbleCo != null) StopCoroutine(wobbleCo);
         // Recapturamos la base por si algo movio el transform entre golpes.
         baseLocalPos = transform.localPosition;

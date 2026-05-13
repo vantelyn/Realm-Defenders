@@ -270,6 +270,11 @@ MonoBehaviour:
   wanderRadius: 6
   wanderIdleMin: 1.5
   wanderIdleMax: 3.5
+  rattleClip: {fileID: 8300000, guid: fc37a11aa11cf3a44b61594d9b0b60c7, type: 3}
+  rattleVolume: 0.8
+  rattleMinInterval: 6
+  rattleMaxInterval: 15
+  sfxSource: {fileID: 0}
 --- !u!1 &7509776447353108916
 GameObject:
   m_ObjectHideFlags: 0

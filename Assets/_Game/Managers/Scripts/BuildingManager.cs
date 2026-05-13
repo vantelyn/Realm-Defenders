@@ -10,6 +10,11 @@ namespace Game.Managers
 [DefaultExecutionOrder(-100)]
 public class BuildingManager : MonoBehaviour
 {
+    public static BuildingManager Instance { get; private set; }
+    [Header("Build SFX")]
+    [SerializeField] private AudioClip buildSfxClip;
+    [Range(0f,1f)] [SerializeField] private float buildSfxVolume = 0.9f;
+
     [Header("References")]
     [SerializeField] private Camera worldCamera;
     [SerializeField] private SelectionManager selectionManager;
@@ -34,14 +39,27 @@ public class BuildingManager : MonoBehaviour
 
     public bool IsPlacing => activeRecipe != null;
 
+    [Header("Demolish")]
+    [Tooltip("Layer del root de los edificios destruibles (no incluye Castle si Castle no esta en esta layer).")]
+    [SerializeField] private LayerMask demolishableLayers;
+    [SerializeField] private AudioClip[] demolishSfxClips;
+    [Range(0f,1f)] [SerializeField] private float demolishSfxVolume = 0.9f;
+    private bool isDemolishing;
+    private bool demolishSticky;
+    public bool IsDemolishing => isDemolishing;
+
     private void Awake()
     {
+        Instance = this;
         if (worldCamera == null) worldCamera = Camera.main;
     }
+
+    private void OnDestroy() { if (Instance == this) Instance = null; }
 
     public void BeginPlacement(BuildingRecipe recipe)
     {
         if (recipe == null || recipe.buildingPrefab == null) return;
+        CancelDemolish();
         if (InventoryManager.Instance == null) return;
 
         if (!recipe.CanAfford(InventoryManager.Instance))
@@ -88,6 +106,38 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    public void BeginDemolish() { BeginDemolish(false); }
+    public void BeginDemolish(bool sticky)
+    {
+        CancelPlacement();
+        isDemolishing = true;
+        demolishSticky = sticky;
+        if (selectionManager != null) selectionManager.Deselect();
+    }
+
+    public void CancelDemolish() { isDemolishing = false; demolishSticky = false; }
+
+    private void TryDemolishAtMouse()
+    {
+        Vector3 mouse = worldCamera.ScreenToWorldPoint(Input.mousePosition);
+        mouse.z = placementZ;
+        Collider2D hit = Physics2D.OverlapPoint(mouse, demolishableLayers);
+        if (hit == null) return;
+        Building b = hit.GetComponentInParent<Building>();
+        if (b == null) return;
+        Vector3 pos = b.transform.position;
+        if (demolishSfxClips != null && demolishSfxClips.Length > 0) {
+            var clip = demolishSfxClips[Random.Range(0, demolishSfxClips.Length)];
+            if (clip != null) AudioSource.PlayClipAtPoint(clip, pos, demolishSfxVolume);
+        }
+        // Sacar garrisoned antes de destruir, para no perderlas.
+        var occ = new System.Collections.Generic.List<Game.Units.PlayerUnit>(b.Occupants);
+        foreach (var u in occ) if (u != null) b.Exit(u);
+        Destroy(b.gameObject);
+        if (navMeshSurface != null) navMeshSurface.BuildNavMesh();
+        if (!demolishSticky) CancelDemolish();
+    }
+
     public void CancelPlacement()
     {
         if (ghostInstance != null) Destroy(ghostInstance);
@@ -99,6 +149,18 @@ public class BuildingManager : MonoBehaviour
 
     private void Update()
     {
+        if (isDemolishing)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed)
+            {
+                InputArbiter.EscapeConsumed = true;
+                CancelDemolish();
+                return;
+            }
+            if (Input.GetMouseButtonDown(1) && !IsPointerOverUI()) { CancelDemolish(); return; }
+            if (Input.GetMouseButtonDown(0) && !IsPointerOverUI()) { TryDemolishAtMouse(); return; }
+            return;
+        }
         if (!IsPlacing) return;
 
         if (Input.GetKeyDown(KeyCode.Escape) && !InputArbiter.EscapeConsumed)
@@ -153,6 +215,7 @@ public class BuildingManager : MonoBehaviour
 
         Vector3 pos = ghostInstance.transform.position;
         GameObject built = Instantiate(activeRecipe.buildingPrefab, pos, Quaternion.identity);
+        if (buildSfxClip != null) AudioSource.PlayClipAtPoint(buildSfxClip, pos, buildSfxVolume);
         Building builtBuilding = built.GetComponent<Building>();
         if (builtBuilding != null) builtBuilding.SetOwnerRecipe(activeRecipe);
 

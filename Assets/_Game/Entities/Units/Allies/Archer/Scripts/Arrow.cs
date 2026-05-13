@@ -7,6 +7,9 @@ namespace Game.Projectiles
 
 public class Arrow : MonoBehaviour
 {
+    [Header("SFX")]
+    [SerializeField] private AudioClip impactClip;
+    [Range(0f,1f)] [SerializeField] private float impactVolume = 0.8f;
     [Header("Vuelo")]
     [SerializeField] private float speed = 12f;
     [SerializeField] private float baseArcHeight = 0.6f;
@@ -99,6 +102,7 @@ public class Arrow : MonoBehaviour
                                layer == LayerMask.NameToLayer("Sheep");
                 bool isTree = layer == LayerMask.NameToLayer("Tree");
                 receiver.ApplyDamage(damage, isEnemy, isTree, hitDirection);
+            if (impactClip != null) AudioSource.PlayClipAtPoint(impactClip, transform.position, impactVolume);
             }
 
             Destroy(gameObject);
