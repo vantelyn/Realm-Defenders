@@ -163,6 +163,68 @@ public class CameraManager : MonoBehaviour
         vcam.Lens = lens;
     }
 
+    /// <summary>Variante de FocusOn sin retorno: la camara queda en target tras el hold.
+    /// Util para encadenar focuses sin volver al origen entre ellos.</summary>
+    public static Coroutine FocusTo(Transform target, float travelTime, float holdTime, float targetOrthoSize, float arrivalDelay, System.Action onArrived, System.Action onComplete)
+    {
+        if (instance == null || instance.followRig == null || target == null) { onArrived?.Invoke(); onComplete?.Invoke(); return null; }
+        return instance.StartCoroutine(instance.FocusToRoutine(target, travelTime, holdTime, targetOrthoSize, arrivalDelay, onArrived, onComplete));
+    }
+
+    private IEnumerator FocusToRoutine(Transform target, float travelTime, float holdTime, float targetOrthoSize, float arrivalDelay, System.Action onArrived, System.Action onComplete)
+    {
+        Vector3 startPos = followRig.position;
+        Vector3 endPos = new Vector3(target.position.x, target.position.y, startPos.z);
+        float startOrtho = vcam != null ? vcam.Lens.OrthographicSize : 0f;
+        float endOrtho = targetOrthoSize > 0f ? targetOrthoSize : startOrtho;
+
+        yield return TweenRigAndZoom(startPos, endPos, startOrtho, endOrtho, travelTime);
+
+        float ad = 0f;
+        while (ad < arrivalDelay) { ad += Time.unscaledDeltaTime; yield return null; }
+
+        if (onArrived != null) onArrived();
+
+        float t = 0f;
+        while (t < holdTime) { t += Time.unscaledDeltaTime; yield return null; }
+
+        if (onComplete != null) onComplete();
+    }
+
+    /// <summary>Marca la camara como en modo cinematica (bloquea WASD/zoom/follow) y
+    /// fuerza IgnoreTimeScale en el Brain. Devuelve un token con el snapshot original
+    /// para restaurarlo con EndCinematic.</summary>
+    public struct CinematicToken { public Vector3 startPos; public float startOrtho; public bool prevIgnoreTimeScale; public Unity.Cinemachine.CinemachineBrain brain; public bool valid; }
+
+    public static CinematicToken BeginCinematic()
+    {
+        var tok = new CinematicToken();
+        if (instance == null) return tok;
+        instance.isCinematic = true;
+        tok.startPos = instance.followRig != null ? instance.followRig.position : Vector3.zero;
+        tok.startOrtho = instance.vcam != null ? instance.vcam.Lens.OrthographicSize : 0f;
+        var cam = Camera.main; var brain = cam != null ? cam.GetComponent<Unity.Cinemachine.CinemachineBrain>() : null;
+        tok.brain = brain;
+        if (brain != null) { tok.prevIgnoreTimeScale = brain.IgnoreTimeScale; brain.IgnoreTimeScale = true; }
+        tok.valid = true;
+        return tok;
+    }
+
+    public static IEnumerator ReturnToCinematicStart(CinematicToken tok, float travelTime)
+    {
+        if (instance == null || !tok.valid || instance.followRig == null) yield break;
+        Vector3 from = instance.followRig.position;
+        float fromOrtho = instance.vcam != null ? instance.vcam.Lens.OrthographicSize : tok.startOrtho;
+        yield return instance.TweenRigAndZoom(from, tok.startPos, fromOrtho, tok.startOrtho, travelTime);
+    }
+
+    public static void EndCinematic(CinematicToken tok)
+    {
+        if (instance == null) return;
+        if (tok.valid && tok.brain != null) tok.brain.IgnoreTimeScale = tok.prevIgnoreTimeScale;
+        instance.isCinematic = false;
+    }
+
     public static Vector2 ReadWasd()
     {
         float h = 0f, v = 0f;

@@ -36,4 +36,4 @@ MonoBehaviour:
     moneyCost: 0
     maxHealth: 200
     threatLevel: 100
-  evolutionDuration: 90
+  evolutionDuration: 20

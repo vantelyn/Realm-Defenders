@@ -268,8 +268,14 @@ MonoBehaviour:
   audioSource2D: {fileID: 0}
   stage2UpgradeClip: {fileID: 8300000, guid: ceb36fc1c2de8fc43a0526b566c012ed, type: 3}
   stage3ThunderClip: {fileID: 8300000, guid: ddf43861464a8814d99561579fb1aa83, type: 3}
+  victoryMusicClip: {fileID: 8300000, guid: 23a7f4400dd199d40a87570be3a8573a, type: 3}
+  enemyDeathClip: {fileID: 8300000, guid: ddf43861464a8814d99561579fb1aa83, type: 3}
+  portalDestroyClip: {fileID: 8300000, guid: ddf43861464a8814d99561579fb1aa83, type: 3}
   upgradeStingVolume: 1
   thunderVolume: 1
+  victoryMusicVolume: 1
+  enemyDeathVolume: 1
+  portalDestroyVolume: 1
   audioSource3D: {fileID: 0}
   stage2GrowingClip: {fileID: 8300000, guid: 5bd6f3bef1dc69d40ad3f7ad14116a6e, type: 3}
   growingVolume: 1
@@ -278,7 +284,28 @@ MonoBehaviour:
   cameraTravelTime: 0.9
   cameraHoldTime: 1.8
   cinematicTimeScale: 0
-  electrocuteOnMaxLevel: 1
+  focusZoomOrthoSize: 3.5
+  arrivalDelay: 0.6
+  electrocuteVfxPrefab: {fileID: 7989822914157498544, guid: cde968f6c09379f49bc2547e0f0df5cc, type: 3}
+  portalExplosionVfxPrefab: {fileID: 2307190715952720354, guid: a005698baff0f5b4abef0d52e416930b, type: 3}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashPeakAlpha: 0.85
+  flashIn: 0.15
+  flashHold: 0.1
+  flashOut: 0.5
+  postThunderDelay: 0.3
+  enemyFocusTravel: 0.9
+  enemyFocusHold: 1.4
+  enemyFocusZoom: 3
+  enemyArrivalDelay: 0.3
+  portalFocusTravel: 0.9
+  portalFocusHold: 1.4
+  portalFocusZoom: 3
+  portalArrivalDelay: 0.25
+  betweenPortalsDelay: 0.4
+  enemyVfxToDeathDelay: 1
+  portalVfxToDeathDelay: 1
+  preVictoryDelay: 0.6
 --- !u!208 &8640939156710282512
 NavMeshObstacle:
   m_ObjectHideFlags: 0
