@@ -224,6 +224,14 @@ public class PawnUnitAI : BaseUnitAI
             TransitionTo(AIState.ChaseEnemy);
             return;
         }
+        // Si el target es un Stump y la orden no es manual, abortar (stumps solo via RMB).
+        if (!isManualCommand && currentTree != null && currentTree.CompareTag("Stump"))
+        {
+            currentTree = null;
+            TransitionTo(AIState.Idle);
+            return;
+        }
+
 
         // Si el recurso del target se ha llenado a mitad de tarea, abortar.
         // Excepcion: comando manual del jugador ignora el cap (despejar terreno).
@@ -278,6 +286,14 @@ public class PawnUnitAI : BaseUnitAI
             TransitionTo(AIState.ChaseEnemy);
             return;
         }
+        // Si el target es un Stump y la orden no es manual, abortar (stumps solo via RMB).
+        if (!isManualCommand && currentTree != null && currentTree.CompareTag("Stump"))
+        {
+            currentTree = null;
+            TransitionTo(AIState.Idle);
+            return;
+        }
+
 
         // Si el recurso del target se ha llenado mientras cortabamos, abortar.
         // Excepcion: comando manual del jugador ignora el cap.
