@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 4678754998448569245}
   - component: {fileID: 9155264854484305510}
   - component: {fileID: 8206291784379950666}
+  - component: {fileID: 3204717396370626288}
   m_Layer: 8
   m_Name: Tree1
   m_TagString: Untagged
@@ -296,3 +297,19 @@ MonoBehaviour:
   hitClip: {fileID: 8300000, guid: f9c678e158f501d4186c50535ecc84ba, type: 3}
   hitVolume: 1
   sfxSource: {fileID: 0}
+--- !u!208 &3204717396370626288
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332455835102162566}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.2403491, y: 0.106739886, z: 0.25}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.017619956, y: 0.019360967, z: 0}
+  m_TimeToStationary: 0.5

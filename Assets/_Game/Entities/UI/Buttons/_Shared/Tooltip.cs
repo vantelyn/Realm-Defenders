@@ -107,6 +107,23 @@ namespace Game.UI
             Reveal();
         }
 
+        /// <summary>Modo libre: titulo + descripcion, sin costes ni requirement. Para acciones UI.
+        /// que no son recetas (ej. boton demoler).</summary>
+        public void ShowText(string title, string description)
+        {
+            currentRecipe = null;
+            currentRequiredBuilding = null;
+            currentMode = Mode.Normal;
+            if (titleLabel != null) titleLabel.text = title ?? "";
+            if (descriptionLabel != null) descriptionLabel.text = description ?? "";
+            // Ocultar todos los slots de coste y requirement.
+            if (woodEntry != null && woodEntry.root != null) woodEntry.root.SetActive(false);
+            if (meatEntry != null && meatEntry.root != null) meatEntry.root.SetActive(false);
+            if (goldEntry != null && goldEntry.root != null) goldEntry.root.SetActive(false);
+            if (requirementEntry != null && requirementEntry.root != null) requirementEntry.root.SetActive(false);
+            Reveal();
+        }
+
         public void Hide()
         {
             if (root != null) root.gameObject.SetActive(false);
