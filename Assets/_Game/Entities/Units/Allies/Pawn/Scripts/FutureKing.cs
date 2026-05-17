@@ -16,7 +16,10 @@ public class FutureKing : PawnUnit
         var rec = GetComponent<DamageReceiverPlayer>();
         if (rec != null) rec.OnDying += HandleDied;
     }
-    private void OnDestroy() { if (Instance == this) Instance = null; }
+    protected override void OnDestroy() {
+        if (Instance == this) Instance = null;
+        base.OnDestroy();
+    }
     private void HandleDied() { if (OnKingDied != null) OnKingDied(); }
 
     public override void OnEnteredBuilding(Building building, Transform slot) {

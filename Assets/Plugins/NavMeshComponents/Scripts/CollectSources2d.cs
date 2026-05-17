@@ -1,4 +1,4 @@
-﻿using NavMeshPlus.Components;
+using NavMeshPlus.Components;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,7 +36,7 @@ namespace NavMeshPlus.Extensions
 
         private static Bounds CalculateGridWorldBounds(NavMeshSurface surface, Matrix4x4 worldToLocal, Bounds bounds)
         {
-            var grid = FindObjectOfType<Grid>();
+            var grid = FindFirstObjectByType<Grid>();
             var tilemaps = grid?.GetComponentsInChildren<Tilemap>();
             if (tilemaps == null || tilemaps.Length < 1)
             {

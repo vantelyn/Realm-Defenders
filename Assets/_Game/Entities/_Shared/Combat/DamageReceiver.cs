@@ -30,7 +30,6 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
     private HitFlashEffect hitFlash;
     private NavMeshAgent navAgent;
     private IDamageBlocker blocker;
-    private bool knockbackActive;
     private bool knockbackDisabledAgent;
     private bool hasGetHitParam;
     public float forceImpulse = 5;
@@ -89,7 +88,6 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
             rb2D.bodyType = RigidbodyType2D.Dynamic;
             rb2D.linearVelocity = Vector2.zero;
             rb2D.AddForce(hitDirection.normalized * effectiveKnockback, ForceMode2D.Impulse);
-            knockbackActive = true;
             CancelInvoke(nameof(ReturnToKinematic));
             Invoke(nameof(ReturnToKinematic), knockbackDuration);
         }
@@ -115,7 +113,6 @@ public class DamageReceiver : MonoBehaviour, IDamageReceiver
             rb2D.linearVelocity = Vector2.zero;
             rb2D.bodyType = RigidbodyType2D.Kinematic;
         }
-        knockbackActive = false;
 
         if (knockbackDisabledAgent && navAgent != null)
         {

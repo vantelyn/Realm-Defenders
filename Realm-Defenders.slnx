@@ -1,0 +1,7 @@
+﻿<Solution>
+  <Project Path="Game.csproj" />
+  <Project Path="MerryYellow.CodeAssist.Editor.csproj" />
+  <Project Path="Assembly-CSharp-firstpass.csproj" />
+  <Project Path="NavMeshPlus.csproj" />
+  <Project Path="NavMeshPlusEditor.csproj" />
+</Solution>

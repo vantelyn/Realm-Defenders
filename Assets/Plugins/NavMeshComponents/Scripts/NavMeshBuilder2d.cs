@@ -1,4 +1,4 @@
-﻿using NavMeshPlus.Components;
+using NavMeshPlus.Components;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -254,7 +254,7 @@ namespace NavMeshPlus.Extensions
 
         public static void CollectSources(List<NavMeshBuildSource> sources, Collider2D collider, int area, NavMeshBuilder2dState builder)
         { 
-            if (collider.usedByComposite)
+            if (collider.compositeOperation != UnityEngine.Collider2D.CompositeOperation.None)
             {
                 collider = collider.GetComponent<CompositeCollider2D>();
             }

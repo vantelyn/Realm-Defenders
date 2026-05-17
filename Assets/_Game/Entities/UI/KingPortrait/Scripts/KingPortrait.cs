@@ -14,8 +14,6 @@ public class KingPortrait : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image hpFill;
     [SerializeField] private Button exitButton;
     [SerializeField] private GameObject deadOverlay;
-    [SerializeField] private float focusTravelTime = 0.6f;
-    [SerializeField] private float focusOrthoSize = 5f;
     private float lastClickTime;
     private const float DOUBLE_CLICK_TIME = 0.35f;
 
